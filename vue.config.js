@@ -1,3 +1,6 @@
 module.exports = {
-  lintOnSave: false
+  lintOnSave: false,
+  devServer: {
+   proxy: 'http://dylan.wxyx.youban.com'
+ }
 }
