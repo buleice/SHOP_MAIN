@@ -1,6 +1,6 @@
 module.exports = {
   lintOnSave: false,
-  outputDir:'wxyx-entry',
+  assetsDir:'wxyx-entry',
   filenameHashing:false,
   productionSourceMap:false,
   devServer: {

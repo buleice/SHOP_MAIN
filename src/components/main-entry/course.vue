@@ -3,7 +3,7 @@
   <div class="miniProgram" v-if="showMiniQrcode">
       <img class="qrcode" src="//udata.youban.com/webimg/wxyx/puintuan/miniQrcode(1)@3x.png" alt="">
       <div class="mini-text">
-        <p>您报名的课程也可在小程序进行打卡学习</p>
+        <p>长按识别二维码 去小程序打卡学习效果更好哦~</p>
         <div class="info">
           —长按识别二维码 —
         </div>
@@ -128,7 +128,7 @@ export default {
   }
   .mini-text{
     display: inline-block;
-    width: 9.38rem;
+    width: 11.38rem;
     height: 4.69rem;
     margin-left: 2.25rem;
     vertical-align: middle;
