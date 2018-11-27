@@ -25,7 +25,7 @@ export default {
   },
   data(){
     return{
-      transitionName: 'slide-left'  // 默认动态路由变化为slide-right
+      transitionName: 'scroll-left'  // 默认动态路由变化为slide-right
     }
   },
   watch: {
@@ -60,13 +60,13 @@ a:-webkit-any-link{-webkit-tap-highlight-color:transparent;text-decoration:none;
 .slide-left-enter-to{
   transform: translateX(0);
 }
-/* .slide-left-leave {
+/* .scroll-left-leave {
   transform: translateX(0);
 }
-.slide-left-leave-active {
+.scroll-left-leave-active {
   transition: transform .3s;
 }
-.slide-left-leave-to {
+.scroll-left-leave-to {
     transform: translateX(-100%);
 } */
 .slide-right-enter {

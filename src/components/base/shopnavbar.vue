@@ -128,7 +128,7 @@ export default {
             background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/usercenter.png");
             @include shop-nav-tab;
             span {
-                width: 3.13rem;
+                width: 100%;
             }
         }
         &.active1 {

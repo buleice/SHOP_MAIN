@@ -134,7 +134,7 @@ export default {
       let slideWidth = this.$refs.slide.clientWidth
       for (let i = 0; i < this.children.length; i++) {
         let child = this.children[i]
-        addClass(child, 'slide-item')
+        addClass(child, 'scroll-item')
         child.style.width = slideWidth + 'px'
         width += slideWidth
       }

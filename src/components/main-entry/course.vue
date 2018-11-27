@@ -195,7 +195,6 @@ export default {
         position: relative;
         background: rgba(0,0,0,.1);
         height: auto;
-        min-height: 10.69rem;
         color: #3c3c3c;
         border-radius: 0.625rem;
         .course-img {
