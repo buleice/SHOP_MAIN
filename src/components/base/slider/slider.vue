@@ -134,7 +134,7 @@ export default {
       let slideWidth = this.$refs.slide.clientWidth
       for (let i = 0; i < this.children.length; i++) {
         let child = this.children[i]
-        addClass(child, 'scroll-item')
+        addClass(child, 'slide-item')
         child.style.width = slideWidth + 'px'
         width += slideWidth
       }
@@ -231,7 +231,10 @@ export default {
                 text-decoration: none;
             }
             img {
-                width: 100%;
+              width: 361px;
+              margin: 8px auto;
+              border-radius: 10px;
+              box-shadow: 0 2px 12px #888888;;
             }
         }
     }
@@ -240,7 +243,7 @@ export default {
         position: absolute;
         right: 0;
         left: 0;
-        bottom: 12px;
+        bottom: 15px;
         transform: translateZ(1px);
         text-align: center;
         font-size: 0;

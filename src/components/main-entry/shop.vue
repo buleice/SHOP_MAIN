@@ -9,7 +9,13 @@
                         </a>
                     </div>
                 </carousel>
-                <RecommendBox></RecommendBox>
+                <ul class="shop-category">
+                    <li v-for="item in category" :data-id="item.id" :key="item.title">
+                        <img :src="item.icon" alt="">
+                        <span>{{item.title}}</span>
+                    </li>
+                </ul>
+                <RecommendBox :list="lessonList"></RecommendBox>
             </div>
         </scroll>
     </div>
@@ -94,10 +100,22 @@
         left: 0;
         bottom: 3.56rem;
         width: 100%;
+        background-color: #ffffff;
         .shop-content {
             width: 100%;
             height: 100%;
             overflow: hidden;
+            .shop-category{
+                display: flex;
+                justify-content: space-around;
+                padding-bottom: 8px;
+                li{
+                    width: 48px;
+                    img{
+                        width: 100%;
+                    }
+                }
+            }
         }
     }
 </style>

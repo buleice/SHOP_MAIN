@@ -2,16 +2,22 @@
     <div class="coursre-box">
         <img class="course-img" src="//udata.youban.com/webimg/wxyx/meima/m4/list_img/09.png" alt="">
         <div class="coursre-intro">
-            <h4 class="course-title">小伴龙卫生习惯课</h4>
-            <p class="course-desc">小伴龙小伴龙小伴龙小伴伴龙小伴龙小伴龙</p>
+            <h4 class="course-title">{{data.title}}</h4>
+            <div class="course-desc" :v-htm="data.subtitle"></div>
         </div>
-        <a class="coursre-button">去学习</a>
+        <a class="coursre-button" :data-id="data.id">去学习</a>
     </div>
 </template>
 
 <script>
     export default {
-        name: "coursre-box"
+        name: "coursre-box",
+        props:{
+            data:{
+                type:Object,
+                default:null
+            }
+        }
     }
 </script>
 
@@ -23,7 +29,6 @@
         display: flex;
         align-items: center;
         justify-content: space-around;
-        border-bottom: 1px solid rgba(0,0,0,.2);
         .course-img{
             width: 84px;
             height: 84px;
