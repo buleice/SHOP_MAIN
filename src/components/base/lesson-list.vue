@@ -22,8 +22,7 @@
                             <del>{{item['ForiginalPrice']}}</del>
                         </em>
                         <a class="detailbtn" :href="'/purchase/index?id='+item._id+'&isNew='+isNew" target="_blank">
-                            <span v-if="item['Fprice']>0">开团价 ￥<strong>{{item['Fprice']}}</strong></span>
-                            <span v-else><strong>限时免费</strong></span>
+                            <span ><strong>去学习</strong></span>
                         </a>
                     </div>
                 </div>
@@ -39,6 +38,7 @@
     } from 'vuex'
 
     export default {
+        name:"lesson-list",
         props: {
             lessonList: {},
             isNew: 0
@@ -75,9 +75,7 @@
                 }
             },
             imgLoad(){
-                // if(!this.isScrollRefresh){
-                    this.setScrollRefresh(true)
-                // }
+                this.$emit('imgLoad')
             },
             splitlabel(str) {
                 return str.split('/');
@@ -129,6 +127,7 @@
                     }
                     .course-img {
                         width: 100%;
+                        min-height: 10.63rem;
                         height: auto;
                     }
                 }
@@ -165,7 +164,7 @@
                     padding-top: 0.625rem;
                     span {
                         display: inline-block;
-                        padding: 3px 5px;
+                        padding: .19rem .31rem;
                         border: 1px solid #666;
                         border-radius: 1.5625rem;
                         font-size: 0.75rem;
@@ -185,8 +184,8 @@
                     .detailbtn {
                         display: inline-block;
                         background-color: #f69f00;
-                        width: auto;
-                        height: 2.75rem;
+                        width: 5rem;
+                        line-height: 2.25rem;
                         padding: 0 0.5rem;
                         white-space: nowrap;
                         border-radius: 1rem;
@@ -200,7 +199,7 @@
                         max-width: 7.63rem;
                         overflow: hidden;
                         strong {
-                            font-size: 1.31rem;
+                            font-size: 1rem;
                         }
                     }
                 }

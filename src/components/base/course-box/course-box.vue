@@ -1,6 +1,6 @@
 <template>
     <div class="coursre-box">
-        <img class="course-img" src="//udata.youban.com/webimg/wxyx/meima/m4/list_img/09.png" alt="">
+        <img class="course-img" :src="data.icon" alt="">
         <div class="coursre-intro">
             <h4 class="course-title">{{data.title}}</h4>
             <div class="course-desc" :v-htm="data.subtitle"></div>
@@ -24,21 +24,21 @@
 <style scoped lang="scss">
     .coursre-box{
         width: 100%;
-        height: 110px;
+        height: 6.88rem;
         box-sizing: border-box;
         display: flex;
         align-items: center;
         justify-content: space-around;
         .course-img{
-            width: 84px;
-            height: 84px;
-            border-radius: 5px;
+            width: 5.25rem;
+            height: 5.25rem;
+            border-radius: .31rem;
         }
         .coursre-intro{
-            width: 170px;
-            height: 84px;
+            width: 10.63rem;
+            height: 5.25rem;
             box-sizing: border-box;
-            padding: 10px 0;
+            padding: .63rem 0;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
@@ -48,25 +48,25 @@
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
-                font-size: 13px;
+                font-size: .81rem;
             }
             .course-desc{
                 max-width: 100%;
                 overflow: hidden;
-                font-size: 10px;
+                font-size: .63rem;
                 color: rgba(0,0,0,.7);
             }
 
         }
         .coursre-button{
-            width: 80px;
-            line-height: 36px;
-            border-radius: 10px;
+            width: 5rem;
+            line-height: 2.25rem;
+            border-radius: .63rem;
             text-align: center;
             background-color: #f69f00;
             color: #ffffff;
             margin-top: auto;
-            margin-bottom: 10px;
+            margin-bottom: .63rem;
         }
     }
 

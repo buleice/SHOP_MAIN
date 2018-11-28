@@ -6,7 +6,9 @@ import router from './router'
 import store from './stores'
 import './registerServiceWorker'
 const bugsnagVue = require('bugsnag-vue')
+import FastClick from 'fastclick';
 bugsnagClient.use(bugsnagVue(Vue))
+FastClick.attach(document.body);
 
 Vue.config.productionTip = false
 

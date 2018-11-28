@@ -32,7 +32,7 @@
              */
             listenScroll: {
                 type: Boolean,
-                default: false
+                default: true
             },
             /**
              * 列表数据
@@ -84,7 +84,7 @@
                 speed: 20,
                 invert: false,
                 easeTime: 300
-            }
+            },
         },
         data() {
             return {
@@ -115,16 +115,19 @@
                     probeType: this.probeType,
                     click: this.click,
                     scrollX: this.scrollX,
-                    pullup: this.pullup,
-                    mouseWheel:this.mouseWheel
+                    pullUpLoad: this.pullup,
+                    pullDownRefresh:false,
+                    swipeTime:800,
+                    flickLimitDistance:30
                 })
                 if (this.listenScroll) {
                     let me = this
                     // pos为位置参数
                     this.scroll.on('scroll', (pos) => {
-                        console.log(pos0)
-                        if (pos.y > 500) {
+                        if (Math.abs(pos.y) > 500) {
                             me.showToTop = true
+                        }else{
+                          me.showToTop = false
                         }
                         me.$emit('scroll', pos)
                     })
@@ -200,6 +203,7 @@
                 this.scroll && this.scroll.refresh()
             },
             scrollTo() {
+                this.scroll.stop()
                 this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
             },
             scrollToElement() {
@@ -229,7 +233,7 @@
                 setTimeout(() => {
                     this.refresh()
                 }, this.refreshDelay)
-            }
+            },
         }
     }
 </script>
