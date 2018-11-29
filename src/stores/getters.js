@@ -1,6 +1,8 @@
 
 export const firstVisit=state=>state.firstVisit;
 
-export const isScrollRefresh=stata=>stata.isScrollRefresh;
-export const classifyId=stata=>stata.classifyId;
-// 可以提现的最大值;
+export const isScrollRefresh=state=>state.isScrollRefresh;
+export const classifyId=state=>state.classifyId;
+export const category=state=>state.category;
+
+export const viewDirection=state=>state.viewDirection;

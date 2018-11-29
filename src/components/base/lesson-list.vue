@@ -4,23 +4,20 @@
             <li v-for="item in lessonList">
                 <div class="tuanimg">
                     <a :href="'/purchase/index?id='+item._id+'&isNew='+isNew" target="_blank">
-                        <img class="course-img" ref="lazy" @load="imgLoad" :src="item['Fbanner'][0]" :key="item['Fbanner'][0]">
+                        <img class="course-img" @load="imgLoad" ref="lazy" :src="item['banner']" :key="item['banner']">
                         <img class="tuan-label" :src="renderLabel(item['Ftag'])" alt="">
                     </a>
                     <div class="people">已有
                         {{item['Fsales']}}人参团
                     </div>
                 </div>
-                <div class="tuanTitle">{{item['Fheading']}}</div>
+                <div class="tuanTitle">{{item['title']}}</div>
                 <div class="tuanInfo">
-                    <div class="Infotag">
-                        <span>{{splitlabel(item['Flabel'])[0]}}</span>
-                        <span>{{splitlabel(item['Flabel'])[1]}}</span>
+                    <div class="Infotag" v-if="item['label'].length>0">
+                        <span>{{splitlabel(item['label'])[0]}}</span>
+                        <span>{{splitlabel(item['label'])[1]}}</span>
                     </div>
                     <div class="price">
-                        <em>￥
-                            <del>{{item['ForiginalPrice']}}</del>
-                        </em>
                         <a class="detailbtn" :href="'/purchase/index?id='+item._id+'&isNew='+isNew" target="_blank">
                             <span ><strong>去学习</strong></span>
                         </a>
@@ -74,27 +71,18 @@
                         break;
                 }
             },
+            splitlabel(str) {
+                if(str){
+                    return str.split('/');
+                }
+            },
             imgLoad(){
                 this.$emit('imgLoad')
-            },
-            splitlabel(str) {
-                return str.split('/');
             },
             ...mapActions(['setScrollRefresh'])
         },
         computed: {
             ...mapGetters(['isScrollRefresh'])
-        },
-
-        watch: {
-            //  lessonList:{ //深度监听，可监听到对象、数组的变化
-            //     handler (newV, oldV) {
-            //       this.$nextTick(function(){
-            //         this.observer=new LazyImage(this.$refs.lazy)
-            //       })
-            //     },
-            //     deep:true
-            //    }
         }
     }
 </script>

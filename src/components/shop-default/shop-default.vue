@@ -11,19 +11,16 @@
                 </carousel>
                 <ul class="shop-category">
                     <li v-for="item in category" :key="item.title">
-                        <router-link v-if="item.id==8" :to="{name:'c-recommend',params:{cid:item.id}}">
-                            <img @load="imgLoad" :src="item.icon" alt="">
-                            <span>{{item.title}}</span>
-                        </router-link>
-                        <router-link v-else :to="{name:'c-normal',params:{cid:item.id}}">
+                        <router-link :to="{name:'classify',params:{cid:item.id}}">
                             <img @load="imgLoad" :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </router-link>
                     </li>
                 </ul>
-                <RecommendBox :list="lessonList"></RecommendBox>
+                <RecommendBox :list="lessonList" @imgLoad="imgLoad"></RecommendBox>
             </div>
         </scroll>
+        <EntryAd></EntryAd>
     </div>
 </template>
 
@@ -38,78 +35,50 @@
     import Carousel from '../base/slider/slider.vue'
     import RecommendBox from '../base/recommend-box/recommend-box'
     import Scroll from '../base/scroll/scroll'
+    import EntryAd from '../base/entry-ad/entry-ad'
 
     export default {
         name: 'ShopDeault',
         components: {
             Carousel,
             RecommendBox,
-            Scroll
+            Scroll,
+            EntryAd
         },
         data() {
             return {
-                lessonList: {},
+                lessonList: [],
                 allList: {},
                 isShowAll: true,
                 category: [],
                 series: [],
                 fetchCategory: true,
-                isNew: 0,
-                carouselList: [],
-                timeLimit: 1000
+                carouselList: []
             }
+        },
+        activated(){
+            this.$nextTick(()=>{
+                this.imgLoad()
+            })
         },
         created() {
             new Request('/shop/list.json', 'POST').returnJson().then(res => {
-                this.lessonList = res.list;
+                this.lessonList = [res.list1,res.list2,res.list3];
                 localStorage.count = res.count;
-                this.allList = res.list;
-                this.category = res.category;
-                this.series = res.seriesList;
-                this.isNew = res.isNew;
+                this.category = res.category1;
                 this.carouselList = res.bannerList
                 this.setFirstVisit(res.visited);
+                this.setCategory(res.category2)
             })
-            setTimeout(() => {
-                this.timeLimit = 0;
-            }, 1000)
-
-            setInterval(() => {
-                if (this.timeLimit > 0) {
-                    this.$refs.scroll.refresh()
-                }
-            }, 20)
-
         },
         methods: {
-            getListData(category) {
-                category == 99 ? (this.lessonList = this.allList) : this._fetchData(category);
-            },
-            _fetchData(category) {
-                this.fetchCategory = false;
-                new Request('/shop/category.json', 'GET', {
-                    "category": category
-                }).returnJson().then(res => {
-                    this.lessonList = res.list;
-                    this.fetchCategory = true;
-                })
-            },
             imgLoad() {
                 this.$refs.scroll.refresh();
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh'])
+            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory'])
         },
         computed: {
             ...mapGetters(['isScrollRefresh'])
-        },
-        watch: {
-            isScrollRefresh(newValue, oldValue) {
-                if (newValue) {
-                    // console.log("刷新一次")
-                    this.$refs.scroll.refresh();
-                    this.setScrollRefresh(false)
-                }
-            }
         }
     }
 </script>
@@ -120,6 +89,7 @@
         top: 0;
         bottom: 3.5rem;
         background-color: #ffffff;
+        z-index: 100;
         .shop-content {
             height: 100%;
             overflow: hidden;
@@ -129,6 +99,7 @@
                 padding-bottom: .5rem;
                 li {
                     a {
+                        color: #0d0d0d;
                         display: block;
                         width: 3rem;
                         img {

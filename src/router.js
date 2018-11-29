@@ -9,10 +9,8 @@ const BonusBill = () => import('./components/base/bonus-bill/bonus-bill.vue');
 const BonusIndex = () => import('./components/base/bonus-index/bonus-index.vue');
 const ShopDefault=()=>import('./components/shop-default/shop-default');
 const ShopClassify=()=>import('./components/classify/classify');
-const ClassifyRecommend=()=>import('./components/classify/classify-recommend');
-const ClassifyNormal=()=>import('./components/classify/classify-normal');
-
 Vue.use(Router);
+
 
 export default new Router({
     routes: [
@@ -30,14 +28,10 @@ export default new Router({
                     name:'default',
                     component:ShopDefault,
                 },
-                {path:'classify',
+                {path:'classify/:cid',
                     component:ShopClassify,
                     name:'classify',
                     props:true,
-                    children:[
-                        {path:'recommend/:cid',component:ClassifyRecommend,name:'c-recommend',props:true},
-                        {path:'normal/:cid',component:ClassifyNormal,name:'c-normal',props:true}
-                    ]
                 }
             ]
         },

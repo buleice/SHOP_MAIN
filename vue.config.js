@@ -1,4 +1,4 @@
-const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
+// const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 module.exports = {
     lintOnSave: false,
     assetsDir: 'wxyx-entry',

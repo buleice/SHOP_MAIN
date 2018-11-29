@@ -4,6 +4,8 @@ const state = {
     classifyId: {
         cid: 8,
         name: 'c-normal'
-    }
+    },
+    category:[],
+    viewDirection:'left'
 }
 export default state;

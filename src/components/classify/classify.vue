@@ -1,97 +1,106 @@
 <template>
     <div class="classify-page">
-        <scroll class="classify-content" :data="[category]" ref="scroll">
+        <scroll class="classify-content" ref="scroll" >
             <div>
                 <ul class="classify-banner">
-                    <li v-for="item in acronym" :key="item.title">
-                        <div v-if="item.id==8" @click="hrefTo('c-recommend',item.id)"
-                             :class="[classifyId.cid==item.id?'active':'']">
+                    <li v-for="item in categorys" :key="item.title">
+                        <div v-if="item.id==101" @click="hrefTo('c-recommend',item.id)"
+                             :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </div>
-                        <div v-else @click="hrefTo('c-normal',item.id)" :class="[classifyId.cid==item.id?'active':'']">
+                        <div v-else v-on:click="hrefTo('c-normal',item.id)"
+                             :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </div>
                     </li>
-                    <li v-if="!allCategory" @click="allCategory=true;acronym=category">
+                    <li v-if="!allCategory" @click="allCategory=true;categorys=category">
                         <b class="pack-down"></b>
                         <span>展开</span>
                     </li>
-                    <li v-else @click="allCategory=false;acronym=category.slice(0,9)">
+                    <li v-else v-on:click="allCategory=false;categorys=category.slice(0,9)">
                         <b class="pack-up"></b>
                         <span>收起</span>
                     </li>
                 </ul>
-                <router-view @imgLoad="imgLoad"></router-view>
+                <ClassifyRecommend :list="recommendList" @imgLoad="imgLoad" v-if="showRecommend"></ClassifyRecommend>
+                <ClassifyNormal :lessonList="normalList" v-else @imgLoad="imgLoad"></ClassifyNormal>
             </div>
         </scroll>
     </div>
 </template>
 
 <script>
-    import {
-        Request
-    } from '../../api/request'
-    import {mapGetters, mapActions} from 'vuex'
+    import {mapGetters} from 'vuex'
     import Scroll from '../base/scroll/scroll'
+
+    const ClassifyRecommend = () => import('./classify-recommend');
+    const ClassifyNormal = () => import('../base/lesson-list');
+
+    import {Request} from "../../api/request";
 
     export default {
         name: "calssify",
         data() {
             return {
-                category: [],
-                acronym: [],
+                categorys: [],
                 allCategory: false,
                 name: 'c-recommend',
-                timeLimit: 1000
+                showRecommend: false,
+                normalList: [],
+                recommendList: [],
+                locationId: 100,
+                timeLimit: false,
             }
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
-                vm.setClassifyId({
-                    name: to.name,
-                    cid: to.params.cid
-                })
+                vm.hrefTo('classify', parseInt(to.params.cid));
+                vm.setData('locationId', to.params.cid)
+                if (to.params.cid == 101) {
+                    vm.setData('showRecommend', true);
+                }
             })
         },
         created() {
-            this._fetchCategory(this.$route.params.cid)
+            this.categorys = this.category.slice(0, 9);
         },
         methods: {
-            _fetchCategory(cid) {
-                new Request('/shop/category.json', 'GET', {
-                    category: cid
-                }).returnJson().then(res => {
-                    this.setData('category', res.category);
-                    this.setData('acronym', res.category.slice(0, 9))
-                })
+            hrefTo(cname, cid) {
+                this.setData('locationId', cid)
+                if (cid == 101) {
+                    this.setData('showRecommend', true);
+                    new Request('/shop/category.json', 'GET', {
+                        category: cid
+                    }).returnJson().then(res => {
+                        this.setData('recommendList', res.list);
+                        this.imgLoad()
+                    })
+                } else if (cid != 101) {
+                    this.setData('showRecommend', false);
+                    new Request('/shop/category.json', 'GET', {
+                        category: cid
+                    }).returnJson().then(res => {
+                        this.setData('normalList', res.list);
+                        this.imgLoad()
+                    })
+                }
+            },
+            imgLoad() {
+                this.$refs.scroll.refresh();
             },
             setData(key, value) {
                 this[key] = value
             },
-            hrefTo(cname, cid) {
-                if (cname == 'c-recommend') {
-                    this.setClassifyId({name: cname, cid: cid})
-                    this.$router.push({name: 'c-recommend', params: {cid: cid}})
-                    this.imgLoad()
-                } else if (cname == 'c-normal' && this.classifyId.cid != cid) {
-                    this.setClassifyId({name: cname, cid: cid})
-                    this.$router.push({name: 'c-normal', params: {cid: cid}})
-                    this.imgLoad()
-                }
-
-            },
-            imgLoad(){
-                this.$refs.scroll.refresh();
-            },
-            ...mapActions(['setClassifyId'])
         },
         computed: {
-            ...mapGetters(['classifyId'])
+            ...mapGetters(['category'])
         },
         components: {
-            Scroll
+            Scroll,
+            ClassifyRecommend,
+            ClassifyNormal
         }
     }
 </script>
@@ -101,8 +110,9 @@
         position: fixed;
         width: 100%;
         top: 0;
-        bottom: 3.5rem;
+        bottom: 0;
         background-color: #ffffff;
+        z-index: 100;
         .classify-content {
             height: 100%;
             overflow: hidden;

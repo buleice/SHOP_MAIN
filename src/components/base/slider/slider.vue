@@ -49,7 +49,9 @@ export default {
     },
     slideDatas:{
       type:Array,
-      default:[]
+      default(){
+          return []
+      }
     }
   },
   data() {
@@ -231,10 +233,10 @@ export default {
                 text-decoration: none;
             }
             img {
-              width: 361px;
-              margin: 8px auto;
-              border-radius: 10px;
-              box-shadow: 0 2px 12px #888888;;
+              width: 22.56rem;
+              margin: .5rem auto;
+              border-radius: .63rem;
+              box-shadow: 0 .13rem .75rem #888888;;
             }
         }
     }
@@ -243,20 +245,20 @@ export default {
         position: absolute;
         right: 0;
         left: 0;
-        bottom: 15px;
+        bottom: .94rem;
         transform: translateZ(1px);
         text-align: center;
         font-size: 0;
         .dot {
             display: inline-block;
-            margin: 0 4px;
-            width: 8px;
-            height: 8px;
+            margin: 0 .25rem;
+            width: .5rem;
+            height: .5rem;
             border-radius: 50%;
             background: white;
             &.active {
-                // width: 20px;
-                border-radius: 5px;
+                // width: 1.25rem;
+                border-radius: .31rem;
                 background: lightgray;
             }
         }

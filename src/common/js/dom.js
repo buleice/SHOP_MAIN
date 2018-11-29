@@ -20,6 +20,42 @@ export function addClass(element, className) {
 
 }
 
+export function removeClass(el, className) {
+    if (!hasClass(el, className)) {
+        return
+    }
+
+    let reg = new RegExp('(^|\\s)' + className + '(\\s|$)', 'g')
+    el.className = el.className.replace(reg, ' ')
+}
+
+export function getData(el, name, val) {
+    let prefix = 'data-'
+    if (val) {
+        return el.setAttribute(prefix + name, val)
+    }
+    return el.getAttribute(prefix + name)
+}
+
+export function getRect(el) {
+    if (el instanceof window.SVGElement) {
+        let rect = el.getBoundingClientRect()
+        return {
+            top: rect.top,
+            left: rect.left,
+            width: rect.width,
+            height: rect.height
+        }
+    } else {
+        return {
+            top: el.offsetTop,
+            left: el.offsetLeft,
+            width: el.offsetWidth,
+            height: el.offsetHeight
+        }
+    }
+}
+
 /**
  * 写节点属性 以及 获取节点属性的方式
  */

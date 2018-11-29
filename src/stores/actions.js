@@ -9,3 +9,10 @@ export const setScrollRefresh=({commit,state},isScrollRefresh)=>{
 export const setClassifyId=({commit,state},classifyId)=>{
     commit(types.SET_CLASSIFYID,classifyId);
 }
+export const setCategory=({commit,state},category)=>{
+    commit(types.SET_CATEGORY,category)
+}
+
+export const setDirection=({commit,state},direction)=>{
+    commit(types.SET_SETVIEWDIRECTION,direction)
+}

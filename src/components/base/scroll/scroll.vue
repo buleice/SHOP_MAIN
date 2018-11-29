@@ -1,7 +1,7 @@
 <template>
     <div ref="wrapper">
         <slot></slot>
-        <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
+        <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click.passive="_topFunction"><span class="iconfont"></span>顶部</div>
     </div>
 </template>
 
@@ -118,7 +118,7 @@
                     pullUpLoad: this.pullup,
                     pullDownRefresh:false,
                     swipeTime:800,
-                    flickLimitDistance:30
+                    flickLimitDistance:30,
                 })
                 if (this.listenScroll) {
                     let me = this
@@ -203,7 +203,6 @@
                 this.scroll && this.scroll.refresh()
             },
             scrollTo() {
-                this.scroll.stop()
                 this.scroll && this.scroll.scrollTo.apply(this.scroll, arguments)
             },
             scrollToElement() {

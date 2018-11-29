@@ -3,8 +3,8 @@
         <div v-for="(item,index) in list" :key="index">
             <div class="divide"></div>
             <div class="recommend-box">
-                <div class="recommend-banner"><span>{{item.title}}</span><router-link :to="'/shop/classify/normal/'+item.id">更多</router-link></div>
-                <CourseBox class="course" v-for="(item2,index2) in item.goodsList" :data="item2"
+                <div class="recommend-banner"><span>{{item.title}}</span><router-link :to="'/shop/classify/'+item.id">更多</router-link></div>
+                <CourseBox class="course" v-for="(item2,index2) in item.list" @imgLoad="imgLoad" :data="item2"
                            :key="index2"></CourseBox>
             </div>
         </div>
@@ -17,6 +17,11 @@
     export default {
         name: "recomend-box",
         props: ['list'],
+        methods:{
+            imgLoad(){
+                this.$emit('imgLoad')
+            }
+        },
         components: {
             CourseBox,
         }

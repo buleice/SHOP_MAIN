@@ -9,6 +9,13 @@ const mutations = {
     },
     [types.SET_CLASSIFYID](state, classifyId) {
         state.classifyId = classifyId;
-    }
+    },
+    [types.SET_CATEGORY](state, category) {
+        state.category = category;
+    },
+    [types.SET_SETVIEWDIRECTION](state, direction) {
+        state.direction = direction;
+    },
+
 }
 export default mutations

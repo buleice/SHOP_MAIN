@@ -3,9 +3,9 @@
        <div v-for="(item,index) in list" :key="index">
            <div class="divide"></div>
            <div class="recommend-box">
-               <div class="recommend-banner"><span>{{item.title}}</span></div>
-               <p class="recommend-desc">让孩子从不同的角度看待历史人物和故事，启发引导孩子思考和探究历史</p>
-               <CourseBox class="course" v-for="(item2,index2) in item.goodsList" :data="item2"
+               <div class="recommend-banner"><span v-html="item.title"></span></div>
+               <p class="recommend-desc" v-html="item.subtitle"></p>
+               <CourseBox class="course" v-for="(item2,index2) in item.FgoodsList" @imgLoad="imgLoad"  :data="item2"
                           :key="index2"></CourseBox>
            </div>
        </div>
@@ -14,49 +14,18 @@
 
 <script>
     import CourseBox from '../base/course-box/course-box'
-    import {
-        Request
-    } from '../../api/request'
-    import {mapGetters,mapActions} from 'vuex'
     export default {
         name: "classify-recommend",
-        data(){
-            return{
-                list:[{
-                    title:'专属推荐',
-                    goodsList:[{
-                        icon: "http://p9w8pmwcs.bkt.clouddn.com/20180921/2933190011Fvd5hs29ypo-XEF6r-mGiWFDXSQc.png",
-                        id: "5ba477a3efcba41a35509af4",
-                        subtitle: "<p>让孩子从不同的角度看待历史人物和故事，启发引导孩子思考和探究历史</p>",
-                        title: "三国里的趣事",
-                    },{
-                        icon: "http://p9w8pmwcs.bkt.clouddn.com/20180921/2933190011Fvd5hs29ypo-XEF6r-mGiWFDXSQc.png",
-                        id: "5ba477a3efcba41a35509af4",
-                        subtitle: "<p>让孩子从不同的角度看待历史人物和故事，启发引导孩子思考和探究历史</p>",
-                        title: "三国里的趣事",
-                    }]
-                }]
+        props:{
+            list:{
+                type:Array,
+                default:null
             }
         },
-        activated(){
-
-            // this._fetchCategory(this.$route.params.cid)
-        },
         methods:{
-            _fetchCategory(cid){
-                new Request('/shop/category.json','GET',{
-                    category: cid
-                }).returnJson().then(res=>{
-                    this.setData('list',res.list);
-                })
-            },
-            setData(key, value) {
-                this[key] = value
-            },
-            ...mapActions(['setClassifyId'])
-        },
-        computed:{
-            ...mapGetters(['classifyId'])
+            imgLoad(){
+                this.$emit('imgLoad')
+            }
         },
         components:{
             CourseBox
