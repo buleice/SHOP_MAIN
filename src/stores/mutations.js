@@ -16,8 +16,8 @@ const mutations = {
     [types.SET_SETVIEWDIRECTION](state, direction) {
         state.direction = direction;
     },
-    [types.SET_DIYLIST](state, diy) {
-        state.diyList = diy;
+    [types.SET_AGE](state, age) {
+        state.diyList = age;
     },
 
 }

@@ -1,41 +1,41 @@
 <template>
     <div class="classify-page">
-        <scroll class="classify-content"  @showToTop="fshowToTop" @hideToTop="hideToTop" ref="scroll" :tap="true" :probeType="2" :click="true">
+        <div class="classify-content">
             <div>
                 <ul class="classify-banner">
                     <li v-for="item in categorys" :key="item.title">
-                        <div v-if="item.id==101" @tap="hrefTo('c-recommend',item.id)"
+                        <div v-if="item.id==101" @click="hrefTo('c-recommend',item.id)"
                              :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </div>
-                        <div v-else @tap="hrefTo('c-normal',item.id)"
+                        <div v-else @click="hrefTo('c-normal',item.id)"
                              :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </div>
                     </li>
-                    <li v-if="!allCategory" @tap="allCategory=true;categorys=category">
+                    <li v-if="!allCategory" @click="allCategory=true;categorys=category">
                         <b class="pack-down"></b>
                         <span>展开</span>
                     </li>
-                    <li v-else @tap="allCategory=false;categorys=category.slice(0,9)">
+                    <li v-else @click="allCategory=false;categorys=category.slice(0,9)">
                         <b class="pack-up"></b>
                         <span>收起</span>
                     </li>
                 </ul>
-                <div class="personalDiy" v-if="diyList.length>0&&locationId==101"><span>{{diyList[0]}}</span><b @click="userDiy">重新选择</b></div>
-                <ClassifyRecommend :list="recommendList" @imgLoad="imgLoad" v-if="showRecommend"></ClassifyRecommend>
-                <ClassifyNormal :lessonList="normalList" v-else @imgLoad="imgLoad"></ClassifyNormal>
+                <div class="personalDiy" v-if="ageis!=''&&ageis!=null&&locationId==101"><span>{{ageis}}</span><b @click="userDiy">重新选择</b></div>
+                <ClassifyRecommend :list="recommendList"  v-if="showRecommend"></ClassifyRecommend>
+                <ClassifyNormal :lessonList="normalList" v-else ></ClassifyNormal>
             </div>
-        </scroll>
+        </div>
         <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
     </div>
 </template>
 
 <script>
     import {mapGetters,mapActions} from 'vuex'
-    import Scroll from '../base/scroll/scroll'
+    // import Scroll from '../base/scroll/scroll'
 
     const ClassifyRecommend = () => import('./classify-recommend');
     const ClassifyNormal = () => import('../base/lesson-list');
@@ -54,7 +54,8 @@
                 recommendList: [],
                 locationId: 100,
                 timeLimit: false,
-                showToTop:false
+                showToTop:false,
+                ageis:null
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -78,21 +79,21 @@
                     new Request('/shop/category.json', 'GET', {
                         category: cid
                     }).returnJson().then(res => {
+                        this.ageis=res.age
                         this.setData('recommendList', res.list);
-                        this.imgLoad()
                     })
                 } else if (cid != 101) {
                     this.setData('showRecommend', false);
                     new Request('/shop/category.json', 'GET', {
                         category: cid
                     }).returnJson().then(res => {
+                        this.ageis=res.age
                         this.setData('normalList', res.list);
-                        this.imgLoad()
                     })
                 }
             },
             imgLoad() {
-                this.$refs.scroll.refresh();
+                // this.$refs.scroll.refresh();
             },
             setData(key, value) {
                 this[key] = value
@@ -111,13 +112,13 @@
                 this.setFirstVisit(0)
                 this.$router.go(-1)
             },
-            ...mapActions(['setFirstVisit'])
+            ...mapActions(['setFirstVisit',])
         },
         computed: {
-            ...mapGetters(['category','diyList'])
+            ...mapGetters(['category','age'])
         },
         components: {
-            Scroll,
+            // Scroll,
             ClassifyRecommend,
             ClassifyNormal
         }
@@ -130,15 +131,15 @@
 </style>
 <style scoped lang="scss">
     .classify-page {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        bottom: 0;
-        background-color: #ffffff;
-        z-index: 100;
+        // position: fixed;
+        // width: 100%;
+        // top: 0;
+        // bottom: 0;
+        // background-color: #ffffff;
+        // z-index: 100;
         .classify-content {
-            height: 100%;
-            overflow: hidden;
+            // height: 100%;
+            // overflow: hidden;
             .classify-banner {
                 width: 100%;
                 display: flex;

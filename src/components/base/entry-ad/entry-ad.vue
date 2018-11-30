@@ -44,8 +44,12 @@
                 ageList: [],
                 favoriateList: [],
                 recordMultiList: new Set(),
-                recordAge: null,
-                age: null
+                recordAge: {
+                  maxAge:"3",
+                  minAge:"0",
+                  text:"0-3岁",
+                },
+                ageText:''
             }
         },
         mounted() {
@@ -67,6 +71,7 @@
             },
             handleCheck(text) {
                 this.recordAge = text;
+                this.ageText=text.text;
             },
             hasInRecord(text) {
                 if (this.recordMultiList.has(text)) {
@@ -76,20 +81,19 @@
                 }
             },
             handleSubmit(){
-                let set=this.recordMultiList
-                  axiosPost('shop/custom/make.json',{
+                let set=this.recordMultiList;
+                  axiosPost('/shop/custom/make.json',{
                       interest:[...set],
                       maxAge:this.recordAge.maxAge,
-                      minAge:this.recordAge.minAge
+                      minAge:this.recordAge.minAge,
                   }).then(()=>{
-                      if(String(this.recordAge.text).length>0){
-                          this.setDiyList([this.recordAge.text])
-                      }
                       this.setFirstVisit(1)
-                      this.$emit('freshData');
+                      setTimeout(()=>{
+                          this.$emit('freshData');
+                      },300)
                   })
             },
-            ...mapActions(['setFirstVisit','setDiyList'])
+            ...mapActions(['setFirstVisit','setAge'])
         },
         computed: {
             message: {
@@ -100,7 +104,7 @@
                     this.$store.commit('updateMessage', value)
                 }
             },
-            ...mapGetters(['firstVisit'])
+            ...mapGetters(['firstVisit','age'])
         }
     }
 </script>
@@ -116,10 +120,10 @@
         z-index: 1000;
         .content {
             display: block;
-            width: 21.13rem;
-            height: 35.63rem;
+            width: 20.235rem;
+            height: 32.067rem;
             box-sizing: border-box;
-            padding: 2.19rem 1rem;
+            padding: 2rem .63rem;
             margin: auto;
             position: relative;
             margin-top: 2rem;
@@ -147,7 +151,7 @@
                 h3 {
                     line-height: 1.25rem;
                     position: relative;
-                    margin-top: 1.88rem;
+                    margin-top: 1rem;
                     span {
                         font-size: 1rem;
                         font-weight: 700;
@@ -195,7 +199,7 @@
                     color: #ffffff;
                     background: #ec6941;
                     text-align: center;
-                    margin: 1.88rem auto .94rem;
+                    margin: 1rem auto .94rem;
                 }
                 a {
                     color: rgba(0, 0, 0, .3);

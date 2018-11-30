@@ -11,7 +11,6 @@
        </div>
    </div>
 </template>
-
 <script>
     import CourseBox from '../base/course-box/course-box'
     export default {

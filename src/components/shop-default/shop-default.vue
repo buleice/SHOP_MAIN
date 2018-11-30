@@ -1,25 +1,25 @@
 <template lang="html">
     <div class="shop-page">
-        <scroll class="shop-content" @showToTop="fshowToTop" @hideToTop="hideToTop" :data="[category,lessonList]" :tap="true" :probeType="1" :click="true" ref="scroll">
+        <div class="shop-content">
             <div>
                 <carousel :slideDatas="carouselList">
                     <div v-for="(scroll,index) in carouselList" :key="index">
                         <a :href="scroll.url">
-                            <img @load="imgLoad" :src="scroll.image" alt=""/>
+                            <img :src="scroll.image" alt=""/>
                         </a>
                     </div>
                 </carousel>
                 <ul class="shop-category">
                     <li v-for="item in category" :key="item.title">
                         <router-link :to="{name:'classify',params:{cid:item.id}}">
-                            <img @load="imgLoad" :src="item.icon" alt="">
+                            <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </router-link>
                     </li>
                 </ul>
-                <RecommendBox :list="lessonList" @imgLoad="imgLoad"></RecommendBox>
+                <RecommendBox :list="lessonList"></RecommendBox>
             </div>
-        </scroll>
+        </div>
         <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
         <EntryAd @freshData="_initPageData"></EntryAd>
     </div>
@@ -30,20 +30,17 @@
         mapGetters,
         mapActions
     } from 'vuex'
-    import {
-        Request
-    } from '../../api/request'
     import Carousel from '../base/slider/slider.vue'
     import RecommendBox from '../base/recommend-box/recommend-box'
-    import Scroll from '../base/scroll/scroll'
+    // import Scroll from '../base/scroll/scroll'
     import EntryAd from '../base/entry-ad/entry-ad'
-
+    import axios from 'axios'
     export default {
         name: 'ShopDeault',
         components: {
             Carousel,
             RecommendBox,
-            Scroll,
+            // Scroll,
             EntryAd
         },
         data() {
@@ -57,11 +54,6 @@
                 carouselList: [],
                 showToTop:false,
             }
-        },
-        activated(){
-            this.$nextTick(()=>{
-                this.imgLoad()
-            })
         },
         created() {
            this._initPageData()
@@ -81,21 +73,26 @@
                 this.showToTop=false
             },
             _initPageData(){
-                new Request('/shop/list.json', 'POST').returnJson().then(res => {
+                axios.get('/shop/list.json').then(response => {
+                    let res=response.data;
                     this.lessonList = [res.list1,res.list2,res.list3];
                     localStorage.count = res.count;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
                     if(res.popup==0){
                         this.setFirstVisit(1);
-                    }else{
+                    }else if(res.popup==1){
                         this.setFirstVisit(0);
                     }
-                    this.setDiyList([res.age])
+                    if(res.age.length>0){
+                        this.setAge(111)
+                    }else{
+                        this.setAge('3-6岁')
+                    }
                     this.setCategory(res.category2)
                 })
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setDiyList"])
+            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setAge"])
         },
         computed: {
             ...mapGetters(['isScrollRefresh'])
@@ -109,15 +106,15 @@
 </style>
 <style scoped lang="scss">
     .shop-page {
-        position: fixed;
-        width: 100%;
-        top: 0;
-        bottom: 3.5rem;
-        background-color: #ffffff;
-        z-index: 100;
+        // position: fixed;
+        // width: 100%;
+        // top: 0;
+        // bottom: 3.5rem;
+        // background-color: #ffffff;
+        // z-index: 100;
         .shop-content {
-            height: 100%;
-            overflow: hidden;
+            // height: 100%;
+            // overflow: hidden;
             .shop-category {
                 display: flex;
                 justify-content: space-around;

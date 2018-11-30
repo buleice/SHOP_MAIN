@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-for="(item,index) in list" :key="index">
+        <div v-if="item.list.length>0" v-for="(item,index) in list" :key="index">
             <div class="divide"></div>
             <div class="recommend-box">
                 <div class="recommend-banner"><span>{{item.title}}</span><router-link :to="'/shop/classify/'+item.id">更多</router-link></div>

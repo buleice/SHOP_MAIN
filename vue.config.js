@@ -1,6 +1,6 @@
 // const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 module.exports = {
-    baseUrl:'/wxyx-market/',
+    baseUrl:'/shop/',
     assetsDir: 'assets',
     filenameHashing: false,
     productionSourceMap: false,

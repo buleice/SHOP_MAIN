@@ -16,6 +16,6 @@ export const setCategory=({commit},category)=>{
 export const setDirection=({commit},direction)=>{
     commit(types.SET_SETVIEWDIRECTION,direction)
 }
-export const setDiyList=({commit},diy)=>{
-    commit(types.SET_DIYLIST,diy)
+export const setAge=({commit},age)=>{
+    commit(types.SET_AGE,age)
 }

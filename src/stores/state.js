@@ -7,6 +7,6 @@ const state = {
     },
     category:[],
     viewDirection:'left',
-    diyList:[],
+    age:'3-6岁'
 }
 export default state;

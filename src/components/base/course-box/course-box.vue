@@ -36,6 +36,7 @@
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
         font-size: 0.875rem;
+        color: rgba(0,0,0,.7);
     }
 </style>
 <style scoped lang="scss">
@@ -69,7 +70,8 @@
                 white-space: nowrap;
                 text-overflow: ellipsis;
                 font-size: 1rem;
-                color:#2c3e50
+                color:#2c3e50;
+                font-weight: 550;
             }
             .course-desc{
                 max-width: 100%;
@@ -85,6 +87,7 @@
                 -webkit-box-orient: vertical;
                 /*padding-left: .5rem;*/
                 p{
+                    color: rgba(0,0,0,.7);
                     max-width: 100%;
                     overflow: hidden;
                     text-overflow: ellipsis;
