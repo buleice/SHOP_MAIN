@@ -1,14 +1,14 @@
 <template lang="html">
     <div class="">
         <ul class="item">
-            <li v-for="item in lessonList">
+            <li v-for="(item,index) in lessonList" :key="index">
                 <div class="tuanimg">
-                    <a :href="'/purchase/index?id='+item._id+'&isNew='+isNew" target="_blank">
+                    <a :href="item.url" target="_blank">
                         <img class="course-img" @load="imgLoad" ref="lazy" :src="item['banner']" :key="item['banner']">
                         <img class="tuan-label" :src="renderLabel(item['Ftag'])" alt="">
                     </a>
-                    <div class="people">已有
-                        {{item['Fsales']}}人参团
+                    <div class="people">
+                        {{item['sales']}}人正在学习
                     </div>
                 </div>
                 <div class="tuanTitle">{{item['title']}}</div>
@@ -18,7 +18,7 @@
                         <span>{{splitlabel(item['label'])[1]}}</span>
                     </div>
                     <div class="price">
-                        <a class="detailbtn" :href="'/purchase/index?id='+item._id+'&isNew='+isNew" target="_blank">
+                        <a class="detailbtn" :href="item.url" target="_blank">
                             <span ><strong>去学习</strong></span>
                         </a>
                     </div>
@@ -38,7 +38,7 @@
         name:"lesson-list",
         props: {
             lessonList: {},
-            isNew: 0
+            isNew:null
         },
         data() {
             return {
@@ -56,19 +56,15 @@
                 switch (Ftag) {
                     case 1:
                         return '//udata.youban.com/webimg/wxyx/puintuan/newest.png';
-                        break;
                     case 2:
                         return '//udata.youban.com/webimg/wxyx/puintuan/hotst.png';
-                        break;
                     case 3:
                         return '//udata.youban.com/webimg/wxyx/puintuan/free.png';
-                        break;
                     case 4:
                         return '//udata.youban.com/webimg/wxyx/puintuan/recommend.png';
-                        break;
                     case 5:
                         return '//udata.youban.com/webimg/wxyx/puintuan/xianmian.png';
-                        break;
+                    default: return ''
                 }
             },
             splitlabel(str) {

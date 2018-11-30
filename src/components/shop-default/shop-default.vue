@@ -1,9 +1,9 @@
 <template lang="html">
     <div class="shop-page">
-        <scroll class="shop-content" :data="[category,lessonList]" ref="scroll">
+        <scroll class="shop-content" @showToTop="fshowToTop" @hideToTop="hideToTop" :data="[category,lessonList]" :tap="true" :probeType="1" :click="true" ref="scroll">
             <div>
                 <carousel :slideDatas="carouselList">
-                    <div v-for="scroll in carouselList">
+                    <div v-for="(scroll,index) in carouselList" :key="index">
                         <a :href="scroll.url">
                             <img @load="imgLoad" :src="scroll.image" alt=""/>
                         </a>
@@ -20,7 +20,8 @@
                 <RecommendBox :list="lessonList" @imgLoad="imgLoad"></RecommendBox>
             </div>
         </scroll>
-        <EntryAd></EntryAd>
+        <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
+        <EntryAd @freshData="_initPageData"></EntryAd>
     </div>
 </template>
 
@@ -53,7 +54,8 @@
                 category: [],
                 series: [],
                 fetchCategory: true,
-                carouselList: []
+                carouselList: [],
+                showToTop:false,
             }
         },
         activated(){
@@ -62,26 +64,49 @@
             })
         },
         created() {
-            new Request('/shop/list.json', 'POST').returnJson().then(res => {
-                this.lessonList = [res.list1,res.list2,res.list3];
-                localStorage.count = res.count;
-                this.category = res.category1;
-                this.carouselList = res.bannerList
-                this.setFirstVisit(res.visited);
-                this.setCategory(res.category2)
-            })
+           this._initPageData()
         },
         methods: {
             imgLoad() {
                 this.$refs.scroll.refresh();
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory'])
+            hideToTop(){
+                this.showToTop=false
+            },
+            fshowToTop(){
+                this.showToTop=true
+            },
+            _topFunction(){
+                this.$refs.scroll.scrollTo(0,0,300);
+                this.showToTop=false
+            },
+            _initPageData(){
+                new Request('/shop/list.json', 'POST').returnJson().then(res => {
+                    this.lessonList = [res.list1,res.list2,res.list3];
+                    localStorage.count = res.count;
+                    this.category = res.category1;
+                    this.carouselList = res.bannerList;
+                    if(res.popup==0){
+                        this.setFirstVisit(1);
+                    }else{
+                        this.setFirstVisit(0);
+                    }
+                    this.setDiyList([res.age])
+                    this.setCategory(res.category2)
+                })
+            },
+            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setDiyList"])
         },
         computed: {
             ...mapGetters(['isScrollRefresh'])
         }
     }
 </script>
+<style lang="css" scoped>
+    .iOMeRW{position:absolute;color:#bbb;background-color:#fff;border:1px solid #ccc;line-height:3.75rem;border-radius:50%;width:2.75rem;height:2.75rem;font-size:0.8rem;text-align:center;right: 1rem;bottom: 1rem}
+    .iOMeRW span{color:#999;position:absolute;left:0;top:0;width:100%;height:100%;font-size:1.25rem;line-height:1.5rem}
+    .iconfont{font-family:h5index-iconfont;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale;font-size:1rem;color:#333}
+</style>
 <style scoped lang="scss">
     .shop-page {
         position: fixed;

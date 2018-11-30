@@ -1,11 +1,15 @@
 // const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 module.exports = {
-    lintOnSave: false,
-    assetsDir: 'wxyx-entry',
+    baseUrl:'/wxyx-market/',
+    assetsDir: 'assets',
     filenameHashing: false,
     productionSourceMap: false,
     devServer: {
-        proxy: 'http://ben.wxyx.youban.com'
+        proxy: 'http://dylan.wxyx.youban.com',
+        // overlay: {
+        //     warnings: true,
+        //     errors: true
+        // }
     },
     // configureWebpack:{
     //     plugins: [

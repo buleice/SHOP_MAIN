@@ -1,7 +1,6 @@
 <template>
     <div ref="wrapper">
         <slot></slot>
-        <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click.passive="_topFunction"><span class="iconfont"></span>顶部</div>
     </div>
 </template>
 
@@ -18,7 +17,7 @@
              */
             click: {
                 type: Boolean,
-                default: true
+                default: false
             },
             /**
              * 是否开启横向滚动
@@ -46,7 +45,7 @@
              */
             pullup: {
                 type: Boolean,
-                default: true
+                default: false
             },
             /**
              * 是否派发顶部下拉的事件，用于下拉刷新
@@ -73,9 +72,6 @@
                 type: Object,
                 default: null
             },
-            data: {
-                default: null
-            },
             string: {
                 type: String,
                 default: ''
@@ -85,6 +81,10 @@
                 invert: false,
                 easeTime: 300
             },
+            tap:{
+                type:Boolean,
+                default:true
+            }
         },
         data() {
             return {
@@ -117,17 +117,23 @@
                     scrollX: this.scrollX,
                     pullUpLoad: this.pullup,
                     pullDownRefresh:false,
-                    swipeTime:800,
-                    flickLimitDistance:30,
+                    swipeTime:80,
+                    tap:this.tap,
+                    bounce: {
+                        top: false,
+                        bottom: true,
+                        left: true,
+                        right: true
+                    }
                 })
                 if (this.listenScroll) {
                     let me = this
                     // pos为位置参数
                     this.scroll.on('scroll', (pos) => {
-                        if (Math.abs(pos.y) > 500) {
-                            me.showToTop = true
+                        if (pos.y <-350) {
+                            me.$emit('showToTop')
                         }else{
-                          me.showToTop = false
+                            me.$emit('hideToTop')
                         }
                         me.$emit('scroll', pos)
                     })
@@ -142,7 +148,7 @@
                                 this.isDone = true;
                             });
                             //单次请求数据加载完毕后
-                            this.$on('infinitescroll.finishLoad', (ret) => {
+                            this.$on('infinitescroll.finishLoad', () => {
                                 this.isLoading = false;
                             });
                             //重新初始化
@@ -207,9 +213,6 @@
             },
             scrollToElement() {
                 this.scroll && this.scroll.scrollToElement.apply(this.scroll, arguments)
-            },
-            _topFunction(){
-                this.scrollTo(0,0,1000)
             }
         },
         watch: {
@@ -236,8 +239,4 @@
         }
     }
 </script>
-<style lang="css" scoped>
-    .iOMeRW{position:absolute;color:#bbb;background-color:#fff;border:1px solid #ccc;line-height:3.75rem;border-radius:50%;width:2.75rem;height:2.75rem;font-size:0.8rem;text-align:center;right: 1rem;bottom: 1rem}
-    .iOMeRW span{color:#999;position:absolute;left:0;top:0;width:100%;height:100%;font-size:1.25rem;line-height:1.5rem}
-    .iconfont{font-family:h5index-iconfont;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale;font-size:1rem;color:#333}
-</style>
+

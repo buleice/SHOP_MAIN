@@ -22,14 +22,14 @@
    分享课程获取更多奖学金
  </div>
   <ul class="canGetCourses">
-  <li v-for="item in canGetCourses">
+  <li v-for="(item,index) in canGetCourses" :key="index">
     <!-- <a :href="item.url" @click="gotoUrl(item.title)"> -->
     <a href="javascript:void(0);" @click="gotoUrl(item.url,item.title)">
       <img :src="item.img" :alt="item.title">
       <div class="infos">
         <div class="title" v-text="item.title"></div>
         <div class="subtitle" v-html="item.subtitle"></div>
-        <div class="bonus">预计可得奖学金：<span>{{Number(item.bonus)}}&nbsp
+        <div class="bonus">预计可得奖学金：<span>{{Number(item.bonus)}} &nbsp;
             <b>优币</b>
           </span>
         </div>
@@ -39,7 +39,7 @@
 </ul>
 <transition name="fade">
 <div class="rule-pultop" v-if="showGuize">
- <div class="closeBtn"@click="showGuize=false"></div>
+ <div class="closeBtn" @click="showGuize=false"></div>
  <h2>提现规则</h2>
  <ul>
    <li>
@@ -90,7 +90,7 @@ export default {
     })
   },
   methods: {
-    gotoUrl: function(url, title) {
+    gotoUrl: function(url) {
       window.location.href = url;
     },
   }
@@ -108,7 +108,7 @@ export default {
   -webkit-box-orient: vertical
 }
 
-.share_ad{background: #f5f5f5;height: 2.5rem;line-height: 2.5rem;font-size: .88rem;border-bottom: 1px solid #f5f5f5;}
+.share_ad{background-color: #f5f5f5;height: 2.5rem;line-height: 2.5rem;font-size: .88rem;border-bottom: 1px solid #f5f5f5;}
 </style>
 <style lang="scss" scoped>
 .myAcount {

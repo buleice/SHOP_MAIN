@@ -6,3 +6,4 @@ export const classifyId=state=>state.classifyId;
 export const category=state=>state.category;
 
 export const viewDirection=state=>state.viewDirection;
+export const diyList=state=>state.diyList;

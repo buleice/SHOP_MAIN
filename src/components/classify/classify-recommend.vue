@@ -83,7 +83,7 @@
         }
         .recommend-desc{
             text-align: left;
-            padding: .88rem 0;
+            padding: .5rem 0 0 .44rem;
             color: rgba(0,0,0,.5);
         }
         .course {

@@ -23,9 +23,6 @@
 
 <script>
 import {
-  LazyImage
-} from '../../common/js/lazy'
-import {
   Request
 } from '../../api/request'
 export default {

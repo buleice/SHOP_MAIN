@@ -6,6 +6,7 @@ const state = {
         name: 'c-normal'
     },
     category:[],
-    viewDirection:'left'
+    viewDirection:'left',
+    diyList:[],
 }
 export default state;

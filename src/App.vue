@@ -24,15 +24,19 @@
         },
         data(){
             return{
-                transitionName: 'slide-right'  // 默认动态路由变化为slide-right
+                transitionName: 'fade-enter'  // 默认动态路由变化为slide-right
             }
         },
         watch: {
             '$route' (to, from) {
-                const arr = ['shop', '/mine', '/course', '/bonus']
-                const compare = arr.indexOf(to.path) > arr.indexOf(from.path)
+                const arr = ['default', 'Course', 'BonusIndex', 'mine','classify']
                 // this.transitionName = compare ? 'slide-left' : 'slide-right'
-                this.transitionName = compare ? 'view-out' : 'view-in'
+                if(arr.indexOf(to.name)<0){
+                    this.transitionName='fade-enter'
+                }else{
+                    const compare = arr.indexOf(to.name) > arr.indexOf(from.name)
+                    this.transitionName = compare ? 'view-in' : 'view-out'
+                }
 
             }
         }
@@ -40,8 +44,8 @@
 </script>
 
 <style>
-    #app{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50}
-    *{margin:0;padding:0}
+    #app{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;text-align:center;color:#2c3e50;background: #ffffff}
+    *{margin:0;padding:0;}
     body{font:.88rem PingFang regular,arial,helvetica,sans-serif;color:#555}
     body,button,dd,dl,fieldset,form,h1,h2,h3,h4,h5,h6,input,legend,ol,p,select,td,textarea,th,ul{margin:0;padding:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;text-size-adjust:none}
     h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:400;line-height:100%}

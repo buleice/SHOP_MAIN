@@ -16,6 +16,9 @@ const mutations = {
     [types.SET_SETVIEWDIRECTION](state, direction) {
         state.direction = direction;
     },
+    [types.SET_DIYLIST](state, diy) {
+        state.diyList = diy;
+    },
 
 }
 export default mutations
