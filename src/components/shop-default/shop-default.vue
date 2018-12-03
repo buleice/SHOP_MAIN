@@ -20,8 +20,8 @@
                 <RecommendBox :list="lessonList"></RecommendBox>
             </div>
         </div>
-        <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
-        <EntryAd @freshData="_initPageData"></EntryAd>
+        <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
+        <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
     </div>
 </template>
 
@@ -53,6 +53,7 @@
                 fetchCategory: true,
                 carouselList: [],
                 showToTop:false,
+                interest:[],
             }
         },
         created() {
@@ -79,6 +80,7 @@
                     localStorage.count = res.count;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
+                    this.interest=res.interest;
                     if(res.popup==0){
                         this.setFirstVisit(1);
                     }else if(res.popup==1){

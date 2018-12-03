@@ -1,5 +1,6 @@
 // const SkeletonWebpackPlugin = require('vue-skeleton-webpack-plugin');
 module.exports = {
+    lintOnSave:false,
     baseUrl:'/shop/',
     assetsDir: 'assets',
     filenameHashing: false,

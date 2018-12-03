@@ -8,13 +8,13 @@
             <div class="content-body">
                 <h3><span>请选择孩子的年龄段</span></h3>
                 <ul>
-                    <li @click.prevent="handleCheck(item)" :class="[recordAge!=null&&item.text==recordAge.text?'active':'']"
+                    <li @click.prevent="handleCheck(item)" :class="[age!=null&&item.text==age?'active':'']"
                         v-for="(item,index) in ageList" :key="index">{{item.text}}
                     </li>
                 </ul>
                 <h3><span>孩子对哪方面内容感兴趣</span></h3>
                 <ul ref="interest">
-                    <li @click.prevent="handleSelect(item,index)"
+                    <li @click.prevent="handleSelect(item,index)" :class="[recordMultiList.has(item)?'active':'']"
                         v-for="(item,index) in favoriateList" :key="index">{{item}}
                     </li>
                 </ul>
@@ -39,17 +39,17 @@
 
     export default {
         name: 'entryAd',
+        props:['interest'],
         data() {
             return {
                 ageList: [],
                 favoriateList: [],
-                recordMultiList: new Set(),
+                recordMultiList: new Set(this.interest),
                 recordAge: {
                   maxAge:"3",
                   minAge:"0",
                   text:"0-3岁",
-                },
-                ageText:''
+                }
             }
         },
         mounted() {
@@ -71,7 +71,7 @@
             },
             handleCheck(text) {
                 this.recordAge = text;
-                this.ageText=text.text;
+                this.setAge(text.text)
             },
             hasInRecord(text) {
                 if (this.recordMultiList.has(text)) {
@@ -105,6 +105,11 @@
                 }
             },
             ...mapGetters(['firstVisit','age'])
+        },
+        watch:{
+            interest(newVal){
+                this.recordMultiList=new Set(newVal);
+            }
         }
     }
 </script>
