@@ -24,7 +24,7 @@
                         <span>收起</span>
                     </li>
                 </ul>
-                <div class="personalDiy" v-if="ageis!=''&&ageis!=null&&locationId==101"><span>{{ageis}}</span><b @click="userDiy">重新选择</b></div>
+                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span>{{age}}</span><b @click="userDiy">重新选择</b></div>
                 <ClassifyRecommend :list="recommendList"  v-if="showRecommend"></ClassifyRecommend>
                 <ClassifyNormal :lessonList="normalList" v-else ></ClassifyNormal>
             </div>

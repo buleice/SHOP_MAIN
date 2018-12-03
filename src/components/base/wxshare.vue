@@ -4,7 +4,7 @@
 <script>
 import {Request} from '../../api/request';
 import {axiosPost} from '../../api/axios-data'
-import axios from 'axios';
+// import axios from 'axios';
 export default {
   name:"WxShare",
   props:{

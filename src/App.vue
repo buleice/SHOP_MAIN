@@ -35,7 +35,7 @@
                     this.transitionName='fade-enter'
                 }else{
                     const compare = arr.indexOf(to.name) > arr.indexOf(from.name)
-                    this.transitionName = compare ? 'view-in' : 'view-out'
+                    this.transitionName = compare ? 'fade-enter' : 'view-in'
                 }
 
             }

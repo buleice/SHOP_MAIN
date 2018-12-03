@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "md-sync"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -15,6 +16,7 @@
     "fastclick": "^1.0.6",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
+    "md-sync": "^0.2.0",
     "node-sass": "^4.10.0",
     "register-service-worker": "^1.0.0",
     "sass-loader": "^7.1.0",

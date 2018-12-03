@@ -85,7 +85,7 @@
                         this.setFirstVisit(0);
                     }
                     if(res.age.length>0){
-                        this.setAge(111)
+                        this.setAge(res.age);
                     }else{
                         this.setAge('3-6岁')
                     }
