@@ -76,7 +76,7 @@
             _initPageData(){
                 axios.get('/shop/list.json').then(response => {
                     let res=response.data;
-                    this.lessonList = [res.list1,res.list2,res.list3];
+                    this.lessonList = res.list;
                     localStorage.count = res.count;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;

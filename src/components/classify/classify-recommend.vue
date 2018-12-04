@@ -55,7 +55,7 @@
                     content: '';
                     display: block;
                     width: .31rem;
-                    height: 1.25rem;
+                    height: 100%;
                     background: #f69f00;
                     position: absolute;
                     top: 0;
