@@ -682,6 +682,58 @@
   resolved "http://registry.npm.taobao.org/@nodelib/fs.stat/download/@nodelib/fs.stat-1.1.3.tgz#2b5a3ab3f918cca48a8c754c08168e3f03eba61b"
   integrity sha1-K1o6s/kYzKSKjHVMCBaOPwPrphs=
 
+"@sentry/browser@^4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/browser/download/@sentry/browser-4.4.1.tgz#3473ca9e61926c2e896abe84bddfb2651004fb5a"
+  integrity sha1-NHPKnmGSbC6Jar6Evd+yZRAE+1o=
+  dependencies:
+    "@sentry/core" "4.4.1"
+    "@sentry/types" "4.4.1"
+    "@sentry/utils" "4.4.1"
+    tslib "^1.9.3"
+
+"@sentry/core@4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/core/download/@sentry/core-4.4.1.tgz#8836813d9d309059913b464cee6d23da09cc4056"
+  integrity sha1-iDaBPZ0wkFmRO0ZM7m0j2gnMQFY=
+  dependencies:
+    "@sentry/hub" "4.4.1"
+    "@sentry/minimal" "4.4.1"
+    "@sentry/types" "4.4.1"
+    "@sentry/utils" "4.4.1"
+    tslib "^1.9.3"
+
+"@sentry/hub@4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/hub/download/@sentry/hub-4.4.1.tgz#3f82405131bf10ef9e751e2760d63bfff809fa4a"
+  integrity sha1-P4JAUTG/EO+edR4nYNY7//gJ+ko=
+  dependencies:
+    "@sentry/types" "4.4.1"
+    "@sentry/utils" "4.4.1"
+    tslib "^1.9.3"
+
+"@sentry/minimal@4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/minimal/download/@sentry/minimal-4.4.1.tgz#332e97395a20a01e398ae6614a8fb857f2566c31"
+  integrity sha1-My6XOVogoB45iuZhSo+4V/JWbDE=
+  dependencies:
+    "@sentry/hub" "4.4.1"
+    "@sentry/types" "4.4.1"
+    tslib "^1.9.3"
+
+"@sentry/types@4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/types/download/@sentry/types-4.4.1.tgz#d19f9b0450a543aa11b136681ea19612e3cc1611"
+  integrity sha1-0Z+bBFClQ6oRsTZoHqGWEuPMFhE=
+
+"@sentry/utils@4.4.1":
+  version "4.4.1"
+  resolved "http://registry.npm.taobao.org/@sentry/utils/download/@sentry/utils-4.4.1.tgz#cf80fe596d43dc04f51cb780e0cf70017a8c1eb1"
+  integrity sha1-z4D+WW1D3AT1HLeA4M9wAXqMHrE=
+  dependencies:
+    "@sentry/types" "4.4.1"
+    tslib "^1.9.3"
+
 "@sindresorhus/is@^0.7.0":
   version "0.7.0"
   resolved "http://registry.npm.taobao.org/@sindresorhus/is/download/@sindresorhus/is-0.7.0.tgz#9a06f4f137ee84d7df0460c1fdb1135ffa6c50fd"
@@ -8761,7 +8813,7 @@ tryer@^1.0.0:
   resolved "http://registry.npm.taobao.org/tryer/download/tryer-1.0.1.tgz#f2c85406800b9b0f74c9f7465b81eaad241252f8"
   integrity sha1-8shUBoALmw90yfdGW4HqrSQSUvg=
 
-tslib@^1.9.0:
+tslib@^1.9.0, tslib@^1.9.3:
   version "1.9.3"
   resolved "http://registry.npm.taobao.org/tslib/download/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha1-1+TdeSRdhUKMTX5IIqeZF5VMooY=

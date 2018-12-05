@@ -1,10 +1,9 @@
 <template lang="html">
-
+<div></div>
 </template>
 <script>
 import {Request} from '../../api/request';
 import {axiosPost} from '../../api/axios-data'
-// import axios from 'axios';
 export default {
   name:"WxShare",
   props:{

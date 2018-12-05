@@ -3,7 +3,7 @@ module.exports = {
     lintOnSave:false,
     baseUrl:'/shop/',
     assetsDir: 'assets',
-    filenameHashing: false,
+    filenameHashing: true,
     productionSourceMap: false,
     devServer: {
         proxy: 'http://dylan.wxyx.youban.com',

@@ -1,15 +1,16 @@
-const bugsnag = require('bugsnag-js')
-const bugsnagClient = bugsnag('a325ef302b363d86bcc9948c2901ac91')
+
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './stores'
 import './registerServiceWorker'
-const bugsnagVue = require('bugsnag-vue')
 import FastClick from 'fastclick';
-bugsnagClient.use(bugsnagVue(Vue))
+import * as Sentry from '@sentry/browser'
+Sentry.init({
+    dsn: 'https://f9c0ab5ec7db46d7bb033d99030a4792@sentry.io/1337670',
+    integrations: [new Sentry.Integrations.Vue({ Vue })]
+})
 FastClick.attach(document.body);
-
 Vue.config.productionTip = false
 
 new Vue({
