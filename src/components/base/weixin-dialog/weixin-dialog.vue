@@ -39,12 +39,12 @@ export default {
       type: String,
       default: '温馨提示'
     },
-    alertDesc: '',
+    alertDesc: ,
     promptTitle: {
       type: String,
       default: '温馨提示'
     },
-    promptDesc: '',
+    promptDesc: ,
     cancleText: {
       type: String,
       default: '取消'

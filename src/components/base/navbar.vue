@@ -37,7 +37,7 @@ export default {
         }
       ]
     },
-    isNew:''
+    isNew:
   },
   data() {
     return {
