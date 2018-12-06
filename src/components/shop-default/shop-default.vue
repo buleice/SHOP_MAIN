@@ -54,10 +54,15 @@
                 carouselList: [],
                 showToTop:false,
                 interest:[],
+                auth:''
             }
         },
         created() {
-           this._initPageData()
+            // if(this.getCookie('auth')!=""){
+                this._initPageData()
+            // }else{
+            //     location.assign(`https://wxyx.youban.com/shop/index?version=${new Date().getTime()}`)
+            // }
         },
         methods: {
             imgLoad() {
@@ -93,6 +98,17 @@
                     }
                     this.setCategory(res.category2)
                 })
+            },
+            getCookie(cname)
+            {
+                var name = cname + "=";
+                var ca = document.cookie.split(';');
+                for(var i=0; i<ca.length; i++)
+                {
+                    var c = ca[i].trim();
+                    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
+                }
+                return "";
             },
             ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setAge"])
         },

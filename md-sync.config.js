@@ -1,13 +1,13 @@
 module.exports = [
     {
         src: './build/**/*',
-        remotePath: 'remotePath',
+        remotePath: '/home/dylan/wxyx/htdocs',
         server: {
             ignoreErrors: true,
             sshConfig: {
-                host: 'host',
-                username: 'username',
-                password: 'password'
+                host: '120.79.34.203',
+                username: 'dylan',
+                password: 'dylan123123'
             }
         },
     },
