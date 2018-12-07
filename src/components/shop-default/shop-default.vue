@@ -17,6 +17,7 @@
                         </router-link>
                     </li>
                 </ul>
+                <div class="personalDiy"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{age}}</span><b @click="userDiy">重新选择</b></div>
                 <RecommendBox :list="lessonList"></RecommendBox>
             </div>
         </div>
@@ -58,11 +59,7 @@
             }
         },
         created() {
-            // if(this.getCookie('auth')!=""){
                 this._initPageData()
-            // }else{
-            //     location.assign(`https://wxyx.youban.com/shop/index?version=${new Date().getTime()}`)
-            // }
         },
         methods: {
             imgLoad() {
@@ -99,21 +96,13 @@
                     this.setCategory(res.category2)
                 })
             },
-            getCookie(cname)
-            {
-                var name = cname + "=";
-                var ca = document.cookie.split(';');
-                for(var i=0; i<ca.length; i++)
-                {
-                    var c = ca[i].trim();
-                    if (c.indexOf(name)==0) return c.substring(name.length,c.length);
-                }
-                return "";
+            userDiy(){
+                this.setFirstVisit(0)
             },
             ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setAge"])
         },
         computed: {
-            ...mapGetters(['isScrollRefresh'])
+            ...mapGetters(['isScrollRefresh',"age"])
         }
     }
 </script>
@@ -141,11 +130,60 @@
                     a {
                         color: #0d0d0d;
                         display: block;
-                        width: 3rem;
+                        width: 36px;
                         img {
                             width: 100%;
                         }
                     }
+                }
+            }
+            .personalDiy{
+                width: 100%;
+                line-height: 2rem;
+                box-sizing: border-box;
+                padding: 0 0px 0 .625rem;
+                border-top: 3px solid #f5f5f5;
+                line-height: 2rem;
+                span{
+                    float: left;
+                    display: inline-block;
+                    height: 1.5rem;
+                    line-height: 1.5rem;
+                    padding: 0 .8rem;
+                    border-radius: .5rem;
+                    margin-top: .25rem;
+                    &.title{
+                        font-weight: 700;
+                        font-size: 1rem;
+                        padding-left: 0;
+                    }
+                    &.age{
+                        background-color: #f69f00;
+                        color: #ffffff;
+                    }
+                }
+                b{
+                    float: right;
+                    position: relative;
+                    padding-right: 1.25rem;
+                    color: #656565;
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        width: 0.5rem;
+                        height: 0.5rem;
+                        top: 50%;
+                        right: 0.63rem;
+                        border-top: 1px solid #656565;
+                        border-right: 1px solid #656565;
+                        transform: translate(-50%, -50%) rotate(45deg);
+                        -webkit-transform: translateY(-50%) rotate(45deg);
+                    }
+                }
+                &::after{
+                    content: '';
+                    display: block;
+                    clear: both;
                 }
             }
         }

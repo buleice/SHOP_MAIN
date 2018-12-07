@@ -24,7 +24,7 @@
                         <span>收起</span>
                     </li>
                 </ul>
-                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span>{{age}}</span><b @click="userDiy">重新选择</b></div>
+                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span class="title">帮孩子选课&nbsp;</span><span>{{age}}</span><b @click="userDiy">重新选择</b></div>
                 <ClassifyRecommend :list="recommendList"  v-if="showRecommend"></ClassifyRecommend>
                 <ClassifyNormal :lessonList="normalList" v-else ></ClassifyNormal>
             </div>
@@ -157,7 +157,7 @@
                         position: relative;
                         img {
                             display: inline-block;
-                            width: 3rem;
+                            width: 36px;
                             margin: auto;
                             position: relative;
                         }
@@ -176,8 +176,8 @@
                     }
                     b {
                         display: inline-block;
-                        width: 3rem;
-                        height: 3rem;
+                        width: 36px;
+                        height: 36px;
                         margin: auto;
                         position: relative;
                         &.pack-up::after {
@@ -219,10 +219,17 @@
                     height: 1.5rem;
                     line-height: 1.5rem;
                     padding: 0 .8rem;
-                    background-color: #f69f00;
-                    color: #ffffff;
                     border-radius: .5rem;
                     margin-top: .25rem;
+                    &.title{
+                        font-weight: 700;
+                        font-size: 1rem;
+                        padding-left: 0;
+                    }
+                    &.age{
+                        background-color: #f69f00;
+                        color: #ffffff;
+                    }
                 }
                 b{
                     float: right;
