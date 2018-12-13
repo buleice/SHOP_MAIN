@@ -59,10 +59,12 @@
  </ul>
 </div>
 </transition>
+    <PushInfo v-if="showAd"></PushInfo>
 </div>
 </template>
 
 <script>
+    import PushInfo from '../push-component/push-component'
 import {
   Request
 } from '../../../api/request';
@@ -70,7 +72,8 @@ import DanMaku from '../danmaku/danmaku'
 export default {
   name: 'BonusIndex',
   components:{
-    DanMaku
+    DanMaku,
+      PushInfo
   },
   data() {
     return {
@@ -78,7 +81,8 @@ export default {
       bonus: 0,
       count: 0,
       showGuize: false,
-      barrage:[]
+      barrage:[],
+        showAd:false
     }
   },
   created() {
@@ -87,6 +91,7 @@ export default {
       this.bonus = res.bonus;
       this.count = res.count;
       this.barrage=res.barrage;
+
     })
   },
   methods: {
@@ -237,7 +242,7 @@ export default {
                 flex-direction: column;
                 justify-content: center;
                 .title {
-                    font-size: 0.88rem;
+                    font-size: 1rem;
                     line-height: 1.56rem;
                     font-weight: bold;
                 }

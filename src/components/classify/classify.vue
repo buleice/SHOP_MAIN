@@ -15,16 +15,16 @@
                             <span>{{item.title}}</span>
                         </div>
                     </li>
-                    <li v-if="!allCategory" @click="allCategory=true;categorys=category">
+                    <li v-if="!allCategory" @click="allCategory=true;categorys=category2">
                         <b class="pack-down"></b>
                         <span>展开</span>
                     </li>
-                    <li v-else @click="allCategory=false;categorys=category.slice(0,9)">
+                    <li v-else @click="allCategory=false;categorys=category2.slice(0,9)">
                         <b class="pack-up"></b>
                         <span>收起</span>
                     </li>
                 </ul>
-                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span class="title">帮孩子选课&nbsp;</span><span>{{age}}</span><b @click="userDiy">重新选择</b></div>
+                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{age}}</span><b @click="userDiy">重新选择</b></div>
                 <ClassifyRecommend :list="recommendList"  v-if="showRecommend"></ClassifyRecommend>
                 <ClassifyNormal :lessonList="normalList" v-else ></ClassifyNormal>
             </div>
@@ -41,12 +41,14 @@
     const ClassifyNormal = () => import('../base/lesson-list');
 
     import {Request} from "../../api/request";
+    import EntryAd from '../base/entry-ad/entry-ad'
 
     export default {
         name: "calssify",
         data() {
             return {
                 categorys: [],
+                category2:[],
                 allCategory: false,
                 name: 'c-recommend',
                 showRecommend: false,
@@ -67,9 +69,6 @@
                 }
             })
         },
-        created() {
-            this.categorys = this.category.slice(0, 9);
-        },
         methods: {
             hrefTo(cname, cid) {
                 this.showToTop=false
@@ -79,6 +78,8 @@
                     new Request('/shop/category.json', 'GET', {
                         category: cid
                     }).returnJson().then(res => {
+                        this.category2=res.category2;
+                        this.categorys=res.category2.slice(0,9)
                         this.ageis=res.age
                         this.setData('recommendList', res.list);
                     })
@@ -87,6 +88,8 @@
                     new Request('/shop/category.json', 'GET', {
                         category: cid
                     }).returnJson().then(res => {
+                        this.category2=category2;
+                        this.categorys=res.category2.slice(0,9)
                         this.ageis=res.age
                         this.setData('normalList', res.list);
                     })
@@ -112,7 +115,7 @@
                 this.setFirstVisit(0)
                 this.$router.go(-1)
             },
-            ...mapActions(['setFirstVisit',])
+            ...mapActions(['setFirstVisit','setCategory'])
         },
         computed: {
             ...mapGetters(['category','age'])
@@ -120,7 +123,8 @@
         components: {
             // Scroll,
             ClassifyRecommend,
-            ClassifyNormal
+            ClassifyNormal,
+            EntryAd
         }
     }
 </script>
@@ -145,39 +149,47 @@
                 display: flex;
                 justify-content: flex-start;
                 flex-wrap: wrap;
-                padding-bottom: 0.94rem;
+                padding:.5rem 0;
                 li {
                     width: 20%;
-                    height: 5.38rem;
+                    /*height: 5.38rem;*/
                     box-sizing: border-box;
-                    padding: .94rem 0 0 0;
+                    /*box-sizing: border-box;*/
+                    /*margin-top: .94rem;*/
                     div {
-                        display: block;
-                        width: 100%;
+                        display: inline-block;
+                        margin: auto;
+                        height: auto;
                         position: relative;
+                        box-sizing: border-box;
+                        padding: .5rem;
                         img {
                             display: inline-block;
-                            width: 36px;
+                            width: 2.5rem;
                             margin: auto;
                             position: relative;
                         }
                         span {
                             display: block;
                         }
-                        &.active::after {
-                            content: '';
-                            display: block;
-                            position: relative;
-                            width: 2.19rem;
-                            height: 0;
-                            border-bottom: .13rem solid #f69f00;
-                            margin: auto;
+                        &.active{
+                            background: #f5f5f5;
+                            border-radius: 10px;
                         }
+                        /*&.active::after {*/
+                            /*content: '';*/
+                            /*display: block;*/
+                            /*position: relative;*/
+                            /*width: 2.19rem;*/
+                            /*height: 0;*/
+                            /*border-bottom: .13rem solid #f69f00;*/
+                            /*margin: auto;*/
+                        /*}*/
                     }
                     b {
                         display: inline-block;
-                        width: 36px;
-                        height: 36px;
+                        width: 2.5rem;
+                        height: 2.5rem;
                         margin: auto;
                         position: relative;
                         &.pack-up::after {

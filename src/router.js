@@ -21,7 +21,6 @@ export default new Router({
         {
             path: '/shop',
             component:Shop,
-
             children:[
                 {path: '/', redirect: 'default'},
                 {path:'default',

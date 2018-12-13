@@ -8,20 +8,28 @@
     </span>
   </div>
   <ul class="lists">
-    <li >
+    <li>
         <a href="#/bonus/center"><span class="title">奖学金</span><span class="about"></span></a>
     </li>
     <li>
-      <a href="/voucher/list"><span class="title">优惠券</span>
-        <span v-if="voucherCount>0" class="about">{{voucherCount}}张优惠券可用&nbsp;&nbsp;</span>
+      <a href="/voucher/list"><span class="title">兑换券</span>
+        <span v-if="voucherCount>0" class="about">{{voucherCount}}张兑换券可用&nbsp;&nbsp;</span>
         <span v-else class="about">&nbsp;&nbsp;</span>
       </a>
     </li>
+    <li>
+      <a href="voucher/list#/usercoupon2"><span class="title">优惠券</span>
+        <span v-if="voucherCount>0" class="about">&nbsp;</span>
+        <span v-else class="about">&nbsp;&nbsp;&nbsp;</span>
+      </a>
+    </li>
   </ul>
+  <PushInfo v-if="showAd"></PushInfo>
 </div>
 </template>
 
 <script>
+    import PushInfo from '../base/push-component/push-component'
 import {
   Request
 } from '../../api/request'
@@ -34,6 +42,7 @@ export default {
       uncompletedGroups: [],
       observer: '',
       voucherCount:0,
+        showAd:false
     }
   },
   created() {
@@ -45,6 +54,9 @@ export default {
       };
       this.voucherCount=res.voucherCount;
     })
+  },
+  components:{
+      PushInfo
   }
 }
 </script>

@@ -14,7 +14,7 @@ module.exports = {
     //     ]
     // }
     devServer: {
-        proxy: 'http://dylan.wxyx.youban.com',
+        proxy: 'http://test.wxyx.youban.com',
         // overlay: {
         //     warnings: true,
         //     errors: true

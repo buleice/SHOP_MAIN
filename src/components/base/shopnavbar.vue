@@ -15,10 +15,6 @@ export default {
       clickedTab: 1,
     }
   },
-  created() {
-    this._goPath();
-    // window._hmt.push(['_trackEvent', 'shopIndex'])
-  },
   methods: {
     routerTo(index) {
       switch (index) {
@@ -61,6 +57,7 @@ export default {
   watch: {
     $route: {
        handler: function(val, oldVal){
+           console.log(val)
          if(/mine/.test(val.path)){
            this.clickedTab = 1;
          }else if(/course/.test(val.path)){

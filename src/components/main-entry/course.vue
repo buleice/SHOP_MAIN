@@ -50,10 +50,12 @@
                 </div>
             </a>
         </div>
+        <PushInfo v-if="showAd"></PushInfo>
     </div>
 </template>
 
 <script>
+    import PushInfo from '../base/push-component/push-component'
     import {
         Request
     } from '../../api/request'
@@ -67,6 +69,7 @@
                 uncompletedGroups: [],
                 observer: '',
                 showMiniQrcode: true,
+                showAd:false
             }
         },
         created() {
@@ -104,6 +107,9 @@
                 return Rhtml
             }
         },
+        components:{
+            PushInfo
+        }
     }
 </script>
 

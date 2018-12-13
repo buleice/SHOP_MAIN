@@ -23,10 +23,12 @@
         </div>
         <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
         <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
+        <PushInfo v-if="showAd"></PushInfo>
     </div>
 </template>
 
 <script>
+    import PushInfo from '../base/push-component/push-component'
     import {
         mapGetters,
         mapActions
@@ -41,7 +43,7 @@
         components: {
             Carousel,
             RecommendBox,
-            // Scroll,
+            PushInfo,
             EntryAd
         },
         data() {
@@ -55,7 +57,8 @@
                 carouselList: [],
                 showToTop:false,
                 interest:[],
-                auth:''
+                auth:'',
+                showAd:false
             }
         },
         created() {
@@ -93,13 +96,12 @@
                     }else{
                         this.setAge('3-6岁')
                     }
-                    this.setCategory(res.category2)
                 })
             },
             userDiy(){
                 this.setFirstVisit(0)
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh','setCategory',"setAge"])
+            ...mapActions(['setFirstVisit', 'setScrollRefresh',"setAge"])
         },
         computed: {
             ...mapGetters(['isScrollRefresh',"age"])
@@ -130,7 +132,7 @@
                     a {
                         color: #0d0d0d;
                         display: block;
-                        width: 36px;
+                        width: 2.5rem;
                         img {
                             width: 100%;
                         }
