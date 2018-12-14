@@ -7,6 +7,7 @@ const state = {
     },
     category:[],
     viewDirection:'left',
-    age:'3-6岁'
+    age:'3-6岁',
+    routerArr:[]
 }
 export default state;

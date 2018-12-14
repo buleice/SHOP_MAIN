@@ -19,3 +19,7 @@ export const setDirection=({commit},direction)=>{
 export const setAge=({commit},age)=>{
     commit(types.SET_AGE,age)
 }
+
+export const setRouterArray=({commit,state},arr)=>{
+    commit(types.SETROUTERARRAY,arr)
+}

@@ -41,7 +41,6 @@
     const ClassifyNormal = () => import('../base/lesson-list');
 
     import {Request} from "../../api/request";
-    import EntryAd from '../base/entry-ad/entry-ad'
 
     export default {
         name: "calssify",
@@ -88,7 +87,7 @@
                     new Request('/shop/category.json', 'GET', {
                         category: cid
                     }).returnJson().then(res => {
-                        this.category2=category2;
+                        this.category2=res.category2;
                         this.categorys=res.category2.slice(0,9)
                         this.ageis=res.age
                         this.setData('normalList', res.list);
@@ -124,7 +123,6 @@
             // Scroll,
             ClassifyRecommend,
             ClassifyNormal,
-            EntryAd
         }
     }
 </script>

@@ -19,6 +19,9 @@ const mutations = {
     [types.SET_AGE](state, age) {
         state.age = age;
     },
+    [types.SETROUTERARRAY](state,arr){
+        state.routerArr=arr
+    }
 
 }
 export default mutations
