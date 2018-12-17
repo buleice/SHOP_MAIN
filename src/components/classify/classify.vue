@@ -70,7 +70,8 @@
         },
         methods: {
             hrefTo(cname, cid) {
-                this.showToTop=false
+                this.showToTop=false;
+                this.allCategory=false;
                 this.setData('locationId', cid)
                 if (cid == 101) {
                     this.setData('showRecommend', true);
