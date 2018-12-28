@@ -79,6 +79,7 @@
                         category: cid
                     }).returnJson().then(res => {
                         this.category2=res.category2;
+                        this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)
                         this.ageis=res.age
                         this.setData('recommendList', res.list);
@@ -89,6 +90,7 @@
                         category: cid
                     }).returnJson().then(res => {
                         this.category2=res.category2;
+                        this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)
                         this.ageis=res.age
                         this.setData('normalList', res.list);

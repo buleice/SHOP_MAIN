@@ -23,6 +23,10 @@
         <span v-else class="about">&nbsp;&nbsp;&nbsp;</span>
       </a>
     </li>
+    <li>
+      <a href="/address/index?#addressList"><span class="title">我的地址</span>
+      </a>
+    </li>
   </ul>
   <PushInfo v-if="showAd"></PushInfo>
 </div>
