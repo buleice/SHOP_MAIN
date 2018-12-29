@@ -2,7 +2,7 @@ import axios from 'axios';
 import {ROOT} from '../config/urlConfig';
 
 const axiosPost =(url,data)=>{
-  return new Promise((resolve,reject)=>{
+  return new Promise((resolve)=>{
 
       axios({
           url: ROOT+url,

@@ -60,7 +60,6 @@
         watch: {
             $route: {
                 handler: function (val, oldVal) {
-                    this.setRouterArray(val.fullPath)
                     if (/mine/.test(val.path)) {
                         this.clickedTab = 1;
                     } else if (/course/.test(val.path)) {

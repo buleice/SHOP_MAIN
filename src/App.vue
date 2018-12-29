@@ -57,7 +57,6 @@
                     this.isSwiper=false
                     return
                 }else{
-                    console.log("else")
                     if (arr.indexOf(to.name) < 0) {
                         this.transitionName = 'fade-enter'
                     } else {
@@ -111,9 +110,7 @@
                         return
                     }
                     // this.$refs.back.style.left=X-50+'px';
-                    const left = 50;
                     // var offsetWidth = Math.min(0, Math.max(window.innerWidth, left + deltaX))
-                    var offsetWidth=deltaX
                     this.percent = Math.abs(offsetWidth / window.innerWidth)
                     this.$refs.back.style["transform"] = `translate3d(${offsetWidth}px,0,0)`
                     this.$refs.back.style["transitionDuration"] = 10

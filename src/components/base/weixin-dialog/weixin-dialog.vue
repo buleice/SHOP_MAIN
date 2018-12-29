@@ -39,7 +39,10 @@ export default {
       type: String,
       default: '温馨提示'
     },
-    alertDesc: ,
+    alertDesc: {
+      type: String,
+      default: ''
+    },
     promptTitle: {
       type: String,
       default: '温馨提示'
@@ -54,14 +57,14 @@ export default {
       default: '确定'
     },
   },
-  methods:{
-    emitPCancel(){
+  methods: {
+    emitPCancel() {
       this.$emit('PCancle')
     },
-    emitPOk(){
+    emitPOk() {
       this.$emit('POk')
     },
-    emitAOk(){
+    emitAOk() {
       this.$emit('AOk')
     }
   }
