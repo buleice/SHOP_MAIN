@@ -57,7 +57,6 @@
                     this.isSwiper=false
                     return
                 }else{
-                    console.log("else")
                     if (arr.indexOf(to.name) < 0) {
                         this.transitionName = 'fade-enter'
                     } else {

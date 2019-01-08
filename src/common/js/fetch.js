@@ -3,7 +3,7 @@ import Config from './config.js';
 class Fetch extends Config{
 
 	constructor(url, params, successFunc, errorFunc){
-		super();
+		super(url, params);
 		this.url = super()._URL + url;
 		this.params = params;
 		this.successFunc = successFunc;

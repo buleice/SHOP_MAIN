@@ -63,7 +63,7 @@ class Request{
     this.data = Object.assign({},data)
   }
   returnJson(){
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve)=>{
       this.method=="POST"?
       fetch(this.url, {
         mode:'cors',

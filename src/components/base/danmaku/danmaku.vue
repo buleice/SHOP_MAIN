@@ -29,7 +29,7 @@ export default {
       if (this.lists.length > 0) {
         this.showDanMaku=true;
         let initIndex=0;
-        let interval = setInterval(() => {
+        setInterval(() => {
           this.danmakuText = this.lists[initIndex];
           initIndex++;
           if (initIndex>=this.lists.length) {
