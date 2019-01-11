@@ -45,12 +45,6 @@
                 observer: ''
             }
         },
-        mounted() {
-            // this.$nextTick(function(){
-            //   this.observer=new LazyImage(this.$refs.lazy)
-            // })
-        },
-
         methods: {
             renderLabel: function (Ftag) {
                 switch (Ftag) {
@@ -138,7 +132,7 @@
 
             }
             .tuanInfo {
-                padding: 0.625rem;
+                padding: 0  0.625rem 0.625rem;
                 height: auto;
                 overflow: hidden;
                 position: relative;
@@ -148,7 +142,7 @@
                     padding-top: 0.625rem;
                     span {
                         display: inline-block;
-                        padding: .19rem .31rem;
+                        padding: 1px .31rem;
                         border: 1px solid #666;
                         border-radius: 1.5625rem;
                         font-size: 0.75rem;
@@ -161,6 +155,7 @@
                     float: right;
                     display: flex;
                     align-items: center;
+                    margin-top: 0.5rem;
                     em {
                         font-size: 1rem;
                         margin-right: 0.625rem;
@@ -168,22 +163,18 @@
                     .detailbtn {
                         display: inline-block;
                         background-color: #f69f00;
-                        width: 5rem;
-                        line-height: 2.25rem;
-                        padding: 0 0.5rem;
-                        white-space: nowrap;
-                        border-radius: 1rem;
+                        width: 4.1875rem;
+                        line-height: 1.625rem;
+                        border-radius: .63rem;
                         text-align: center;
-                        line-height: 2.75rem;
+                        background-color: #f69f00;
                         color: #fff;
                         text-decoration: none;
-                        font-size: 1rem;
-                        max-width: 7.63rem;
-                        overflow: hidden;
                         max-width: 7.63rem;
                         overflow: hidden;
                         strong {
                             font-size: 1rem;
+                            font-weight: normal;
                         }
                     }
                 }

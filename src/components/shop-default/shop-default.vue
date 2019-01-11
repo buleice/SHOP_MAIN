@@ -1,4 +1,6 @@
 <template lang="html">
+<div>
+    <Loading v-if="showLoading"></Loading>
     <div class="shop-page">
         <div class="shop-content">
             <div>
@@ -25,6 +27,7 @@
         <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
         <PushInfo v-if="showAd" :coupon="coupons[0]"></PushInfo>
     </div>
+</div>
 </template>
 
 <script>
@@ -58,11 +61,17 @@
                 interest:[],
                 auth:'',
                 showAd:true,
-                coupons:[]
+                coupons:[],
+                showLoading:true
             }
         },
         created() {
                 this._initPageData()
+        },
+        mounted(){
+          this.$nextTick(()=>{
+              this.showLoading=false
+          })
         },
         methods: {
             imgLoad() {
@@ -117,6 +126,7 @@
 </style>
 <style scoped lang="scss">
     .shop-page {
+        padding-bottom: 3.125rem;
         // position: fixed;
         // width: 100%;
         // top: 0;
@@ -146,7 +156,7 @@
                 line-height: 2rem;
                 box-sizing: border-box;
                 padding: 0 0px 0 .625rem;
-                border-top: 3px solid #f5f5f5;
+                border-top: .19rem solid #f5f5f5;
                 line-height: 2rem;
                 span{
                     float: left;

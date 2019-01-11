@@ -24,6 +24,9 @@ const mutations = {
     },
     [types.SETNEWUSER](state,boo){
         state.newUser=boo
+    },
+    [types.SETSHOWTABBAR](state,boo){
+        state.showTabBar=boo
     }
 
 }

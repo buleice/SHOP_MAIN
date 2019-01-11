@@ -1,5 +1,5 @@
 <template lang="html">
-    <ul class="fixed-button">
+    <ul class="fixed-button" v-if="showTabBar">
         <li class="shop" :class="{active1:clickedTab==0}" @click="routerTo(0);"><span>首页</span></li>
         <li class="course" :class="{active3:clickedTab==2}" @click="routerTo(2);"><span>上课</span></li>
         <li class="bonus" :class="{active4:clickedTab==3}" @click="routerTo(3);"><span>奖学金</span></li>
@@ -8,7 +8,7 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapGetters,mapActions} from 'vuex'
 
     export default {
         name: 'ShopNavBar',
@@ -56,6 +56,9 @@
                 }
             },
             ...mapActions(['setRouterArray'])
+        },
+        computed:{
+            ...mapGetters(['showTabBar'])
         },
         watch: {
             $route: {

@@ -63,10 +63,16 @@
             next(vm => {
                 vm.hrefTo('classify', parseInt(to.params.cid));
                 vm.setData('locationId', to.params.cid)
+                vm.setShowTabBar(false)
                 if (to.params.cid == 101) {
                     vm.setData('showRecommend', true);
                 }
+
             })
+        },
+        beforeRouteLeave (to, from, next) {
+            this.setShowTabBar(true)
+            next()
         },
         methods: {
             hrefTo(cname, cid) {
@@ -117,7 +123,7 @@
                 this.setFirstVisit(0)
                 this.$router.go(-1)
             },
-            ...mapActions(['setFirstVisit','setCategory'])
+            ...mapActions(['setFirstVisit','setCategory','setShowTabBar'])
         },
         computed: {
             ...mapGetters(['category','age'])

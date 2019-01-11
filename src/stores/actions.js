@@ -26,3 +26,6 @@ export const setRouterArray=({commit,state},arr)=>{
 export const setNewUser=({commit,state},boo)=>{
     commit(types.SETNEWUSER,boo)
 }
+export const setShowTabBar=({commit,state},boo)=>{
+    commit(types.SETSHOWTABBAR,boo)
+}

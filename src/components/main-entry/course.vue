@@ -120,6 +120,7 @@
 <style media="screen" lang="scss" scoped>
     .course {
         background-color: #ffffff;
+        padding-bottom: 3.125rem;
         .miniProgram {
             width: 100%;
             height: 8.75rem;

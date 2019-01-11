@@ -225,10 +225,6 @@
         text-decoration: none
     }
 
-    body {
-        padding-bottom: 3.125rem
-    }
-
     a:-webkit-any-link {
         -webkit-tap-highlight-color: transparent;
         text-decoration: none;

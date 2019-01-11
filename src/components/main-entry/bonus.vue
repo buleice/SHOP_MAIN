@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="bonus-page">
+  <div class="bonus">
     <router-view></router-view>
   </div>
 </template>
@@ -11,4 +11,7 @@ name:'BonusPage'
 </script>
 
 <style lang="scss" scoped>
+  .bonus{
+    padding-bottom: 3.125rem;
+  }
 </style>

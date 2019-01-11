@@ -5,7 +5,8 @@ import store from './stores'
 import './registerServiceWorker'
 import FastClick from 'fastclick';
 import VueLazyload from 'vue-lazyload'
-
+import Loading from './components/base/loading/loading';
+Vue.component('Loading',Loading)
 Vue.use(VueLazyload)
 
 // or with options

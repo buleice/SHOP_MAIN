@@ -10,5 +10,6 @@ const state = {
     age:'3-6岁',
     routerArr:[],
     newUser:false,
+    showTabBar:true
 }
 export default state;
