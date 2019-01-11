@@ -4,7 +4,7 @@ const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 
 module.exports = {
     lintOnSave: undefined,
-    baseUrl: '/wxyx/shop/',
+    publicPath: '/wxyx/shop/',
     assetsDir: 'assets',
     filenameHashing: true,
     productionSourceMap: false,

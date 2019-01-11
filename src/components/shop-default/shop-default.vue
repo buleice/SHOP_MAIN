@@ -23,19 +23,18 @@
         </div>
         <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
         <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
-        <PushInfo v-if="showAd"></PushInfo>
+        <PushInfo v-if="showAd" :coupon="coupons[0]"></PushInfo>
     </div>
 </template>
 
 <script>
     import PushInfo from '../base/push-component/push-component'
+    import Carousel from '../base/slider/slider.vue'
+    import RecommendBox from '../base/recommend-box/recommend-box'
     import {
         mapGetters,
         mapActions
     } from 'vuex'
-    import Carousel from '../base/slider/slider.vue'
-    import RecommendBox from '../base/recommend-box/recommend-box'
-    // import Scroll from '../base/scroll/scroll'
     import EntryAd from '../base/entry-ad/entry-ad'
     import axios from 'axios'
     export default {
@@ -58,7 +57,8 @@
                 showToTop:false,
                 interest:[],
                 auth:'',
-                showAd:false
+                showAd:true,
+                coupons:[]
             }
         },
         created() {
@@ -86,6 +86,7 @@
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
                     this.interest=res.interest;
+                    this.coupons=res.couponSent;
                     if(res.popup==0){
                         this.setFirstVisit(1);
                     }else if(res.popup==1){
@@ -96,12 +97,13 @@
                     }else{
                         this.setAge('3-6岁')
                     }
+                    res.isNew==1?this.setNewUser(true):this.setNewUser(false);
                 })
             },
             userDiy(){
                 this.setFirstVisit(0)
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh',"setAge"])
+            ...mapActions(['setFirstVisit', 'setScrollRefresh',"setAge",'setNewUser'])
         },
         computed: {
             ...mapGetters(['isScrollRefresh',"age"])

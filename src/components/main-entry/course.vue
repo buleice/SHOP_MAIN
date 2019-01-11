@@ -16,7 +16,7 @@
             <div class="myGroup" v-for="(item,index) in uncompletedGroups" :key="index">
                 <a :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
                    class="a_box">
-                    <img :src="item['Fbanner'][0]" ref="lazy" alt="" class="course-img">
+                    <img v-lazy="item['Fbanner'][0]" ref="lazy" alt="" class="course-img">
                     <div class="groupInfo">
                         <div class="groupInfo__avatarbox">
                             <i v-for="(ava,index) in item['userList']" class="avatar"
@@ -39,7 +39,7 @@
                 src="https://udata.youban.com/webimg/other/quesheng.png"/></div>
         <div class="myGroup" v-for="(item,index) in myLesson" :key="index">
             <a :href="item['url']" class="a_box" target="_blank">
-                <img :src="item['banner']" ref="lazy" alt="" class="course-img">
+                <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
                 <div class="groupInfo" :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}">
                     <div class="groupInfo__avatarbox">
                         <div v-if="item['total']!=0">
@@ -225,8 +225,8 @@
                 }
                 .groupInfo {
                     width: 100%;
-                    height: 3.44rem;
-                    line-height: 3.44rem;
+                    height: 3rem;
+                    line-height: 3rem;
                     color: #fff;
                     padding: 0 0.38rem 0 0;
                     -webkit-box-sizing: border-box;
@@ -253,23 +253,22 @@
                         -ms-flex-align: center;
                         align-items: center;
                         position: relative;
-                        font-size: 1rem;
                         margin-left: 0.63rem;
                         .mypro {
                             background: rgba(6, 6, 6, .4);
-                            border: 2px solid #fff;
-                            width: 5.38rem;
-                            height: 1.75rem;
+                            border: 1px solid #fff;
+                            width: 3.75rem;
+                            height: 1.25rem;
                             border-radius: 0.88rem;
                             -webkit-appearance: none;
                             overflow: hidden;
                             color: #fff;
                             position: relative;
-                            top: 0.38rem;
+                            top: 0.25rem;
                             & + span {
                                 position: absolute;
-                                top: 0.94rem;
-                                right: 0.61rem;
+                                top: 0.75rem;
+                                left:2.25rem;
                                 width: 5.38rem;
                                 text-align: center;
                                 line-height: 1.75rem;
@@ -323,8 +322,8 @@
                         position: absolute;
                         bottom: 0.625rem;
                         right: 5px;
-                        width: 5.25rem;
-                        line-height: 2.2rem;
+                        width: 5rem;
+                        line-height: 1.8rem;
                         text-align: center;
                         background: #f69f00;
                         border-radius: 1rem;

@@ -23,3 +23,6 @@ export const setAge=({commit},age)=>{
 export const setRouterArray=({commit,state},arr)=>{
     commit(types.SETROUTERARRAY,arr)
 }
+export const setNewUser=({commit,state},boo)=>{
+    commit(types.SETNEWUSER,boo)
+}

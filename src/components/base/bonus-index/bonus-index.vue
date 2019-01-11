@@ -25,7 +25,7 @@
   <li v-for="(item,index) in canGetCourses" :key="index">
     <!-- <a :href="item.url" @click="gotoUrl(item.title)"> -->
     <a href="javascript:void(0);" @click="gotoUrl(item.url,item.title)">
-      <img :src="item.img" :alt="item.title">
+      <img v-lazy="item.img" :alt="item.title">
       <div class="infos">
         <div class="title" v-text="item.title"></div>
         <div class="subtitle" v-html="item.subtitle"></div>

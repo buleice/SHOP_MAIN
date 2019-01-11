@@ -8,3 +8,4 @@ export const category=state=>state.category;
 export const viewDirection=state=>state.viewDirection;
 export const age= state=>state.age;
 export const routerArr=state=>state.routerArr
+export const newUser=state=>state.newUser

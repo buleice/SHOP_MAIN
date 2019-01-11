@@ -4,16 +4,19 @@ import router from './router'
 import store from './stores'
 import './registerServiceWorker'
 import FastClick from 'fastclick';
-import VueTouch from 'vue-touch';
+import VueLazyload from 'vue-lazyload'
 
-Vue.use(VueTouch, {name: 'v-touch'});
-VueTouch.config.swipe = {threshold: 100}
+Vue.use(VueLazyload)
 
-import * as Sentry from '@sentry/browser'
-
-Sentry.init({
-    dsn: 'https://f9c0ab5ec7db46d7bb033d99030a4792@sentry.io/1337670',
-    integrations: [new Sentry.Integrations.Vue({Vue})]
+// or with options
+Vue.use(VueLazyload, {
+  // set observer to true
+   observer: true,
+   // optional
+   observerOptions: {
+     rootMargin: '200px',
+     threshold: 0.3
+   }
 })
 FastClick.attach(document.body);
 Vue.config.productionTip = false

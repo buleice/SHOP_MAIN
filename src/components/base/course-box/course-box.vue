@@ -1,6 +1,6 @@
 <template>
     <a class="coursre-box" :href="data.url">
-        <img class="course-img" @imgLoad="imgLoad" :src="data.icon" alt="">
+        <img class="course-img" @imgLoad="imgLoad" v-lazy="data.icon" alt="">
         <div class="coursre-intro">
             <h4 class="course-title">{{data.title}}</h4>
             <div class="course-desc" v-html="data.subtitle"></div>
@@ -105,4 +105,3 @@
     }
 
 </style>
-

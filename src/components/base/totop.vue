@@ -49,7 +49,20 @@ export default {
           cancelAnimationFrame(_this.timer);
         }
       });
-    }
+    },
+      _topFunction2() {
+          let _this=this
+          cancelAnimationFrame(this.timer);
+          this.timer = requestAnimationFrame(function fn() {
+              var oTop = document.body.scrollTop || document.documentElement.scrollTop;
+              if (oTop > 0) {
+                  scrollTo(0, 0);
+                  _this.timer = requestAnimationFrame(fn);
+              } else {
+                  cancelAnimationFrame(_this.timer);
+              }
+          });
+      }
   }
 }
 </script>

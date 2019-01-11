@@ -21,6 +21,9 @@ const mutations = {
     },
     [types.SETROUTERARRAY](state,arr){
         state.routerArr=arr
+    },
+    [types.SETNEWUSER](state,boo){
+        state.newUser=boo
     }
 
 }

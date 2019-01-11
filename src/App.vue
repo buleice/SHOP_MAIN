@@ -8,7 +8,7 @@
             </transition>
         </div>
         <ShopNavBar/>
-        <ScrollToTop/>
+        <ScrollToTop ref="scrollToTop"/>
         <WxShare/>
     </div>
 </template>
@@ -64,6 +64,7 @@
                         this.transitionName = compare ? 'fade-enter' : 'slide-left'
                     }
                 }
+                this.$refs.scrollToTop._topFunction2();
             }
         },
         methods: {
