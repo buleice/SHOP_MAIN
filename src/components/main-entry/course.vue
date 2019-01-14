@@ -16,7 +16,7 @@
             <div class="myGroup" v-for="(item,index) in uncompletedGroups" :key="index">
                 <a :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
                    class="a_box">
-                    <img v-lazy="item['Fbanner'][0]" ref="lazy" alt="" class="course-img">
+                    <img v-lazy="item['Fbanner'][0]" ref="lazy" alt="" class="course-img" :key="item['Fbanner'][0]">
                     <div class="groupInfo">
                         <div class="groupInfo__avatarbox">
                             <i v-for="(ava,index) in item['userList']" class="avatar"
@@ -39,7 +39,7 @@
                 src="https://udata.youban.com/webimg/other/quesheng.png"/></div>
         <div class="myGroup" v-for="(item,index) in myLesson" :key="index">
             <a :href="item['url']" class="a_box" target="_blank">
-                <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
+                <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img" :key="item['banner']">
                 <div class="groupInfo" :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}">
                     <div class="groupInfo__avatarbox">
                         <div v-if="item['total']!=0">
