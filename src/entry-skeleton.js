@@ -5,5 +5,5 @@ export default new Vue({
     components: {
         Skeleton
     },
-    template: '<skeleton />'
+    render: h => h(Skeleton),
 });

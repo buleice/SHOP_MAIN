@@ -1,6 +1,9 @@
 const path = require('path')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
+const SkeletonWebpackPlugin =require('vue-skeleton-webpack-plugin');
+const ExtractTextPlugin=require('extract-text-webpack-plugin')
+// const WabpackServerCongig=require('./webpack.config.server')
 
 module.exports = {
     lintOnSave: undefined,
@@ -29,6 +32,19 @@ module.exports = {
     //                     renderAfterDocumentEvent: 'render-event'
     //                 })
     //             }),
+    //
+    //             new SkeletonWebpackPlugin({
+    //                 webpackConfig: {
+    //                     entry: {
+    //                         app: path.join(__dirname,'./src/entry-skeleton.js')
+    //                     },
+    //                     target: 'node',
+    //                     devtool: false,
+    //                     // entry: path.join(__dirname,'./src/entry-skeleton.js'), // 多页应用中传入数组
+    //                 },
+    //                 minimize: true,
+    //                 quiet: true,
+    //             })
     //         ],
     //     };
     // },
