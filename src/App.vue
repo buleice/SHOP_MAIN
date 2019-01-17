@@ -283,10 +283,9 @@
 </style>
 
 <style lang="scss">
-    // Variables
+   @import "./common/css/common";
     $AnimateHook: "animated";
     $AnimateDuration: 0.8s;
-
     // Mixins
 
     // Base Style

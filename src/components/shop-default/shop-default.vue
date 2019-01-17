@@ -19,8 +19,9 @@
                         </router-link>
                     </li>
                 </ul>
-                <div class="personalDiy"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{age}}</span><b @click="userDiy">重新选择</b></div>
-                <RecommendBox :list="lessonList"></RecommendBox>
+                <!--<div class="personalDiy"><b @click="userDiy">填写孩子信息</b></div>-->
+                <goodsContainer :list="lessonList"></goodsContainer>
+                <!--<RecommendBox :list="lessonList"></RecommendBox>-->
             </div>
         </div>
         <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
@@ -34,6 +35,7 @@
     import PushInfo from '../base/push-component/push-component'
     import Carousel from '../base/slider/slider.vue'
     import RecommendBox from '../base/recommend-box/recommend-box'
+    import goodsContainer from '../base/goods-container/goods-container'
     import {
         mapGetters,
         mapActions
@@ -46,7 +48,8 @@
             Carousel,
             RecommendBox,
             PushInfo,
-            EntryAd
+            EntryAd,
+            goodsContainer
         },
         data() {
             return {
@@ -144,9 +147,14 @@
                     a {
                         color: #0d0d0d;
                         display: block;
-                        width: 2.5rem;
                         img {
-                            width: 100%;
+                            height: 2rem;
+                        }
+                        span{
+                            display: block;
+                            white-space: nowrap;
+                            text-align: center;
+                            margin-top: .25rem;
                         }
                     }
                 }
@@ -158,24 +166,6 @@
                 padding: 0 0px 0 .625rem;
                 border-top: .19rem solid #f5f5f5;
                 line-height: 2rem;
-                span{
-                    float: left;
-                    display: inline-block;
-                    height: 1.5rem;
-                    line-height: 1.5rem;
-                    padding: 0 .8rem;
-                    border-radius: .5rem;
-                    margin-top: .25rem;
-                    &.title{
-                        font-weight: 700;
-                        font-size: 1rem;
-                        padding-left: 0;
-                    }
-                    &.age{
-                        background-color: #f69f00;
-                        color: #ffffff;
-                    }
-                }
                 b{
                     float: right;
                     position: relative;
@@ -193,11 +183,6 @@
                         transform: translate(-50%, -50%) rotate(45deg);
                         -webkit-transform: translateY(-50%) rotate(45deg);
                     }
-                }
-                &::after{
-                    content: '';
-                    display: block;
-                    clear: both;
                 }
             }
         }
