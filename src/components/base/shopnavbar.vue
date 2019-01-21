@@ -55,7 +55,6 @@
                     this.clickedTab = 0;
                 }
             },
-            ...mapActions(['setRouterArray'])
         },
         computed:{
             ...mapGetters(['showTabBar'])
@@ -84,15 +83,15 @@
 <style media="screen" lang="scss" scoped>
     @mixin shop-nav-tab {
         background-repeat: no-repeat;
-        background-position: center 0.25rem;
-        background-size: 1.25rem auto;
+        background-position: center 0.125rem;
+        background-size: 1.875rem auto;
     }
 
     .fixed-button {
         position: fixed;
         display: block;
         width: 100%;
-        height: 3.44rem;
+        height: 3.125rem;
         bottom: 0;
         background: #fff;
         -webkit-box-shadow: -.125rem 0 0.5rem 0 rgba(0, 0, 0, .2);
@@ -110,45 +109,46 @@
             span {
                 display: inline-block;
                 position: absolute;
-                bottom: .38rem;
+                bottom: .1875rem;
                 left: 50%;
                 -webkit-transform: translateX(-50%);
                 transform: translateX(-50%);
             }
             &.shop {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/shop2.png");
+                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab1-0.png");
                 @include shop-nav-tab;
+
             }
             &.course {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/course2.png");
+                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab2-0.png");
                 @include shop-nav-tab;
             }
             &.bonus {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/bonus2.png");
+                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab3-0.png");
                 @include shop-nav-tab;
             }
             &.usercenter {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/usercenter.png");
+                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab4-0.png");
                 @include shop-nav-tab;
                 span {
                     width: 100%;
                 }
             }
             &.active1 {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/shop.png");
-                @include shop-nav-tab;
+                background:#f69f00 url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab1.png");
+                @include shop-nav-tab; color: #ffffff;
             }
             &.active2 {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/usercenter2.png");
-                @include shop-nav-tab;
+                background:#f69f00 url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab4.png");
+                @include shop-nav-tab; color: #ffffff;
             }
             &.active3 {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/course1.png");
-                @include shop-nav-tab;
+                background:#f69f00 url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab2.png");
+                @include shop-nav-tab; color: #ffffff;
             }
             &.active4 {
-                background: url("//udata.youban.com/webimg/wxyx/puintuan/icons/bonus1.png");
-                @include shop-nav-tab;
+                background: #f69f00 url("//udata.youban.com/webimg/wxyx/puintuan/icons/tab3.png");
+                @include shop-nav-tab; color: #ffffff;
             }
         }
     }

@@ -15,18 +15,19 @@
                             <span>{{item.title}}</span>
                         </div>
                     </li>
-                    <li v-if="!allCategory" @click="allCategory=true;categorys=category2">
+                    <li v-if="!allCategory&&category2.length>10" @click="allCategory=true;categorys=category2">
                         <b class="pack-down"></b>
                         <span>展开</span>
                     </li>
-                    <li v-else @click="allCategory=false;categorys=category2.slice(0,9)">
+                    <li v-if="allCategory&&category2.length>10" @click="allCategory=false;categorys=category2.slice(0,9)">
                         <b class="pack-up"></b>
                         <span>收起</span>
                     </li>
                 </ul>
-                <div class="personalDiy" v-if="age!=''&&age!=null&&locationId==101"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{age}}</span><b @click="userDiy">重新选择</b></div>
-                <ClassifyRecommend :list="recommendList"  v-if="showRecommend"></ClassifyRecommend>
-                <ClassifyNormal :lessonList="normalList" v-else ></ClassifyNormal>
+                <ClassifyRecommend :list="recommendList"  v-if="showRecommend&&!showLoading"></ClassifyRecommend>
+                <ClassifyNormal :lessonList="normalList"  v-if="!showRecommend&&!showLoading" ></ClassifyNormal>
+                <Loading v-if="showLoading"></Loading>
+
             </div>
         </div>
         <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
@@ -34,11 +35,10 @@
 </template>
 
 <script>
-    import {mapGetters,mapActions} from 'vuex'
-    // import Scroll from '../base/scroll/scroll'
-
+    import {mapActions} from 'vuex'
     const ClassifyRecommend = () => import('./classify-recommend');
     const ClassifyNormal = () => import('../base/lesson-list');
+    import Loading from '../base/loading'
 
     import {Request} from "../../api/request";
 
@@ -56,7 +56,7 @@
                 locationId: 100,
                 timeLimit: false,
                 showToTop:false,
-                ageis:null
+                showLoading:false
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -78,6 +78,7 @@
             hrefTo(cname, cid) {
                 this.showToTop=false;
                 this.allCategory=false;
+                this.showLoading=true;
                 this.setData('locationId', cid)
                 if (cid == 101) {
                     this.setData('showRecommend', true);
@@ -87,8 +88,10 @@
                         this.category2=res.category2;
                         this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)
-                        this.ageis=res.age
                         this.setData('recommendList', res.list);
+                        setTimeout(()=>{
+                            this.showLoading=false;
+                        },300)
                     })
                 } else if (cid != 101) {
                     this.setData('showRecommend', false);
@@ -98,13 +101,12 @@
                         this.category2=res.category2;
                         this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)
-                        this.ageis=res.age
                         this.setData('normalList', res.list);
+                        setTimeout(()=>{
+                            this.showLoading=false;
+                        },300)
                     })
                 }
-            },
-            imgLoad() {
-                // this.$refs.scroll.refresh();
             },
             setData(key, value) {
                 this[key] = value
@@ -119,19 +121,12 @@
                 this.$refs.scroll.scrollTo(0,0,300);
                 this.showToTop=false
             },
-            userDiy(){
-                this.setFirstVisit(0)
-                this.$router.go(-1)
-            },
             ...mapActions(['setFirstVisit','setCategory','setShowTabBar'])
         },
-        computed: {
-            ...mapGetters(['category','age'])
-        },
         components: {
-            // Scroll,
             ClassifyRecommend,
             ClassifyNormal,
+            Loading
         }
     }
 </script>
@@ -142,15 +137,7 @@
 </style>
 <style scoped lang="scss">
     .classify-page {
-        // position: fixed;
-        // width: 100%;
-        // top: 0;
-        // bottom: 0;
-        // background-color: #ffffff;
-        // z-index: 100;
         .classify-content {
-            // height: 100%;
-            // overflow: hidden;
             .classify-banner {
                 width: 100%;
                 display: flex;
@@ -223,55 +210,6 @@
                     span {
                         display: block;
                     }
-                }
-            }
-            .personalDiy{
-                width: 100%;
-                line-height: 2rem;
-                box-sizing: border-box;
-                padding: 0 0px 0 .625rem;
-                border-top: 3px solid #f5f5f5;
-                line-height: 2rem;
-                span{
-                    float: left;
-                    display: inline-block;
-                    height: 1.5rem;
-                    line-height: 1.5rem;
-                    padding: 0 .8rem;
-                    border-radius: .5rem;
-                    margin-top: .25rem;
-                    &.title{
-                        font-weight: 700;
-                        font-size: 1rem;
-                        padding-left: 0;
-                    }
-                    &.age{
-                        background-color: #f69f00;
-                        color: #ffffff;
-                    }
-                }
-                b{
-                    float: right;
-                    position: relative;
-                    padding-right: 1.25rem;
-                    color: #656565;
-                    &::after {
-                        content: "";
-                        position: absolute;
-                        width: 0.5rem;
-                        height: 0.5rem;
-                        top: 50%;
-                        right: 0.63rem;
-                        border-top: 1px solid #656565;
-                        border-right: 1px solid #656565;
-                        transform: translate(-50%, -50%) rotate(45deg);
-                        -webkit-transform: translateY(-50%) rotate(45deg);
-                    }
-                }
-                &::after{
-                    content: '';
-                    display: block;
-                    clear: both;
                 }
             }
         }

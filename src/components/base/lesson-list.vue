@@ -5,7 +5,6 @@
                 <div class="tuanimg">
                     <a :href="item.url" target="_blank">
                         <img class="course-img" @load="imgLoad" ref="lazy" v-lazy="item['banner']" :key="item['banner']">
-                        <img class="tuan-label" :src="renderLabel(item['Ftag'])" alt="">
                     </a>
                     <div class="people">
                         {{item['sales']}}人正在学习

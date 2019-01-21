@@ -155,9 +155,6 @@
                 }
             }
         },
-        computed: {
-            ...mapGetters(['routerArr'])
-        }
     }
 </script>
 
@@ -173,6 +170,9 @@
     * {
         margin: 0;
         padding: 0;
+        /*font-family: PingFangSC-Medium, sans-serif;*/
+        font-family: PingFangSC-Regular, sans-serif;
+        /*font-family:Sans-serif,"Times New Roman",Georgia;*/
     }
 
     body {

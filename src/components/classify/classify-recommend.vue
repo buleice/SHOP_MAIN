@@ -33,6 +33,7 @@
 </script>
 
 <style scoped lang="scss">
+    @import "../../common/css/common";
     .divide {
         width: 100%;
         height: .63rem;
@@ -51,16 +52,16 @@
                 font-weight: 700;
                 position: relative;
                 padding-left: .44rem;
-                &::before{
-                    content: '';
-                    display: block;
-                    width: .31rem;
-                    height: 100%;
-                    background: #f69f00;
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                }
+                /*&::before{*/
+                    /*content: '';*/
+                    /*display: block;*/
+                    /*width: .31rem;*/
+                    /*height: 100%;*/
+                    /*background: #f69f00;*/
+                    /*position: absolute;*/
+                    /*top: 0;*/
+                    /*left: 0;*/
+                /*}*/
             }
             a {
                 color: rgba(0, 0, 0, .7);
@@ -86,7 +87,10 @@
             color: rgba(0,0,0,.5);
         }
         .course {
-            border-bottom: 1px solid rgba(0, 0, 0, .2);
+            @include card-shadow;
+            margin-top: .875rem;
+            box-sizing: border-box;
+            padding-left: .625rem;
             &:last-child {
                 border: none;
             }

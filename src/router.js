@@ -9,6 +9,7 @@ const BonusBill = () => import('./components/base/bonus-bill/bonus-bill.vue');
 const BonusIndex = () => import('./components/base/bonus-index/bonus-index.vue');
 const ShopDefault=()=>import('./components/shop-default/shop-default');
 const ShopClassify=()=>import('./components/classify/classify');
+const Crunchies=()=>import('./components/classify/crunchies');
 Vue.use(Router);
 
 
@@ -31,6 +32,12 @@ export default new Router({
                 {path:'classify/:cid',
                     component:ShopClassify,
                     name:'classify',
+                    props:true,
+                },
+                {
+                    path:'crunchies/:id',
+                    component:Crunchies,
+                    name:'crunchies',
                     props:true,
                 }
             ]

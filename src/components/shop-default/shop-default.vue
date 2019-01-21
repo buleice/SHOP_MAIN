@@ -19,13 +19,10 @@
                         </router-link>
                     </li>
                 </ul>
-                <!--<div class="personalDiy"><b @click="userDiy">填写孩子信息</b></div>-->
-                <goodsContainer :list="lessonList"></goodsContainer>
-                <!--<RecommendBox :list="lessonList"></RecommendBox>-->
+                <goodsContainer></goodsContainer>
             </div>
         </div>
         <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
-        <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
         <PushInfo v-if="showAd" :coupon="coupons[0]"></PushInfo>
     </div>
 </div>
@@ -34,21 +31,17 @@
 <script>
     import PushInfo from '../base/push-component/push-component'
     import Carousel from '../base/slider/slider.vue'
-    import RecommendBox from '../base/recommend-box/recommend-box'
     import goodsContainer from '../base/goods-container/goods-container'
     import {
         mapGetters,
         mapActions
     } from 'vuex'
-    import EntryAd from '../base/entry-ad/entry-ad'
     import axios from 'axios'
     export default {
         name: 'ShopDeault',
         components: {
             Carousel,
-            RecommendBox,
             PushInfo,
-            EntryAd,
             goodsContainer
         },
         data() {
@@ -73,7 +66,7 @@
         },
         mounted(){
           this.$nextTick(()=>{
-              this.showLoading=false
+              this.showLoading=false;
           })
         },
         methods: {
@@ -92,12 +85,12 @@
             },
             _initPageData(){
                 axios.get('/shop/list.json').then(response => {
+                    this['moduleIndex/setIndexPageData'](response.data)
                     let res=response.data;
                     this.lessonList = res.list;
                     localStorage.count = res.count;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
-                    this.interest=res.interest;
                     this.coupons=res.couponSent;
                     if(res.popup==0){
                         this.setFirstVisit(1);
@@ -115,10 +108,10 @@
             userDiy(){
                 this.setFirstVisit(0)
             },
-            ...mapActions(['setFirstVisit', 'setScrollRefresh',"setAge",'setNewUser'])
+            ...mapActions(['setFirstVisit',"setAge",'setNewUser','moduleIndex/setIndexPageData'])
         },
         computed: {
-            ...mapGetters(['isScrollRefresh',"age"])
+            ...mapGetters(["age",'moduleIndex/indexPageData'])
         }
     }
 </script>
@@ -130,15 +123,7 @@
 <style scoped lang="scss">
     .shop-page {
         padding-bottom: 3.125rem;
-        // position: fixed;
-        // width: 100%;
-        // top: 0;
-        // bottom: 3.5rem;
-        // background-color: #ffffff;
-        // z-index: 100;
         .shop-content {
-            // height: 100%;
-            // overflow: hidden;
             .shop-category {
                 display: flex;
                 justify-content: space-around;
@@ -148,7 +133,7 @@
                         color: #0d0d0d;
                         display: block;
                         img {
-                            height: 2rem;
+                            width:2.5rem;
                         }
                         span{
                             display: block;
