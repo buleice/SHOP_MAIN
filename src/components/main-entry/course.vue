@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div class="noempty" v-if="myLesson.length==0&&uncompletedGroups.length==0"><img
+        <div class="noempty" v-if="myLesson.length==0&&uncompletedGroups.length==0" ><img
                 src="https://udata.youban.com/webimg/other/quesheng.png"/></div>
         <div class="myGroup" v-for="(item,index) in myLesson" :key="index">
             <a :href="item['url']" class="a_box" target="_blank">
@@ -336,12 +336,9 @@
         }
         .noempty {
             text-align: center;
-            img {
-                width: 40%;
-                height: auto;
-                overflow: hidden;
-                display: block;
-                margin: 10px auto 0;
+            img{
+                margin-top:33%;
+                width: 5rem;
             }
         }
     }

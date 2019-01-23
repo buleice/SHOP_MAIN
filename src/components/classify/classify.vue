@@ -167,7 +167,7 @@
                             display: block;
                         }
                         &.active{
-                            background: #f5f5f5;
+                            background: #e5e5e5;
                             border-radius: 10px;
                         }
                         /*&.active::after {*/

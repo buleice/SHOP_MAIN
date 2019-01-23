@@ -8,8 +8,7 @@
 </template>
 
 <script>
-    import {mapGetters,mapActions} from 'vuex'
-
+    import {mapGetters} from 'vuex'
     export default {
         name: 'ShopNavBar',
         data() {
@@ -85,6 +84,7 @@
         background-repeat: no-repeat;
         background-position: center 0.125rem;
         background-size: 1.875rem auto;
+        transition: background-color .3s;
     }
 
     .fixed-button {

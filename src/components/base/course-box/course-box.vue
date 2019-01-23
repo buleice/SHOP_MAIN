@@ -41,7 +41,7 @@
         position: relative;
         .course-img {
             width: 5.25rem;
-            height: 5.25rem;
+            height: auto;
             border-radius: .31rem;
             margin-right: 0.625rem;
         }

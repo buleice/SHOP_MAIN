@@ -10,7 +10,7 @@
       <td>{{item.bonus}}</td>
     </tr>
   </table>
-  <div v-else>
+  <div v-else class="default-img">
     <img src="//udata.youban.com/webimg/wxyx/puintuan/double11_gift_noget.png" style="margin-top:33%;" alt="">
     <p style="font-size:1.25rem;">还未获得奖学金哦~~</p>
   </div>
@@ -65,5 +65,12 @@ table {
             }
         }
     }
+}
+.default-img{
+  text-align: center;
+  img{
+    margin-top:33%;
+    width: 5rem;
+  }
 }
 </style>

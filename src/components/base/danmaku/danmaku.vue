@@ -24,6 +24,9 @@ export default {
       showDanMaku:false
     }
   },
+    created(){
+
+    },
   watch:{
     lists(){
       if (this.lists.length > 0) {
@@ -53,7 +56,7 @@ export default {
 }
 .danmaku{width: 10.75rem;height: 1.875rem;}
 .danmaku_box{padding:0 .2rem;height:100%; background:#fff;border-radius:0 .9375rem .9375rem 0;opacity:0;-webkit-transform:translateY(.9375rem);transform:translateY(.9375rem);color:#fff;box-shadow: 0 1px 2px 1px rgba(0,0,0,.2)}
-.danmaku_tip{animation:ani_tip 4s;animation-delay:1s;-webkit-animation:ani_tip 4s;-webkit-animation-delay:1s;-webkit-animation-iteration-count:infinite;animation-iteration-count:infinite}
+.danmaku_tip{animation:ani_tip 4s;animation-delay:0s;animation-iteration-count:infinite}
 .danmaku_box >>> p{text-overflow:ellipsis;overflow:hidden;white-space:nowrap;font-size:.8125rem;line-height:1.875rem;height: 100%;color: #3c3c3c}
 .danmaku_box >>> .name{color:#0a7aec;max-width:3.75rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;float:left;height:1.875rem;line-height:1.875rem;margin-right:.3125rem}
 
