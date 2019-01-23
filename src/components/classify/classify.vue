@@ -145,7 +145,8 @@
                 flex-wrap: wrap;
                 padding:.5rem 0;
                 li {
-                    width: 20%;
+                    /*width: 20%;*/
+                    width: 25%;
                     /*height: 5.38rem;*/
                     box-sizing: border-box;
                     /*box-sizing: border-box;*/

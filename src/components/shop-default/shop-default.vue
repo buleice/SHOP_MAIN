@@ -61,8 +61,10 @@
                 showLoading:true
             }
         },
-        created() {
-                this._initPageData()
+        beforeRouteEnter(to, from, next) {
+            next(vm => {
+                vm._initPageData();
+            });
         },
         mounted(){
           this.$nextTick(()=>{
@@ -89,6 +91,7 @@
                     let res=response.data;
                     this.lessonList = res.list;
                     localStorage.count = res.count;
+                    this.showAd=res.couponSent.length>0?true:false;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
                     this.coupons=res.couponSent;
@@ -127,7 +130,7 @@
             .shop-category {
                 display: flex;
                 justify-content: space-around;
-                padding-bottom: .5rem;
+                padding: .5rem 0;
                 li {
                     a {
                         color: #0d0d0d;

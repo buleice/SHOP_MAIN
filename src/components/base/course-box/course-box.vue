@@ -39,6 +39,7 @@
         justify-content: flex-start;
         color: #555;
         position: relative;
+        background: $bg-color-white;
         .course-img {
             width: 5.25rem;
             height: auto;
@@ -73,6 +74,7 @@
                 margin-top: .25rem;
                 /*-webkit-line-clamp: 2;*/
                 /*-webkit-box-orient: vertical;*/
+                color: $font-color-info;
                 p {
                     color: rgba(0, 0, 0, .7);
                     max-width: 15.25rem;
@@ -84,6 +86,7 @@
                 display: inline-block;
                 vertical-align: middle;
                 margin-top: .625rem;
+                margin-left: -.5rem;
                 span {
                     display: inline-block;
                     vertical-align: middle;

@@ -44,7 +44,7 @@
             display: flex;
             justify-content: space-between;
             span {
-                font-size: 1rem;
+                font-size: 1.125rem;
                 font-weight: 700;
             }
             a {

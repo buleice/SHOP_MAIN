@@ -1,7 +1,6 @@
 <template>
    <div class="classify-recommend">
        <div v-for="(item,index) in list" :key="index">
-           <div class="divide"></div>
            <div class="recommend-box">
                <div class="recommend-banner"><span v-html="item.title"></span></div>
                <p class="recommend-desc" v-html="item.subtitle"></p>
@@ -42,13 +41,13 @@
     .recommend-box {
         width: 100%;
         box-sizing: border-box;
-        padding: 0 .5rem;
-        margin: .63rem 0;
+        padding: .63rem;
+        background: #f5f5f5;
         .recommend-banner {
             display: flex;
             justify-content: flex-start;
             span {
-                font-size: 1rem;
+                font-size: 1.125rem;
                 font-weight: 700;
                 position: relative;
                 padding-left: .44rem;

@@ -77,6 +77,7 @@
 </script>
 
 <style media="screen" lang="scss" scoped>
+    @import "../../common/css/common";
     .item {
         overflow: hidden;
         padding: 0.625rem;
@@ -139,12 +140,10 @@
                     float: left;
                     width: 38%;
                     padding-top: 0.625rem;
+                    margin-left: -.5rem;
                     span {
-                        display: inline-block;
-                        padding: 1px .31rem;
-                        border: 1px solid #666;
-                        border-radius: 1.5625rem;
-                        font-size: 0.75rem;
+                        @include circle-label;
+                        color: $font-color-info;
                         &:first-child {
                             margin-right: 0.375rem;
                         }

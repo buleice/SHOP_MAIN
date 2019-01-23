@@ -54,17 +54,22 @@ export default {
         showAd:false
     }
   },
-  created() {
-    new Request("/shop/center.json", "POST").returnJson().then(res => {
-      this.userInfo = {
-        nick: res.nick,
-        wid: res.wid,
-        img: res.img
-      };
-      this.voucherCount=res.voucherCount;
-      this.couponCount=res.couponCount;
-    })
-  },
+    created() {
+      this._initPageData()
+    },
+    methods:{
+      _initPageData(){
+          new Request("/shop/center.json", "POST").returnJson().then(res => {
+              this.userInfo = {
+                  nick: res.nick,
+                  wid: res.wid,
+                  img: res.img
+              };
+              this.voucherCount=res.voucherCount;
+              this.couponCount=res.couponCount;
+          })
+      }
+    },
   components:{
       PushInfo
   }

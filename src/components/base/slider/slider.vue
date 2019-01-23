@@ -233,7 +233,7 @@ export default {
                 text-decoration: none;
             }
             img {
-              width: 22.56rem;
+              width: 96%;
               margin: .5rem auto;
               border-radius: .63rem;
               box-shadow: 0 .13rem .75rem #888888;;
