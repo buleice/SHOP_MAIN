@@ -4,12 +4,12 @@
             <div>
                 <ul class="classify-banner">
                     <li v-for="item in categorys" :key="item.title">
-                        <div v-if="item.id==101" @click="hrefTo('c-recommend',item.id)"
+                        <div v-if="item.id==101" @click="autoPlayTheme(item.id)"
                              :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
                         </div>
-                        <div v-else @click="hrefTo('c-normal',item.id)"
+                        <div v-else @click="autoPlayTheme(item.id)"
                              :class="[locationId==item.id?'active':'']">
                             <img :src="item.icon" alt="">
                             <span>{{item.title}}</span>
@@ -35,11 +35,10 @@
 </template>
 
 <script>
-    import {mapActions} from 'vuex'
+    import {mapActions,mapGetters} from 'vuex'
     const ClassifyRecommend = () => import('./classify-recommend');
     const ClassifyNormal = () => import('../base/lesson-list');
     import Loading from '../base/loading'
-
     import {Request} from "../../api/request";
 
     export default {
@@ -56,30 +55,46 @@
                 locationId: 100,
                 timeLimit: false,
                 showToTop:false,
-                showLoading:false
+                showLoading:false,
+                sourceFrom:'default',
+                fromCache:false
             }
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
-                vm.hrefTo('classify', parseInt(to.params.cid));
-                vm.setData('locationId', to.params.cid)
+                vm.setData('sourceFrom',from.name)
+                vm.autoPlayTheme(parseInt(to.params.cid));
                 vm.setShowTabBar(false)
-                if (to.params.cid == 101) {
-                    vm.setData('showRecommend', true);
-                }
-
             })
         },
         beforeRouteLeave (to, from, next) {
             this.setShowTabBar(true)
             next()
         },
+        created(){
+            window.addEventListener('pageshow', function(event) {
+                if (event.persisted) {
+                    this.fromCache=true;
+                }else{
+                    this.fromCache=false;
+                }
+            })
+        },
         methods: {
-            hrefTo(cname, cid) {
+            autoPlayTheme(cid){
+                if(this.fromCache){
+                    this.sourceFrom!='default'&&this.themeIndex!=1000?this.hrefTo(this.themeIndex): this.hrefTo(cid)
+                }else{
+                    this.sourceFrom!='default'&&localStorage.getItem('themeIndex')!=1000?this.hrefTo(localStorage.getItem('themeIndex')): this.hrefTo(cid)
+                }
+            },
+            hrefTo(cid) {
                 this.showToTop=false;
                 this.allCategory=false;
                 this.showLoading=true;
-                this.setData('locationId', cid)
+                this.locationId=cid;
+                localStorage.setItem("themeIndex", cid);
+                this['moduleClassify/setThemeIndex'](cid);
                 if (cid == 101) {
                     this.setData('showRecommend', true);
                     new Request('/shop/category.json', 'GET', {
@@ -107,6 +122,7 @@
                         },300)
                     })
                 }
+                this.sourceFrom='default'
             },
             setData(key, value) {
                 this[key] = value
@@ -121,7 +137,10 @@
                 this.$refs.scroll.scrollTo(0,0,300);
                 this.showToTop=false
             },
-            ...mapActions(['setFirstVisit','setCategory','setShowTabBar'])
+            ...mapActions(['setFirstVisit','setCategory','setShowTabBar','moduleClassify/setThemeIndex'])
+        },
+        computed:{
+            ...mapGetters('moduleClassify',['themeIndex'])
         },
         components: {
             ClassifyRecommend,

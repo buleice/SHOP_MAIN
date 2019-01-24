@@ -14,7 +14,6 @@
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
     import ShopNavBar from './components/base/shopnavbar.vue'
     import WxShare from './components/base/wxshare.vue';
     import ScrollToTop from './components/base/totop.vue'

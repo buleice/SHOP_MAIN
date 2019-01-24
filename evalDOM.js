@@ -149,9 +149,9 @@ module.exports = function evalDOM() {
                 drawBlock({
                         width: wPercent(w - paddingLeft - paddingRight),
                         height: hPercent(textHeight),
-                        top: hPercent(t + (h - textHeight) / 2), textHeight * i +
-                    left: isCenter? (w - textWidth) / 2: l + paddingLeft,
-                    radius: getStyle(node, 'border-radius')
+                        top: hPercent(t + (h - textHeight) / 2),
+                        left: isCenter? (w - textWidth) / 2: l + paddingLeft,
+                        radius: getStyle(node, 'border-radius')
             });
             }
         }

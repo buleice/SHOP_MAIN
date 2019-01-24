@@ -70,6 +70,9 @@
           this.$nextTick(()=>{
               this.showLoading=false;
           })
+            setTimeout(()=>{
+
+            },3000)
         },
         methods: {
             imgLoad() {

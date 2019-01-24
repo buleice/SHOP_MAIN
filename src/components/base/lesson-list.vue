@@ -105,8 +105,8 @@
                     }
                     .course-img {
                         width: 100%;
-                        min-height: 10.63rem;
                         height: auto;
+                        max-height: 10.65rem;
                     }
                 }
                 .people {

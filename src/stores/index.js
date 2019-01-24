@@ -9,6 +9,7 @@ import createLogger from 'vuex/dist/logger'
 
 //modules
 import moduleIndex from './modules/index'
+import moduleClassify from './modules/classify'
 
 Vue.use(Vuex);
 //设置debug
@@ -22,7 +23,8 @@ export default new Vuex.Store({
     state,
     mutations,
     modules: {
-        moduleIndex
+        moduleIndex,
+        moduleClassify
     },
     strict: debug,
     plugins: debug ? [createLogger()] : []

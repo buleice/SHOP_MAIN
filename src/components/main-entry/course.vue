@@ -221,7 +221,7 @@
                     display: block;
                     width: 100%;
                     height: auto;
-                    min-height: 10.63rem;
+                    max-height: 10.63rem;
                     border-radius: 0.625rem;
                 }
                 .groupInfo {

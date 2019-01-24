@@ -50,8 +50,7 @@
             box-sizing: border-box;
             text-align: left;
             .course-title {
-                max-width: 16.3rem;
-                width: 16.3rem;
+                max-width: 15.35rem;
                 line-height: 1.5;
                 overflow: hidden;
                 white-space: nowrap;
