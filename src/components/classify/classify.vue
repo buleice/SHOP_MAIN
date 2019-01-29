@@ -82,10 +82,14 @@
         },
         methods: {
             autoPlayTheme(cid){
-                if(this.fromCache){
-                    this.sourceFrom!='default'&&this.themeIndex!=1000?this.hrefTo(this.themeIndex): this.hrefTo(cid)
+                if(cid==4){
+                    this.hrefTo(cid)
                 }else{
-                    this.sourceFrom!='default'&&localStorage.getItem('themeIndex')!=1000?this.hrefTo(localStorage.getItem('themeIndex')): this.hrefTo(cid)
+                    if(this.fromCache){
+                        this.sourceFrom!='default'&&this.themeIndex!=1000?this.hrefTo(this.themeIndex): this.hrefTo(cid)
+                    }else{
+                        this.sourceFrom!='default'&&localStorage.getItem('themeIndex')!=1000?this.hrefTo(localStorage.getItem('themeIndex')): this.hrefTo(cid)
+                    }
                 }
             },
             hrefTo(cid) {

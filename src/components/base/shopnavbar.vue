@@ -13,7 +13,7 @@
         name: 'ShopNavBar',
         data() {
             return {
-                clickedTab: 1,
+                clickedTab: null,
             }
         },
         methods: {

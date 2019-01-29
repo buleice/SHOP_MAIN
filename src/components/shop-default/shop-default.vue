@@ -1,31 +1,31 @@
 <template lang="html">
-<div>
-    <Loading v-if="showLoading"></Loading>
-    <div class="shop-page">
-        <div class="shop-content">
-            <div>
-                <carousel :slideDatas="carouselList">
-                    <div v-for="(scroll,index) in carouselList" :key="index">
-                        <a :href="scroll.url">
-                            <img :src="scroll.image" alt=""/>
-                        </a>
-                    </div>
-                </carousel>
-                <ul class="shop-category">
-                    <li v-for="item in category" :key="item.title">
-                        <router-link :to="{name:'classify',params:{cid:item.id}}">
-                            <img :src="item.icon" alt="">
-                            <span>{{item.title}}</span>
-                        </router-link>
-                    </li>
-                </ul>
-                <goodsContainer></goodsContainer>
+    <div>
+        <Loading v-if="showLoading"></Loading>
+        <div class="shop-page">
+            <div class="shop-content">
+                <div>
+                    <carousel :slideDatas="carouselList">
+                        <div v-for="(scroll,index) in carouselList" :key="index">
+                            <a :href="scroll.url">
+                                <img :src="scroll.image" alt=""/>
+                            </a>
+                        </div>
+                    </carousel>
+                    <ul class="shop-category">
+                        <li v-for="item in category" :key="item.title">
+                            <router-link :to="{name:'classify',params:{cid:item.id}}">
+                                <img :src="item.icon" alt="">
+                                <span>{{item.title}}</span>
+                            </router-link>
+                        </li>
+                    </ul>
+                    <goodsContainer></goodsContainer>
+                </div>
             </div>
+            <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
+            <PushInfo v-if="showAd"  :coupon="coupons[0]"></PushInfo>
         </div>
-        <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
-        <PushInfo v-if="showAd" :coupon="coupons[0]"></PushInfo>
     </div>
-</div>
 </template>
 
 <script>
@@ -37,6 +37,7 @@
         mapActions
     } from 'vuex'
     import axios from 'axios'
+
     export default {
         name: 'ShopDeault',
         components: {
@@ -53,12 +54,13 @@
                 series: [],
                 fetchCategory: true,
                 carouselList: [],
-                showToTop:false,
-                interest:[],
-                auth:'',
-                showAd:true,
-                coupons:[],
-                showLoading:true
+                showToTop: false,
+                interest: [],
+                auth: '',
+                showAd: false,
+                coupons: [],
+                showLoading: true,
+                onceFlag: true
             }
         },
         beforeRouteEnter(to, from, next) {
@@ -66,65 +68,111 @@
                 vm._initPageData();
             });
         },
-        mounted(){
-          this.$nextTick(()=>{
-              this.showLoading=false;
-          })
-            setTimeout(()=>{
+        created() {
+            if (this._GetQueryString('link') != null && this._GetQueryString('link') != undefined) {
+                if (this._GetQueryString('link').indexOf('freepage') > -1 && this.onceFlag == true) {
+                    this.onceFlag = false;
+                    this.$router.push({name: 'classify', params: {cid: 4}});
+                }
+            }
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.showLoading = false;
+            })
+            setTimeout(() => {
 
-            },3000)
+            }, 3000)
         },
         methods: {
             imgLoad() {
                 this.$refs.scroll.refresh();
             },
-            hideToTop(){
-                this.showToTop=false
+            hideToTop() {
+                this.showToTop = false
             },
-            fshowToTop(){
-                this.showToTop=true
+            fshowToTop() {
+                this.showToTop = true
             },
-            _topFunction(){
-                this.$refs.scroll.scrollTo(0,0,300);
-                this.showToTop=false
+            _topFunction() {
+                this.$refs.scroll.scrollTo(0, 0, 300);
+                this.showToTop = false
             },
-            _initPageData(){
-                axios.get('/shop/list.json').then(response => {
+            _initPageData() {
+                axios.get('/shop/list.json?debug=20009150').then(response => {
                     this['moduleIndex/setIndexPageData'](response.data)
-                    let res=response.data;
+                    let res = response.data;
                     this.lessonList = res.list;
                     localStorage.count = res.count;
-                    this.showAd=res.couponSent.length>0?true:false;
+                    this.showAd = res.couponSent.length > 0 ? true : false;
                     this.category = res.category1;
                     this.carouselList = res.bannerList;
-                    this.coupons=res.couponSent;
-                    if(res.popup==0){
+                    this.coupons = res.couponSent;
+                    if (res.popup == 0) {
                         this.setFirstVisit(1);
-                    }else if(res.popup==1){
+                    } else if (res.popup == 1) {
                         this.setFirstVisit(0);
                     }
-                    if(res.age.length>0){
+                    if (res.age.length > 0) {
                         this.setAge(res.age);
-                    }else{
+                    } else {
                         this.setAge('3-6岁')
                     }
-                    res.isNew==1?this.setNewUser(true):this.setNewUser(false);
+                    res.isNew == 1 ? this.setNewUser(true) : this.setNewUser(false);
                 })
             },
-            userDiy(){
+            _GetQueryString(name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg); //search,查询？后面的参数，并匹配正则
+                if (r != null) return unescape(r[2]);
+                return null;
+            },
+            userDiy() {
                 this.setFirstVisit(0)
             },
-            ...mapActions(['setFirstVisit',"setAge",'setNewUser','moduleIndex/setIndexPageData'])
+            ...mapActions(['setFirstVisit', "setAge", 'setNewUser', 'moduleIndex/setIndexPageData'])
         },
         computed: {
-            ...mapGetters(["age",'moduleIndex/indexPageData'])
+            ...mapGetters(["age", 'moduleIndex/indexPageData'])
         }
     }
 </script>
 <style lang="css" scoped>
-    .iOMeRW{position:absolute;color:#bbb;background-color:#fff;border:1px solid #ccc;line-height:3.75rem;border-radius:50%;width:2.75rem;height:2.75rem;font-size:0.8rem;text-align:center;right: 1rem;bottom: 1rem}
-    .iOMeRW span{color:#999;position:absolute;left:0;top:0;width:100%;height:100%;font-size:1.25rem;line-height:1.5rem}
-    .iconfont{font-family:h5index-iconfont;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale;font-size:1rem;color:#333}
+    .iOMeRW {
+        position: absolute;
+        color: #bbb;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        line-height: 3.75rem;
+        border-radius: 50%;
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 0.8rem;
+        text-align: center;
+        right: 1rem;
+        bottom: 1rem
+    }
+
+    .iOMeRW span {
+        color: #999;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 1.25rem;
+        line-height: 1.5rem
+    }
+
+    .iconfont {
+        font-family: h5index-iconfont;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .2px;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 1rem;
+        color: #333
+    }
 </style>
 <style scoped lang="scss">
     .shop-page {
@@ -139,9 +187,9 @@
                         color: #0d0d0d;
                         display: block;
                         img {
-                            width:2.5rem;
+                            width: 2.5rem;
                         }
-                        span{
+                        span {
                             display: block;
                             white-space: nowrap;
                             text-align: center;
@@ -150,14 +198,14 @@
                     }
                 }
             }
-            .personalDiy{
+            .personalDiy {
                 width: 100%;
                 line-height: 2rem;
                 box-sizing: border-box;
                 padding: 0 0px 0 .625rem;
                 border-top: .19rem solid #f5f5f5;
                 line-height: 2rem;
-                b{
+                b {
                     float: right;
                     position: relative;
                     padding-right: 1.25rem;

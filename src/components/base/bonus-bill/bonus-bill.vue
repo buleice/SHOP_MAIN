@@ -1,8 +1,8 @@
 <template lang="html">
   <table v-if="bill.length>0">
-    <tr  v-for="item in bill">
+    <tr  v-for="(item,index) in bill" :key="index">
       <td align="center" valign="middle">
-        {{item.time}}
+        {{item.time.slice(0,10)}}
       </td>
       <td>
         {{item.title}}
@@ -44,15 +44,15 @@ table {
         border-bottom: 1px solid rgba(0,0,0,.1);
         td {
             &:first-child {
-                width: 10rem;
+                width: 7rem;
                 img {
                     width: 2.81rem;
                     border-radius: 50%;
                 }
             }
             &:nth-child(2) {
-                width: 7rem;
-                max-width: 7rem;
+                width: auto;
+                max-width: 8rem;
                 text-overflow: -o-ellipsis-lastline;
                 overflow: hidden;
                 text-overflow: ellipsis;
@@ -62,6 +62,8 @@ table {
             }
             &:last-child {
                 font-size: 0.88rem;
+              text-align: center;
+              /*text-indent: 1rem;*/
             }
         }
     }

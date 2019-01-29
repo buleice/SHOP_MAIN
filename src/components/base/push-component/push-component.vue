@@ -1,15 +1,17 @@
 <template>
-    <div class="coupons" v-if="showMe&&newUser">
-        <div class="content">
-            <h3>嗨！{{newUser?"新朋友":"老朋友"}}</h3>
-            <div class="desc">
-                <span class="shuli">送你</span>
-                <span>{{coupon.couponMoney}}</span>
-                <span>元</span>
-            </div>
-            <div class="title">{{coupon.name}}</div>
-        </div>
-        <div class="close-coupon" @click="showMe=false"></div>
+    <div class="coupons" @click="showMe=false" v-if="showMe&&!newUser">
+        <!--<div class="content">-->
+            <!--<h3>嗨！{{newUser?"新朋友":"老朋友"}}</h3>-->
+            <!--<div class="desc">-->
+                <!--<span class="shuli">送你</span>-->
+                <!--<span>{{coupon.couponMoney}}</span>-->
+                <!--<span>元</span>-->
+            <!--</div>-->
+            <!--<div class="title">{{coupon.name}}</div>-->
+        <!--</div>-->
+        <img class="festival"  src="//udata.youban.com/webimg/wxyx/push/festival.png" alt="">
+        <!--<div class="close-coupon" @click="showMe=false"></div>-->
+        <div class=" festival-close" @click="showMe=false"></div>
     </div>
 </template>
 
@@ -109,6 +111,24 @@
             top: 535px;
             left: 50%;
             transform: translate(-48%, -50%);
+        }
+        .festival-close{
+            background: url('//udata.youban.com/webimg/wxyx/puintuan/close-bg.png') no-repeat;
+            background-size: 100%;
+            position: absolute;
+            width: 35px;
+            height: 35px;
+            top:20%;
+            right: 3.125rem;
+            transform: translate(-48%, -50%);
+        }
+        .festival{
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-48%, -50%);
+            width: 95%;
+            display: block;margin: auto;
         }
     }
 

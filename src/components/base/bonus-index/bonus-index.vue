@@ -5,7 +5,7 @@
       <img src="//udata.youban.com/webimg/wxyx/puintuan/bonus-rule-icon.png" alt="奖学金规则">
     </div>
     <div class="balance">
-       <span>{{bonus}}</span><sub>优币</sub>
+        <sub>&yen;</sub><span>{{bonus}}</span>
     </div>
     <div class="btn" @click="$router.push({path:'bill'})">
       查看明细
@@ -16,7 +16,7 @@
   </div>
   <div class="cash">
   <div>
-  <img src="//udata.youban.com/webimg/wxyx/puintuan/duigou.png" alt="">可提现&nbsp;<span>{{bonus/100}}</span>元</div> <a href="/bonus/cash/center">立即提现</a>
+  <img src="//udata.youban.com/webimg/wxyx/puintuan/duigou.png" alt="">可提现&nbsp;<span>{{bonus}}</span>元</div> <a href="/bonus/cash/center">立即提现</a>
  </div>
  <div class="share_ad">
    分享课程获取更多奖学金
@@ -29,8 +29,7 @@
       <div class="infos">
         <div class="title" v-text="item.title"></div>
         <div class="subtitle" v-html="item.subtitle"></div>
-        <div class="bonus">预计可得奖学金：<span>{{Number(item.bonus)}} &nbsp;
-            <b>优币</b>
+        <div class="bonus">预计可得奖学金：<span><b>&yen;</b>{{Number(item.bonus)}} &nbsp;
           </span>
         </div>
       </div>
@@ -43,13 +42,12 @@
  <h2>提现规则</h2>
  <ul>
    <li>
-     <h3>1、什么是奖学金？什么是优币？</h3>
-     <p>奖学金是小伴龙优学发放给用户的奖励，以优币的形式展现。</p>
+     <h3>1、什么是奖学金?</h3>
+     <p>奖学金是小伴龙优学发放给用户的奖励，以人民币的形式展现。</p>
    </li>
    <li>
      <h3>2、奖学金有什么用？</h3>
-     <p>①奖学金可以提现。100优币等同于人民币1元。
-②奖学金可兑换优学课程。当奖学金累计量达到优学某课程的团购价格时，即可用奖学金兑换该课程。
+     <p>①奖学金可以提现到银行卡;<br>②奖学金可兑换优学课程。当奖学金累计量达到优学某课程的团购价格时，即可用奖学金兑换该课程;
        <br>后续将上线更多奖学金专属的福利奖品，敬请期待。</p>
    </li>
    <li>
@@ -104,18 +102,20 @@ export default {
 
 <style media="screen">
 .subtitle p {
-  display: block;
-  height: 1.88rem;
-  max-height: 2.19rem;
-  overflow-y: hidden;
-  text-overflow: ellipsis;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical
+    display: block;
+    display: -webkit-box;-webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    max-width: 12rem;
+    color: rgba(0,0,0,.5);
 }
 
 .share_ad{background-color: #f5f5f5;height: 2.5rem;line-height: 2.5rem;font-size: .88rem;border-bottom: 1px solid #f5f5f5;}
 </style>
 <style lang="scss" scoped>
+    @import "../../../common/css/common";
 .myAcount {
     height: 10.31rem;
     background:#fffbcb;
@@ -144,6 +144,7 @@ export default {
         }
         sub {
             color: #ff4e09;
+            font-size: 1rem;
         }
     }
     .btn {

@@ -1,5 +1,9 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+Router.prototype.go = function () {
+    this.isBack = true
+    window.history.go(-1)
+}
 
 const Shop = () => import('./components/main-entry/shop.vue');
 const Mine = () => import('./components/main-entry/user.vue');
