@@ -1,13 +1,25 @@
 <template>
-<div class="slide" ref="slide">
-  <div class="slide-group" ref="slideGroup">
-    <slot>
-    </slot>
+  <div
+    class="slide"
+    ref="slide"
+  >
+    <div
+      class="slide-group"
+      ref="slideGroup"
+    >
+      <slot />
+    </div>
+    <div
+      v-if="showDot"
+      class="dots"
+    >
+      <span
+        class="dot"
+        :class="{active: currentPageIndex === index }"
+        v-for="(item, index) in dots"
+      />
+    </div>
   </div>
-  <div v-if="showDot" class="dots">
-    <span class="dot" :class="{active: currentPageIndex === index }" v-for="(item, index) in dots"></span>
-  </div>
-</div>
 </template>
 
 <script type="text/ecmascript-6">

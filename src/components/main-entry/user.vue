@@ -1,48 +1,56 @@
 <template lang="html">
-<div class="">
-  <div class="id-card">
-    <img class="userIcon" :src="userInfo.img" alt="">
-    <span class="spans">
-      <span>昵称：{{userInfo.nick}}</span><br>
-      <span>学号：{{userInfo.wid}}</span>
-    </span>
+  <div class="">
+    <div class="id-card">
+      <img
+        class="userIcon"
+        :src="userInfo.img"
+        alt=""
+      >
+      <span class="spans">
+        <span>昵称：{{ userInfo.nick }}</span><br>
+        <span>学号：{{ userInfo.wid }}</span>
+      </span>
+    </div>
+    <ul class="lists">
+      <li>
+        <a href="#/bonus/center"><span class="title">奖学金</span><span class="about" /></a>
+      </li>
+      <li v-if="voucherCount>0">
+        <a href="/voucher/list"><span class="title">兑换券</span>
+          <span class="about">{{ voucherCount }}张兑换券可用&nbsp;&nbsp;</span>
+          <span class="about">&nbsp;&nbsp;</span>
+        </a>
+      </li>
+      <li>
+        <a href="/voucher/list#/usercoupon2"><span class="title">优惠券</span>
+          <span
+            v-if="couponCount>0"
+            class="about"
+          >{{ couponCount }}张优惠券可用&nbsp;&nbsp;</span>
+          <span
+            v-else
+            class="about"
+          >&nbsp;&nbsp;&nbsp;</span>
+        </a>
+      </li>
+      <li>
+        <a href="/address/index?#addressList"><span class="title">我的地址</span>
+        </a>
+      </li>
+      <li>
+        <a href="/address/index?#orderlist"><span class="title">我的订单</span>
+        </a>
+      </li>
+    </ul>
+    <PushInfo v-if="showAd" />
   </div>
-  <ul class="lists">
-    <li>
-        <a href="#/bonus/center"><span class="title">奖学金</span><span class="about"></span></a>
-    </li>
-    <li v-if="voucherCount>0">
-      <a href="/voucher/list"><span class="title">兑换券</span>
-        <span class="about">{{voucherCount}}张兑换券可用&nbsp;&nbsp;</span>
-        <span  class="about">&nbsp;&nbsp;</span>
-      </a>
-    </li>
-    <li>
-      <a href="/voucher/list#/usercoupon2"><span class="title">优惠券</span>
-        <span v-if="couponCount>0" class="about">{{couponCount}}张优惠券可用&nbsp;&nbsp;</span>
-        <span v-else class="about">&nbsp;&nbsp;&nbsp;</span>
-      </a>
-    </li>
-    <li>
-      <a href="/address/index?#addressList"><span class="title">我的地址</span>
-      </a>
-    </li>
-    <li>
-      <a href="/address/index?#orderlist"><span class="title">我的订单</span>
-      </a>
-    </li>
-  </ul>
-  <PushInfo v-if="showAd"></PushInfo>
-</div>
 </template>
 
 <script>
     import PushInfo from '../base/push-component/push-component'
-import {
-  Request
-} from '../../api/request'
+    import {getUserInfo} from '../../api/pageDataApis'
 export default {
-  name: 'usercenter',
+  name: 'Usercenter',
   data() {
     return {
       userInfo: {},
@@ -59,7 +67,8 @@ export default {
     },
     methods:{
       _initPageData(){
-          new Request("/shop/center.json", "POST").returnJson().then(res => {
+          getUserInfo().then(response => {
+              const res=response.data;
               this.userInfo = {
                   nick: res.nick,
                   wid: res.wid,

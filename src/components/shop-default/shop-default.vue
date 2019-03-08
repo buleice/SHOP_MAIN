@@ -1,31 +1,50 @@
 <template lang="html">
-    <div>
-        <Loading v-if="showLoading"></Loading>
-        <div class="shop-page">
-            <div class="shop-content">
-                <div>
-                    <carousel :slideDatas="carouselList">
-                        <div v-for="(scroll,index) in carouselList" :key="index">
-                            <a :href="scroll.url">
-                                <img :src="scroll.image" alt=""/>
-                            </a>
-                        </div>
-                    </carousel>
-                    <ul class="shop-category">
-                        <li v-for="item in category" :key="item.title">
-                            <router-link :to="{name:'classify',params:{cid:item.id}}">
-                                <img :src="item.icon" alt="">
-                                <span>{{item.title}}</span>
-                            </router-link>
-                        </li>
-                    </ul>
-                    <goodsContainer></goodsContainer>
-                </div>
+  <div>
+    <Loading v-if="showLoading" />
+    <div class="shop-page">
+      <div class="shop-content">
+        <div>
+          <carousel :slide-datas="carouselList">
+            <div
+              v-for="(scroll,index) in carouselList"
+              :key="index"
+            >
+              <a :href="scroll.url">
+                <img
+                  :src="scroll.image"
+                  alt=""
+                >
+              </a>
             </div>
-            <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
-            <PushInfo v-if="showAd"  :coupon="coupons[0]"></PushInfo>
+          </carousel>
+          <ul class="shop-category">
+            <li
+              v-for="item in category"
+              :key="item.title"
+            >
+              <router-link :to="{name:'classify',params:{cid:item.id}}">
+                <img
+                  :src="item.icon"
+                  alt=""
+                >
+                <span>{{ item.title }}</span>
+              </router-link>
+            </li>
+          </ul>
+          <goodsContainer />
         </div>
+      </div>
+      <div
+        v-if="1==2"
+        class="sc-htoDjs iOMeRW"
+        @click="_topFunction"
+      ><span class="iconfont" />顶部</div>
+      <PushInfo
+        v-if="showAd"
+        :coupon="coupons[0]"
+      />
     </div>
+  </div>
 </template>
 
 <script>
@@ -36,7 +55,7 @@
         mapGetters,
         mapActions
     } from 'vuex'
-    import axios from 'axios'
+    import {shopDefaultPage} from '../../api/pageDataApis'
 
     export default {
         name: 'ShopDeault',
@@ -80,9 +99,6 @@
             this.$nextTick(() => {
                 this.showLoading = false;
             })
-            setTimeout(() => {
-
-            }, 3000)
         },
         methods: {
             imgLoad() {
@@ -99,7 +115,7 @@
                 this.showToTop = false
             },
             _initPageData() {
-                axios.get('/shop/list.json?debug=20009150').then(response => {
+                shopDefaultPage().then(response => {
                     this['moduleIndex/setIndexPageData'](response.data)
                     let res = response.data;
                     this.lessonList = res.list;

@@ -1,19 +1,30 @@
 <template>
-   <div class="classify-recommend">
-       <div v-for="(item,index) in list" :key="index">
-           <div class="recommend-box">
-               <div class="recommend-banner"><span v-html="item.title"></span></div>
-               <p class="recommend-desc" v-html="item.subtitle"></p>
-               <CourseBox class="course" v-for="(item2,index2) in item.FgoodsList" @imgLoad="imgLoad"  :data="item2"
-                          :key="index2"></CourseBox>
-           </div>
-       </div>
-   </div>
+  <div class="classify-recommend">
+    <div
+      v-for="(item,index) in list"
+      :key="index"
+    >
+      <div class="recommend-box">
+        <div class="recommend-banner"><span v-html="item.title" /></div>
+        <p
+          class="recommend-desc"
+          v-html="item.subtitle"
+        />
+        <CourseBox
+          class="course"
+          v-for="(item2,index2) in item.FgoodsList"
+          @imgLoad="imgLoad"
+          :data="item2"
+          :key="index2"
+        />
+      </div>
+    </div>
+  </div>
 </template>
 <script>
     import CourseBox from '../base/course-box/course-box'
     export default {
-        name: "classify-recommend",
+        name: "ClassifyRecommend",
         props:{
             list:{
                 type:Array,

@@ -1,30 +1,49 @@
 <template lang="html">
-    <div class="">
-        <ul class="item">
-            <li v-for="(item,index) in lessonList" :key="index">
-                <div class="tuanimg">
-                    <a :href="item.url" target="_blank">
-                        <img class="course-img" @load="imgLoad" ref="lazy" v-lazy="item['banner']" :key="item['banner']">
-                    </a>
-                    <div class="people">
-                        {{item['sales']}}人正在学习
-                    </div>
-                </div>
-                <div class="tuanTitle">{{item['title']}}</div>
-                <div class="tuanInfo">
-                    <div class="Infotag" v-if="item['label'].length>0">
-                        <span>{{splitlabel(item['label'])[0]}}</span>
-                        <span>{{splitlabel(item['label'])[1]}}</span>
-                    </div>
-                    <div class="price">
-                        <a class="detailbtn" :href="item.url" target="_blank">
-                            <span ><strong>去学习</strong></span>
-                        </a>
-                    </div>
-                </div>
-            </li>
-        </ul>
-    </div>
+  <div class="">
+    <ul class="item">
+      <li
+        v-for="(item,index) in lessonList"
+        :key="index"
+      >
+        <div class="tuanimg">
+          <a
+            :href="item.url"
+            target="_blank"
+          >
+            <img
+              class="course-img"
+              @load="imgLoad"
+              ref="lazy"
+              v-lazy="item['banner']"
+              :key="item['banner']"
+            >
+          </a>
+          <div class="people">
+            {{ item['sales'] }}人正在学习
+          </div>
+        </div>
+        <div class="tuanTitle">{{ item['title'] }}</div>
+        <div class="tuanInfo">
+          <div
+            class="Infotag"
+            v-if="item['label'].length>0"
+          >
+            <span>{{ splitlabel(item['label'])[0] }}</span>
+            <span>{{ splitlabel(item['label'])[1] }}</span>
+          </div>
+          <div class="price">
+            <a
+              class="detailbtn"
+              :href="item.url"
+              target="_blank"
+            >
+              <span><strong>去学习</strong></span>
+            </a>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script>
@@ -34,7 +53,7 @@
     } from 'vuex'
 
     export default {
-        name:"lesson-list",
+        name:"LessonList",
         props: {
             lessonList: {},
             isNew:null

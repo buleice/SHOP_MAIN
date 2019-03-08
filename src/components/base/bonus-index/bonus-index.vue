@@ -1,71 +1,104 @@
 <template lang="html">
-<div class="bonus-page">
-  <div class="myAcount">
-    <div class="rule" @click="showGuize=true">
-      <img src="//udata.youban.com/webimg/wxyx/puintuan/bonus-rule-icon.png" alt="奖学金规则">
-    </div>
-    <div class="balance">
-        <sub>&yen;</sub><span>{{bonus}}</span>
-    </div>
-    <div class="btn" @click="$router.push({path:'bill'})">
-      查看明细
-    </div>
-    <div class="danmaku-box">
-      <DanMaku :lists="barrage"/>
-    </div>
-  </div>
-  <div class="cash">
-  <div>
-  <img src="//udata.youban.com/webimg/wxyx/puintuan/duigou.png" alt="">可提现&nbsp;<span>{{bonus}}</span>元</div> <a href="/bonus/cash/center">立即提现</a>
- </div>
- <div class="share_ad">
-   分享课程获取更多奖学金
- </div>
-  <ul class="canGetCourses">
-  <li v-for="(item,index) in canGetCourses" :key="index">
-    <!-- <a :href="item.url" @click="gotoUrl(item.title)"> -->
-    <a href="javascript:void(0);" @click="gotoUrl(item.url,item.title)">
-      <img v-lazy="item.img" :alt="item.title">
-      <div class="infos">
-        <div class="title" v-text="item.title"></div>
-        <div class="subtitle" v-html="item.subtitle"></div>
-        <div class="bonus">预计可得奖学金：<span><b>&yen;</b>{{Number(item.bonus)}} &nbsp;
-          </span>
-        </div>
+  <div class="bonus-page">
+    <div class="myAcount">
+      <div
+        class="rule"
+        @click="showGuize=true"
+      >
+        <img
+          src="//udata.youban.com/webimg/wxyx/puintuan/bonus-rule-icon.png"
+          alt="奖学金规则"
+        >
       </div>
-    </a>
-  </li>
-</ul>
-<transition name="fade">
-<div class="rule-pultop" v-if="showGuize">
- <div class="closeBtn" @click="showGuize=false"></div>
- <h2>提现规则</h2>
- <ul>
-   <li>
-     <h3>1、什么是奖学金?</h3>
-     <p>奖学金是小伴龙优学发放给用户的奖励，以人民币的形式展现。</p>
-   </li>
-   <li>
-     <h3>2、奖学金有什么用？</h3>
-     <p>①奖学金可以提现到银行卡;<br>②奖学金可兑换优学课程。当奖学金累计量达到优学某课程的团购价格时，即可用奖学金兑换该课程;
-       <br>后续将上线更多奖学金专属的福利奖品，敬请期待。</p>
-   </li>
-   <li>
-     <h3>3、如何获取奖学金？</h3>
-     <p>奖学金是通过邀请好友报名购买有奖学金的课程获得。您只需将自己正在参与的拼课，或者是其它有奖学金的优学课程分享给好友，好友报名参加课程购买，您就可以获得奖学金。</p>
-   </li>
- </ul>
-</div>
-</transition>
-    <PushInfo v-if="showAd"></PushInfo>
-</div>
+      <div class="balance">
+        <sub>&yen;</sub><span>{{ bonus }}</span>
+      </div>
+      <div
+        class="btn"
+        @click="$router.push({path:'bill'})"
+      >
+        查看明细
+      </div>
+      <div class="danmaku-box">
+        <DanMaku :lists="barrage" />
+      </div>
+    </div>
+    <div class="cash">
+      <div>
+        <img
+          src="//udata.youban.com/webimg/wxyx/puintuan/duigou.png"
+          alt=""
+        >可提现&nbsp;<span>{{ bonus }}</span>元</div> <a href="/bonus/cash/center">立即提现</a>
+    </div>
+    <div class="share_ad">
+      分享课程获取更多奖学金
+    </div>
+    <ul class="canGetCourses">
+      <li
+        v-for="(item,index) in canGetCourses"
+        :key="index"
+      >
+        <!-- <a :href="item.url" @click="gotoUrl(item.title)"> -->
+        <a
+          href="javascript:void(0);"
+          @click="gotoUrl(item.url,item.title)"
+        >
+          <img
+            v-lazy="item.img"
+            :alt="item.title"
+          >
+          <div class="infos">
+            <div
+              class="title"
+              v-text="item.title"
+            />
+            <div
+              class="subtitle"
+              v-html="item.subtitle"
+            />
+            <div class="bonus">预计可得奖学金：<span><b>&yen;</b>{{ Number(item.bonus) }} &nbsp;
+            </span>
+            </div>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <transition name="fade">
+      <div
+        class="rule-pultop"
+        v-if="showGuize"
+      >
+        <div
+          class="closeBtn"
+          @click="showGuize=false"
+        />
+        <h2>提现规则</h2>
+        <ul>
+          <li>
+            <h3>1、什么是奖学金?</h3>
+            <p>奖学金是小伴龙优学发放给用户的奖励，以人民币的形式展现。</p>
+          </li>
+          <li>
+            <h3>2、奖学金有什么用？</h3>
+            <p>①奖学金可以提现到银行卡;<br>②奖学金可兑换优学课程。当奖学金累计量达到优学某课程的团购价格时，即可用奖学金兑换该课程;
+              <br>后续将上线更多奖学金专属的福利奖品，敬请期待。</p>
+          </li>
+          <li>
+            <h3>3、如何获取奖学金？</h3>
+            <p>奖学金是通过邀请好友报名购买有奖学金的课程获得。您只需将自己正在参与的拼课，或者是其它有奖学金的优学课程分享给好友，好友报名参加课程购买，您就可以获得奖学金。</p>
+          </li>
+        </ul>
+      </div>
+    </transition>
+    <PushInfo v-if="showAd" />
+  </div>
 </template>
 
 <script>
     import PushInfo from '../push-component/push-component'
 import {
   Request
-} from '../../../api/request';
+} from '../../../common/js/request';
 import DanMaku from '../danmaku/danmaku'
 export default {
   name: 'BonusIndex',

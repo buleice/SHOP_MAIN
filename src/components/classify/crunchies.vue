@@ -1,36 +1,60 @@
 <template>
-    <div class="crunchies">
-        <div class="recommend-banner">
-            <div><img src="http://cliveimages.youban.com/20190117/3294170611FhrAp04RRwJ585_--4qvueI-v9rf.png" alt="">&nbsp;<span>本周热门榜</span>
-            </div>
-        </div>
-        <div class="course-list" v-if="!showLoading">
-            <a class="coursre-box" :href="item2.url" v-for="(item2,index2) in list" :key="index2">
-                <img class="course-img" v-lazy="item2.banner" :key="item2.banner" alt="">
-                <img v-if="index2<=2" class="topLabel" :src="computedTopLabel(index2)" alt="">
-                <div class="coursre-intro">
-                    <h4 class="course-title">{{item2.title}}</h4>
-                    <div class="course-label">
-                        <span v-if="item2.age">{{item2.age}}</span>
-                        <span v-if="item2.number">{{item2.number}}</span>
-                    </div>
-                    <div class="course-desc">{{item2.sales}}人在学习</div>
-                </div>
-                <a class="coursre-button" href="javascript:void(0);">&yen;{{item2.price}}</a>
-            </a>
-        </div>
-        <Loading v-else></Loading>
+  <div class="crunchies">
+    <div class="recommend-banner">
+      <div><img
+        src="http://cliveimages.youban.com/20190117/3294170611FhrAp04RRwJ585_--4qvueI-v9rf.png"
+        alt=""
+      >&nbsp;<span>本周热门榜</span>
+      </div>
     </div>
+    <div
+      class="course-list"
+      v-if="!showLoading"
+    >
+      <a
+        class="coursre-box"
+        :href="item2.url"
+        v-for="(item2,index2) in list"
+        :key="index2"
+      >
+        <img
+          class="course-img"
+          v-lazy="item2.banner"
+          :key="item2.banner"
+          alt=""
+        >
+        <img
+          v-if="index2<=2"
+          class="topLabel"
+          :src="computedTopLabel(index2)"
+          alt=""
+        >
+        <div class="coursre-intro">
+          <h4 class="course-title">{{ item2.title }}</h4>
+          <div class="course-label">
+            <span v-if="item2.age">{{ item2.age }}</span>
+            <span v-if="item2.number">{{ item2.number }}</span>
+          </div>
+          <div class="course-desc">{{ item2.sales }}人在学习</div>
+        </div>
+        <a
+          class="coursre-button"
+          href="javascript:void(0);"
+        >&yen;{{ item2.price }}</a>
+      </a>
+    </div>
+    <!--<Loading v-else></Loading>-->
+  </div>
 
 </template>
 
 <script>
     import {mapActions} from 'vuex';
-    import {Request} from "../../api/request";
     import Loading from '../base/loading'
+    import {getCrunchies} from '../../api/pageDataApis'
 
     export default {
-        name: "crunchies",
+        name: "Crunchies",
         data() {
             return {
                 list: [],
@@ -49,7 +73,8 @@
         },
         methods: {
             initData(id) {
-                new Request('/shop/hot.json', "GET", {id: id}).returnJson().then(res => {
+                getCrunchies({id: id}).then(response => {
+                    const res=response.data;
                     this.list = res.list;
                     setTimeout(()=>{
                         this.showLoading=false;

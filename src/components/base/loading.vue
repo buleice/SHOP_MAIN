@@ -1,22 +1,25 @@
 <template lang="html">
-<div class="">
-  <div class="loader" id="loadingDiv">
-    <div class="square" ></div>
-    <div class="square"></div>
-    <div class="square last"></div>
-    <div class="square clear"></div>
-    <div class="square"></div>
-    <div class="square last"></div>
-    <div class="square clear"></div>
-    <div class="square "></div>
-    <div class="square last"></div>
+  <div class="">
+    <div
+      class="loader"
+      id="loadingDiv"
+    >
+      <div class="square" />
+      <div class="square" />
+      <div class="square last" />
+      <div class="square clear" />
+      <div class="square" />
+      <div class="square last" />
+      <div class="square clear" />
+      <div class="square " />
+      <div class="square last" />
+    </div>
   </div>
-</div>
 </template>
 
 <script>
 export default {
-  name:"loadingDiv"
+  name:"LoadingDiv"
 }
 </script>
 

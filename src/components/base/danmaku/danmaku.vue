@@ -1,14 +1,17 @@
 <template lang="html">
-    <ul class="danmaku" v-if="showDanMaku">
-        <li class="danmaku_box danmaku_tip">
-            <p v-html="danmakuText"></p>
-        </li>
-    </ul>
+  <ul
+    class="danmaku"
+    v-if="showDanMaku"
+  >
+    <li class="danmaku_box danmaku_tip">
+      <p v-html="danmakuText" />
+    </li>
+  </ul>
 </template>
 
 <script>
 export default {
-  name: 'danmaku',
+  name: 'Danmaku',
   props:{
     lists:{
       type:Array,

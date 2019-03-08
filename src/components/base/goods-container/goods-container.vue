@@ -1,67 +1,167 @@
 <template>
-    <div>
-        <div v-for="(item,index) in indexPageData.list" :key="index" style="overflow: hidden">
-            <div class="recommend-box">
-                <div class="recommend-banner">
-                    <div><img :src="item.icon" alt="" :key="item.icon">&nbsp;<span>{{item.title}}</span></div>
-                    <router-link v-if="index>0&&index!=1" :to="'/shop/classify/'+item.id">更多</router-link>
-                    <router-link v-if="index==1" :to="'/shop/crunchies/'+item.id">更多</router-link>
-                </div>
-                <!--给孩子独一无二的推荐-->
-                <div v-if="index==0" class="course-list">
-                    <div class="subhead">孩子喜欢的才是最好的课程</div>
-                    <div class="personDiy" @click="showDiyCard"><span>&nbsp;填写孩子信息</span></div>
-                    <EntryAd @freshData="_initPageData" :interest="indexPageData.interest"></EntryAd>
-                     <div class="courses">
-                         <a class="coursre-box1" :href="item2.url" v-for="(item2,index2) in item.list" :key="index2">
-                             <div class="img-box">
-                                 <img class="course-img" v-lazy="item2.banner" :key="item2.banner" alt="">
-                                 <div class="class-info"><img v-if="item2.lesson_type==2" class="icon" src="../../../assets/音频.png" alt=""><img class="icon" v-else src="../../../assets/视频.png" alt="">&nbsp;<span>{{item2.number}}</span></div>
-                             </div>
-                             <h4 class="course-title2">{{item2.title}}</h4>
-                             <div class="label"><span>{{item2.age}}</span><span class="price">&yen;{{item2.price}}</span></div>
-                         </a>
-                     </div>
-                </div>
-                <!--本周热门榜-->
-                <div v-if="index==1" class="course-list">
-                    <a class="coursre-box" :href="item2.url" v-for="(item2,index2) in item.list" :key="index2">
-                        <img class="course-img" v-lazy="item2.banner" :key="item2.banner" alt="">
-                        <img class="topLabel" v-if="index2<=2" :src="computedTopLabel(index2)" alt="">
-                        <div class="coursre-intro">
-                            <h4 class="course-title">{{item2.title}}</h4>
-                            <div class="course-label">
-                                <span v-if="item2.age">{{item2.age}}</span>
-                                <span v-if="item2.number">{{item2.number}}</span>
-                            </div>
-                            <div class="course-desc">{{item2.sales}}人在学习</div>
-                        </div>
-                        <a class="coursre-button" href="javascript:void(0);">&yen;{{item2.price}}</a>
-                    </a>
-                </div>
-                <!--精选系列-->
-                <div v-if="index==2" class="course-list">
-                    <a :href="item.url" class="coursre-box2"  v-for="(item,index) in item.list" :key="index">
-                        <img class="big-image" v-lazy="item.banner" :key="item.banner" alt="" >
-                    </a>
-                </div>
-                <!--最新课程-->
-                <div v-if="index==3" class="course-list">
-                    <div class="courses">
-                        <a class="coursre-box1" :href="item2.url" v-for="(item2,index2) in item.list" :key="index2">
-                            <div class="img-box">
-                                <img class="course-img" v-lazy="item2.banner" :key="item2.banner" alt="">
-                                <div class="class-info"><img v-if="item2.lesson_type==2" class="icon" src="../../../assets/音频.png" alt=""><img class="icon" v-else src="../../../assets/视频.png" alt="">&nbsp;<span>{{item2.number}}</span></div>
-                            </div>
-                            <h4 class="course-title2">{{item2.title}}</h4>
-                            <div class="label"><span>{{item2.age}}</span><span class="price">&yen;{{item2.price}}</span></div>
-                        </a>
-                    </div>
-                </div>
-            </div>
+  <div>
+    <div
+      v-for="(item,index) in indexPageData.list"
+      :key="index"
+      style="overflow: hidden"
+    >
+      <div class="recommend-box">
+        <div class="recommend-banner">
+          <div><img
+            :src="item.icon"
+            alt=""
+            :key="item.icon"
+          >&nbsp;<span>{{ item.title }}</span></div>
+          <router-link
+            v-if="index>0&&index!=1"
+            :to="'/shop/classify/'+item.id"
+          >更多</router-link>
+          <router-link
+            v-if="index==1"
+            :to="'/shop/crunchies/'+item.id"
+          >更多</router-link>
         </div>
-        <div></div>
+        <!--给孩子独一无二的推荐-->
+        <div
+          v-if="index==0"
+          class="course-list"
+        >
+          <div class="subhead">孩子喜欢的才是最好的课程</div>
+          <div
+            class="personDiy"
+            @click="showDiyCard"
+          ><span>&nbsp;填写孩子信息</span></div>
+          <EntryAd
+            @freshData="_initPageData"
+            :interest="indexPageData.interest"
+          />
+          <div class="courses">
+            <a
+              class="coursre-box1"
+              :href="item2.url"
+              v-for="(item2,index2) in item.list"
+              :key="index2"
+            >
+              <div class="img-box">
+                <img
+                  class="course-img"
+                  v-lazy="item2.banner"
+                  :key="item2.banner"
+                  alt=""
+                >
+                <div class="class-info"><img
+                  v-if="item2.lesson_type==2"
+                  class="icon"
+                  src="../../../assets/音频.png"
+                  alt=""
+                ><img
+                  class="icon"
+                  v-else
+                  src="../../../assets/视频.png"
+                  alt=""
+                >&nbsp;<span>{{ item2.number }}</span></div>
+              </div>
+              <h4 class="course-title2">{{ item2.title }}</h4>
+              <div class="label"><span>{{ item2.age }}</span><span class="price">&yen;{{ item2.price }}</span></div>
+            </a>
+          </div>
+        </div>
+        <!--本周热门榜-->
+        <div
+          v-if="index==1"
+          class="course-list"
+        >
+          <a
+            class="coursre-box"
+            :href="item2.url"
+            v-for="(item2,index2) in item.list"
+            :key="index2"
+          >
+            <img
+              class="course-img"
+              v-lazy="item2.banner"
+              :key="item2.banner"
+              alt=""
+            >
+            <img
+              class="topLabel"
+              v-if="index2<=2"
+              :src="computedTopLabel(index2)"
+              alt=""
+            >
+            <div class="coursre-intro">
+              <h4 class="course-title">{{ item2.title }}</h4>
+              <div class="course-label">
+                <span v-if="item2.age">{{ item2.age }}</span>
+                <span v-if="item2.number">{{ item2.number }}</span>
+              </div>
+              <div class="course-desc">{{ item2.sales }}人在学习</div>
+            </div>
+            <a
+              class="coursre-button"
+              href="javascript:void(0);"
+            >&yen;{{ item2.price }}</a>
+          </a>
+        </div>
+        <!--精选系列-->
+        <div
+          v-if="index==2"
+          class="course-list"
+        >
+          <a
+            :href="item.url"
+            class="coursre-box2"
+            v-for="(item,index) in item.list"
+            :key="index"
+          >
+            <img
+              class="big-image"
+              v-lazy="item.banner"
+              :key="item.banner"
+              alt=""
+            >
+          </a>
+        </div>
+        <!--最新课程-->
+        <div
+          v-if="index==3"
+          class="course-list"
+        >
+          <div class="courses">
+            <a
+              class="coursre-box1"
+              :href="item2.url"
+              v-for="(item2,index2) in item.list"
+              :key="index2"
+            >
+              <div class="img-box">
+                <img
+                  class="course-img"
+                  v-lazy="item2.banner"
+                  :key="item2.banner"
+                  alt=""
+                >
+                <div class="class-info"><img
+                  v-if="item2.lesson_type==2"
+                  class="icon"
+                  src="../../../assets/音频.png"
+                  alt=""
+                ><img
+                  class="icon"
+                  v-else
+                  src="../../../assets/视频.png"
+                  alt=""
+                >&nbsp;<span>{{ item2.number }}</span></div>
+              </div>
+              <h4 class="course-title2">{{ item2.title }}</h4>
+              <div class="label"><span>{{ item2.age }}</span><span class="price">&yen;{{ item2.price }}</span></div>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+    <div />
+  </div>
 
 </template>
 <script>
@@ -69,7 +169,7 @@
     import EntryAd from '../../base/entry-ad/entry-ad'
     import axios from 'axios'
     export default {
-        name: "goods-container",
+        name: "GoodsContainer",
         methods: {
             splitlabel(str) {
                 if (str) {

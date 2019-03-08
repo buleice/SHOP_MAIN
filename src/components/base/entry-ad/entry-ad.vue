@@ -1,35 +1,56 @@
 <template lang="html">
-    <div>
-        <div class="entry-push" v-if="firstVisit==0"></div>
-        <transition name="slide-fade">
-            <div class="content" v-if="firstVisit==0">
-                <div class="content-header">
-                    <h3>不知道给孩子挑选什么课？<br>小伴龙优学帮您定制</h3>
-                    <label>宝宝专属课程</label>
-                </div>
-                <div class="content-body">
-                    <h3><span>请选择孩子的年龄段</span></h3>
-                    <ul>
-                        <li @click.prevent="handleCheck(item)" :class="[age!=null&&item.text==age?'active':'']"
-                            v-for="(item,index) in ageList" :key="index">{{item.text}}
-                        </li>
-                    </ul>
-                    <h3><span>孩子对哪方面内容感兴趣</span></h3>
-                    <ul ref="interest">
-                        <li @click.prevent="handleSelect(item,index)" :class="[recordMultiList.has(item)?'active':'']"
-                            v-for="(item,index) in favoriateList" :key="index">{{item}}
-                        </li>
-                    </ul>
-                </div>
-                <div class="content-footer">
-                    <div class="button" @click.prevent="handleSubmit">开启成长之旅</div>
-                    <a @click.prevent="setFirstVisit(1)">跳过</a>
-                </div>
-                <img class="btn_close_big" src="//udata.youban.com/webimg/wxyx/puintuan/test/btn_close_big@3x.png"
-                     @click.stop="setFirstVisit(1)" alt="">
-            </div>
-        </transition>
-    </div>
+  <div>
+    <div
+      class="entry-push"
+      v-if="firstVisit==0"
+    />
+    <transition name="slide-fade">
+      <div
+        class="content"
+        v-if="firstVisit==0"
+      >
+        <div class="content-header">
+          <h3>不知道给孩子挑选什么课？<br>小伴龙优学帮您定制</h3>
+          <label>宝宝专属课程</label>
+        </div>
+        <div class="content-body">
+          <h3><span>请选择孩子的年龄段</span></h3>
+          <ul>
+            <li
+              @click.prevent="handleCheck(item)"
+              :class="[age!=null&&item.text==age?'active':'']"
+              v-for="(item,index) in ageList"
+              :key="index"
+            >{{ item.text }}
+            </li>
+          </ul>
+          <h3><span>孩子对哪方面内容感兴趣</span></h3>
+          <ul ref="interest">
+            <li
+              @click.prevent="handleSelect(item,index)"
+              :class="[recordMultiList.has(item)?'active':'']"
+              v-for="(item,index) in favoriateList"
+              :key="index"
+            >{{ item }}
+            </li>
+          </ul>
+        </div>
+        <div class="content-footer">
+          <div
+            class="button"
+            @click.prevent="handleSubmit"
+          >开启成长之旅</div>
+          <a @click.prevent="setFirstVisit(1)">跳过</a>
+        </div>
+        <img
+          class="btn_close_big"
+          src="//udata.youban.com/webimg/wxyx/puintuan/test/btn_close_big@3x.png"
+          @click.stop="setFirstVisit(1)"
+          alt=""
+        >
+      </div>
+    </transition>
+  </div>
 </template>
 
 <script>
@@ -37,12 +58,12 @@
         mapGetters,
         mapActions
     } from 'vuex'
-    import {Request} from "../../../api/request";
+    import {Request} from "../../../common/js/request";
     import {addClass, removeClass} from "../../../common/js/dom";
-    import {axiosPost} from "../../../api/axios-data";
+    import {axiosPost} from "../../../common/js/axiosData";
 
     export default {
-        name: 'entryAd',
+        name: 'EntryAd',
         props: ['interest'],
         data() {
             return {

@@ -1,10 +1,15 @@
 <template lang="html">
-      <div v-if="show" class="sc-htoDjs iOMeRW" id='myBtn' @click="_topFunction"><span class="iconfont"></span>顶部</div>
+  <div
+    v-if="show"
+    class="sc-htoDjs iOMeRW"
+    id='myBtn'
+    @click="_topFunction"
+  ><span class="iconfont"></span>顶部</div>
 </template>
 
 <script>
 export default {
-  name:"scrollToTop",
+  name:"ScrollToTop",
   data(){
     return{
       show:false,

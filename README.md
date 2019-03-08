@@ -1,4 +1,4 @@
-# shop_main
+# wxyx-Entry
 
 ## Project setup
 ```

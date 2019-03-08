@@ -1,16 +1,19 @@
 <template>
-    <div id="app">
-        <div class="v-touch" ref="back">
-            <transition :name="transitionName">
-                <keep-alive>
-                    <router-view></router-view>
-                </keep-alive>
-            </transition>
-        </div>
-        <ShopNavBar/>
-        <ScrollToTop ref="scrollToTop"/>
-        <WxShare/>
+  <div id="app">
+    <div
+      class="v-touch"
+      ref="back"
+    >
+      <transition :name="transitionName">
+        <keep-alive>
+          <router-view />
+        </keep-alive>
+      </transition>
     </div>
+    <ShopNavBar />
+    <ScrollToTop ref="scrollToTop" />
+    <WxShare />
+  </div>
 </template>
 
 <script>
@@ -31,11 +34,11 @@
                 touch: {},
                 percent: 0,
                 rPath: ['/shop/default', '/course', '/bonus/center', '/mine'],
-                orientation:'left',
-                isSwiper:false,
-                startTime:0,
-                endTime:0,
-                deltaX:0,
+                orientation: 'left',
+                isSwiper: false,
+                startTime: 0,
+                endTime: 0,
+                deltaX: 0,
             }
         },
         watch: {
@@ -47,15 +50,15 @@
                     const compare = arr.indexOf(to.name) > arr.indexOf(from.name)
                     this.transitionName = compare ? 'fade-enter' : 'view-in'
                 }
-                if(this.isSwiper){
-                    if(this.orientation=="left"){
+                if (this.isSwiper) {
+                    if (this.orientation == "left") {
                         this.transitionName = 'slide-left'
-                    }else{
+                    } else {
                         this.transitionName = 'slide-right'
                     }
-                    this.isSwiper=false
+                    this.isSwiper = false
                     return
-                }else{
+                } else {
                     if (arr.indexOf(to.name) < 0) {
                         this.transitionName = 'fade-enter'
                     } else {
@@ -68,7 +71,7 @@
         },
         methods: {
             touchStart(e) {
-                this.startTime=e.timeStamp
+                this.startTime = e.timeStamp
                 const touch = e.touches[0]
                 this.touch = {
                     startX: touch.pageX,
@@ -88,24 +91,24 @@
                     return
                 }
                 e.preventDefault;
-                this.deltaX=deltaX
+                this.deltaX = deltaX
                 if (deltaX < -50) {
-                    this.isSwiper=true;
-                    this.orientation="left"
+                    this.isSwiper = true;
+                    this.orientation = "left"
                     if (this.routerArr == '/mine') {
                         return
                     }
                     // this.$refs.back.style.left=X+'px';
                     // const left = this.rPath.indexOf(this.routerArr) > 0 ? -window.innerWidth : 0
-                    const left=-50;
+                    const left = -50;
                     var offsetWidth = Math.min(0, Math.max(-window.innerWidth, left + deltaX))
                     this.percent = Math.abs(offsetWidth / window.innerWidth)
                     this.$refs.back.style["transform"] = `translate3d(${offsetWidth}px,0,0)`
                     this.$refs.back.style["transitionDuration"] = 10
                 }
                 if (deltaX > 50) {
-                    this.isSwiper=true;
-                    this.orientation="right"
+                    this.isSwiper = true;
+                    this.orientation = "right"
                     if (this.routerArr == '/shop/default') {
                         return
                     }
@@ -120,12 +123,12 @@
             },
             touchEnd(e) {
                 let offsetWidth = 0;
-                this.endTime=e.timeStamp;
-                if(this.endTime-this.startTime<=300&&Math.abs(this.deltaX)>30){
+                this.endTime = e.timeStamp;
+                if (this.endTime - this.startTime <= 300 && Math.abs(this.deltaX) > 30) {
                     this.toggleTab()
                 }
-                if (this.percent>0.3) {
-                        this.toggleTab()
+                if (this.percent > 0.3) {
+                    this.toggleTab()
                 } else {
                     offsetWidth = 0;
                     this.$refs.back.style["transform"] = `translate3d(${offsetWidth}px,0,0)`
@@ -133,23 +136,23 @@
                     return;
                 }
             },
-            toggleTab(){
+            toggleTab() {
                 let offsetWidth = 0;
-                let rpath=this.rPath;
-                let pageIndex=rpath.indexOf(this.routerArr)
+                let rpath = this.rPath;
+                let pageIndex = rpath.indexOf(this.routerArr)
                 this.$refs.back.style["transform"] = `translate3d(${offsetWidth}px,0,0)`
                 this.$refs.back.style["transitionDuration"] = 10
-                if(this.orientation=="left"){
-                    if(pageIndex>=3){
+                if (this.orientation == "left") {
+                    if (pageIndex >= 3) {
                         return
                     }
-                    this.$router.push(`${this.rPath[pageIndex+1]}`)
-                }else if(this.orientation=="right"){
-                    if(pageIndex<=0){
+                    this.$router.push(`${this.rPath[pageIndex + 1]}`)
+                } else if (this.orientation == "right") {
+                    if (pageIndex <= 0) {
                         return
                     }
-                    this.$router.push(`${this.rPath[pageIndex-1]}`)
-                } else{
+                    this.$router.push(`${this.rPath[pageIndex - 1]}`)
+                } else {
                     return
                 }
             }
@@ -275,14 +278,16 @@
     .slide-right-leave-to {
         transform: translateX(100%);
     }
-    .v-touch{
+
+    .v-touch {
         width: 100%;
-        min-height:41rem;
+        min-height: 41rem;
     }
 </style>
 
 <style lang="scss">
-   @import "./common/css/common";
+    @import "./common/css/common";
+
     $AnimateHook: "animated";
     $AnimateDuration: 0.8s;
     // Mixins

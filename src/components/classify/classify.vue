@@ -1,37 +1,68 @@
 <template>
-    <div class="classify-page">
-        <div class="classify-content">
-            <div>
-                <ul class="classify-banner">
-                    <li v-for="item in categorys" :key="item.title">
-                        <div v-if="item.id==101" @click="autoPlayTheme(item.id)"
-                             :class="[locationId==item.id?'active':'']">
-                            <img :src="item.icon" alt="">
-                            <span>{{item.title}}</span>
-                        </div>
-                        <div v-else @click="autoPlayTheme(item.id)"
-                             :class="[locationId==item.id?'active':'']">
-                            <img :src="item.icon" alt="">
-                            <span>{{item.title}}</span>
-                        </div>
-                    </li>
-                    <li v-if="!allCategory&&category2.length>10" @click="allCategory=true;categorys=category2">
-                        <b class="pack-down"></b>
-                        <span>展开</span>
-                    </li>
-                    <li v-if="allCategory&&category2.length>10" @click="allCategory=false;categorys=category2.slice(0,9)">
-                        <b class="pack-up"></b>
-                        <span>收起</span>
-                    </li>
-                </ul>
-                <ClassifyRecommend :list="recommendList"  v-if="showRecommend&&!showLoading"></ClassifyRecommend>
-                <ClassifyNormal :lessonList="normalList"  v-if="!showRecommend&&!showLoading" ></ClassifyNormal>
-                <Loading v-if="showLoading"></Loading>
-
+  <div class="classify-page">
+    <div class="classify-content">
+      <div>
+        <ul class="classify-banner">
+          <li
+            v-for="item in categorys"
+            :key="item.title"
+          >
+            <div
+              v-if="item.id==101"
+              @click="autoPlayTheme(item.id)"
+              :class="[locationId==item.id?'active':'']"
+            >
+              <img
+                :src="item.icon"
+                alt=""
+              >
+              <span>{{ item.title }}</span>
             </div>
-        </div>
-        <div v-if="showToTop" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
+            <div
+              v-else
+              @click="autoPlayTheme(item.id)"
+              :class="[locationId==item.id?'active':'']"
+            >
+              <img
+                :src="item.icon"
+                alt=""
+              >
+              <span>{{ item.title }}</span>
+            </div>
+          </li>
+          <li
+            v-if="!allCategory&&category2.length>10"
+            @click="allCategory=true;categorys=category2"
+          >
+            <b class="pack-down" />
+            <span>展开</span>
+          </li>
+          <li
+            v-if="allCategory&&category2.length>10"
+            @click="allCategory=false;categorys=category2.slice(0,9)"
+          >
+            <b class="pack-up" />
+            <span>收起</span>
+          </li>
+        </ul>
+        <ClassifyRecommend
+          :list="recommendList"
+          v-if="showRecommend&&!showLoading"
+        />
+        <ClassifyNormal
+          :lesson-list="normalList"
+          v-if="!showRecommend&&!showLoading"
+        />
+        <!--<Loading v-if="showLoading"></Loading>-->
+
+      </div>
     </div>
+    <div
+      v-if="showToTop"
+      class="sc-htoDjs iOMeRW"
+      @click="_topFunction"
+    ><span class="iconfont"></span>顶部</div>
+  </div>
 </template>
 
 <script>
@@ -39,10 +70,10 @@
     const ClassifyRecommend = () => import('./classify-recommend');
     const ClassifyNormal = () => import('../base/lesson-list');
     import Loading from '../base/loading'
-    import {Request} from "../../api/request";
+    import {getCateGoryInfo} from '../../api/pageDataApis'
 
     export default {
-        name: "calssify",
+        name: "Calssify",
         data() {
             return {
                 categorys: [],
@@ -101,9 +132,10 @@
                 this['moduleClassify/setThemeIndex'](cid);
                 if (cid == 101) {
                     this.setData('showRecommend', true);
-                    new Request('/shop/category.json', 'GET', {
+                    getCateGoryInfo({
                         category: cid
-                    }).returnJson().then(res => {
+                    }).then(response => {
+                        const res=response.data;
                         this.category2=res.category2;
                         this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)
@@ -114,9 +146,10 @@
                     })
                 } else if (cid != 101) {
                     this.setData('showRecommend', false);
-                    new Request('/shop/category.json', 'GET', {
+                    getCateGoryInfo({
                         category: cid
-                    }).returnJson().then(res => {
+                    }).then(response => {
+                        const res=response.data;
                         this.category2=res.category2;
                         this.allCategory=false;
                         this.categorys=res.category2.slice(0,9)

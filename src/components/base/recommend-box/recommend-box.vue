@@ -1,21 +1,29 @@
 <template>
-    <div>
-        <div v-for="(item,index) in list" :key="index">
-            <div class="divide"></div>
-            <div class="recommend-box">
-                <div class="recommend-banner"><span>{{item.title}}</span><router-link :to="'/shop/classify/'+item.id">更多</router-link></div>
-                <CourseBox class="course" v-for="(item2,index2) in item.list" @imgLoad="imgLoad" :data="item2"
-                           :key="index2"></CourseBox>
-            </div>
-        </div>
+  <div>
+    <div
+      v-for="(item,index) in list"
+      :key="index"
+    >
+      <div class="divide" />
+      <div class="recommend-box">
+        <div class="recommend-banner"><span>{{ item.title }}</span><router-link :to="'/shop/classify/'+item.id">更多</router-link></div>
+        <CourseBox
+          class="course"
+          v-for="(item2,index2) in item.list"
+          @imgLoad="imgLoad"
+          :data="item2"
+          :key="index2"
+        />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
     import CourseBox from '../course-box/course-box'
 
     export default {
-        name: "recomend-box",
+        name: "RecomendBox",
         props: ['list'],
         methods:{
             imgLoad(){

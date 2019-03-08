@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="bonus">
-    <router-view></router-view>
+    <router-view />
   </div>
 </template>
 

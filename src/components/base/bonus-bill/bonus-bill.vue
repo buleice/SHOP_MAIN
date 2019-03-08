@@ -1,17 +1,30 @@
 <template lang="html">
   <table v-if="bill.length>0">
-    <tr  v-for="(item,index) in bill" :key="index">
-      <td align="center" valign="middle">
-        {{item.time.slice(0,10)}}
+    <tr
+      v-for="(item,index) in bill"
+      :key="index"
+    >
+      <td
+        align="center"
+        valign="middle"
+      >
+        {{ item.time.slice(0,10) }}
       </td>
       <td>
-        {{item.title}}
+        {{ item.title }}
       </td>
-      <td>{{item.bonus}}</td>
+      <td>{{ item.bonus }}</td>
     </tr>
   </table>
-  <div v-else class="default-img">
-    <img src="//udata.youban.com/webimg/wxyx/puintuan/double11_gift_noget.png" style="margin-top:33%;" alt="">
+  <div
+    v-else
+    class="default-img"
+  >
+    <img
+      src="//udata.youban.com/webimg/wxyx/puintuan/double11_gift_noget.png"
+      style="margin-top:33%;"
+      alt=""
+    >
     <p style="font-size:1.25rem;">还未获得奖学金哦~~</p>
   </div>
 </template>
@@ -19,7 +32,7 @@
 <script>
 import {
   Request
-} from '../../../api/request'
+} from '../../../common/js/request'
 export default {
   name: 'BonusBill',
   data() {

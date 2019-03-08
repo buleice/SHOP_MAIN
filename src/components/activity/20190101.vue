@@ -1,30 +1,49 @@
 <template lang="html">
-    <div class="shop-page">
-        <div class="shop-content">
-            <div>
-                <carousel :slideDatas="carouselList">
-                    <div v-for="(scroll,index) in carouselList" :key="index">
-                        <a :href="scroll.url">
-                            <img :src="scroll.image" alt=""/>
-                        </a>
-                    </div>
-                </carousel>
-                <ul class="shop-category">
-                    <li v-for="item in category" :key="item.title">
-                        <router-link :to="{name:'classify',params:{cid:item.id}}">
-                            <img :src="item.icon" alt="">
-                            <span>{{item.title}}</span>
-                        </router-link>
-                    </li>
-                </ul>
-                <div class="personalDiy"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{age}}</span><b @click="userDiy">重新选择</b></div>
-                <RecommendBox :list="lessonList"></RecommendBox>
-            </div>
-        </div>
-        <div v-if="1==2" class="sc-htoDjs iOMeRW" @click="_topFunction"><span class="iconfont"></span>顶部</div>
-        <EntryAd @freshData="_initPageData" :interest="interest"></EntryAd>
-        <PushInfo v-if="showAd"></PushInfo>
+  <div class="shop-page">
+    <div class="shop-content">
+      <div>
+        <carousel :slide-datas="carouselList">
+          <div
+            v-for="(scroll,index) in carouselList"
+            :key="index"
+          >
+            <a :href="scroll.url">
+              <img
+                :src="scroll.image"
+                alt=""
+              >
+            </a>
+          </div>
+        </carousel>
+        <ul class="shop-category">
+          <li
+            v-for="item in category"
+            :key="item.title"
+          >
+            <router-link :to="{name:'classify',params:{cid:item.id}}">
+              <img
+                :src="item.icon"
+                alt=""
+              >
+              <span>{{ item.title }}</span>
+            </router-link>
+          </li>
+        </ul>
+        <div class="personalDiy"><span class="title">帮孩子选课&nbsp;</span><span class="age">{{ age }}</span><b @click="userDiy">重新选择</b></div>
+        <RecommendBox :list="lessonList" />
+      </div>
     </div>
+    <div
+      v-if="1==2"
+      class="sc-htoDjs iOMeRW"
+      @click="_topFunction"
+    ><span class="iconfont" />顶部</div>
+    <EntryAd
+      @freshData="_initPageData"
+      :interest="interest"
+    />
+    <PushInfo v-if="showAd" />
+  </div>
 </template>
 
 <script>

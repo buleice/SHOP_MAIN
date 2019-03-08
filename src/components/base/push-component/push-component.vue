@@ -1,25 +1,40 @@
 <template>
-    <div class="coupons" @click="showMe=false" v-if="showMe&&!newUser">
-        <!--<div class="content">-->
-            <!--<h3>嗨！{{newUser?"新朋友":"老朋友"}}</h3>-->
-            <!--<div class="desc">-->
-                <!--<span class="shuli">送你</span>-->
-                <!--<span>{{coupon.couponMoney}}</span>-->
-                <!--<span>元</span>-->
-            <!--</div>-->
-            <!--<div class="title">{{coupon.name}}</div>-->
-        <!--</div>-->
-        <img class="festival"  src="//udata.youban.com/webimg/wxyx/push/festival.png" alt="">
-        <!--<div class="close-coupon" @click="showMe=false"></div>-->
-        <div class=" festival-close" @click="showMe=false"></div>
+  <div
+    class="coupons"
+    @click="showMe=false"
+    v-if="showMe"
+  >
+    <div class="content">
+      <h3>送给您一张</h3>
+      <h2>{{ coupon.name }}</h2>
+      <div class="coupon_bg">
+        <p>{{ coupon.couponMoney }}<sub>元</sub></p>
+        <p>适用于:</br>{{ coupon.lesson }}</p>
+      </div>
+      <!-- <div class="desc">
+                <p class="shuli">送您</p>
+                <span>{{coupon.lesson}}</span>
+                <span>元</span>
+            </div> -->
+      <!-- <div class="title">{{coupon.name}}</div> -->
     </div>
+    <!-- <img class="festival"  src="/img/couponbg-new.png" alt=""> -->
+    <div
+      class="close-coupon"
+      @click="showMe=false"
+    />
+    <!-- <div class=" festival-close" @click="showMe=false"></div>
+        <div class=" festival-close-btn" @click="showMe=false">
+            <img src="//test.wxyx.youban.com/img/btn.png" />
+        </div> -->
+  </div>
 </template>
 
 <script>
     import {mapGetters} from 'vuex'
 
     export default {
-        name: "push-component",
+        name: "PushComponent",
         props: {
             coupon: {}
         },
@@ -45,26 +60,65 @@
         bottom: 0;
         z-index: 100;
         .content {
-            width: 285px;
-            height: 406px;
-            background: url('//udata.youban.com/webimg/wxyx/puintuan/couponbg-new.png') no-repeat;
+            width: 21rem;
+            height: 32rem;
+            background: url('https://udata.youban.com/webimg/wxyx/puintuan/coupon.png') no-repeat;
             background-size: 100%;
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-48%, -50%);
-            h3 {
+            h3,h2 {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
-                top: 110px;
-                color: #69160c;
+                top: 4rem;
+                color: #fff;
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            h2{
+                top: 5.4rem;
+                color: #FFE345;
+                -webkit-text-shadow: 0px 2px 3px #B31712;
+                text-shadow: 0px 2px 3px #B31712;
+                font-size: 1.2rem;
+            }
+            .coupon_bg{
+                position: absolute;
+                background: url('https://udata.youban.com/webimg/wxyx/puintuan/coupon_bg.png') no-repeat center;
+                width: 80%;
+                height: 7rem;
+                background-size: cover;
+                top: 8rem;
+                left: 50%;
+                -webkit-transform: translateX(-50%);
+                transform: translateX(-50%);
+                display: flex;
+                justify-content: space-around;
+                align-items: center;
+                p{
+                    &:nth-child(1) {
+                        font-size: 60px;
+                        margin-left: 19px;
+                        color: #F41C10;
+                    }
+                    sub{
+                        font-size: 15px;
+                        vertical-align: baseline;
+                    }
+                    &:nth-child(2) {
+                        font-size: 0.6rem;
+                        line-height: 1rem;
+                        height: 2rem;
+                    }
+                }
             }
             .desc {
                 color: #fb201e;
                 position: absolute;
-                height: 72px;
-                top: 143px;
+                height: 85px;
+                top: 80px;
                 width: 120px;
                 left: 50%;
                 transform: translateX(-50%);
@@ -82,21 +136,21 @@
                 }
                 span {
                     &:nth-child(2) {
-                        font-size: 72px;
+                        font-size: 85px;
                         margin-left: auto;
                         margin-right: auto;
                         margin-top: 7px;
                         font-weight: 500;
                     }
                     &:nth-child(3) {
-                        font-size: 1rem;
+                        font-size: 1.2rem;
                         margin-top: auto;
                     }
                 }
             }
             .title {
                 position: absolute;
-                top: 240px;
+                top: 215px;
                 left: 50%;
                 transform: translate(-55%, -50%);
                 color: #fb201e;
@@ -108,7 +162,7 @@
             position: absolute;
             width: 35px;
             height: 35px;
-            top: 535px;
+            bottom: 8rem;
             left: 50%;
             transform: translate(-48%, -50%);
         }
@@ -118,16 +172,26 @@
             position: absolute;
             width: 35px;
             height: 35px;
-            top:20%;
+            bottom: 16%;
+            left: 50%;
             right: 3.125rem;
-            transform: translate(-48%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .festival-close-btn{
+            position: absolute;
+            bottom: 29%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            img{
+                width: 75%;
+            }
         }
         .festival{
             position: absolute;
             top: 40%;
             left: 50%;
             transform: translate(-48%, -50%);
-            width: 95%;
+            width: 80%;
             display: block;margin: auto;
         }
     }

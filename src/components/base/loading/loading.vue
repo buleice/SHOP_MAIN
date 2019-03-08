@@ -1,23 +1,23 @@
 <template>
-    <div class="loading">
-        <div class="loading-center">
-            <div class="loading-center-absolute">
-                <div class="object object_one"></div>
-                <div class="object object_two"></div>
-                <div class="object object_three"></div>
-                <div class="object object_four"></div>
-                <div class="object object_five"></div>
-                <div class="object object_six"></div>
-                <div class="object object_seven"></div>
-                <div class="object object_eight"></div>
-            </div>
-        </div>
+  <div class="loading">
+    <div class="loading-center">
+      <div class="loading-center-absolute">
+        <div class="object object_one" />
+        <div class="object object_two" />
+        <div class="object object_three" />
+        <div class="object object_four" />
+        <div class="object object_five" />
+        <div class="object object_six" />
+        <div class="object object_seven" />
+        <div class="object object_eight" />
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
     export default {
-        name: "loading"
+        name: "Loading"
     }
 </script>
 <style>

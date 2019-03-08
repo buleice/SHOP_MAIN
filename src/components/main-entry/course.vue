@@ -1,70 +1,118 @@
 <template lang="html">
-    <div class="course">
-        <div class="miniProgram" v-if="showMiniQrcode">
-            <img class="qrcode" src="//udata.youban.com/webimg/wxyx/puintuan/miniQrcode(1)@3x.png" alt="">
-            <div class="mini-text">
-                <p>长按识别二维码 去小程序打卡学习效果更好哦~</p>
-                <div class="info">
-                    —长按识别二维码 —
-                </div>
-            </div>
-            <div class="closeMini" @click="showMiniQrcode=false">
-                &times;
-            </div>
+  <div class="course">
+    <div
+      class="miniProgram"
+      v-if="showMiniQrcode"
+    >
+      <img
+        class="qrcode"
+        src="//udata.youban.com/webimg/wxyx/puintuan/miniQrcode(1)@3x.png"
+        alt=""
+      >
+      <div class="mini-text">
+        <p>长按识别二维码 去小程序打卡学习效果更好哦~</p>
+        <div class="info">
+          —长按识别二维码 —
         </div>
-        <div v-if="uncompletedGroups">
-            <div class="myGroup" v-for="(item,index) in uncompletedGroups" :key="index">
-                <a :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
-                   class="a_box">
-                    <img v-lazy="item['Fbanner'][0]" ref="lazy" alt="" class="course-img">
-                    <div class="groupInfo">
-                        <div class="groupInfo__avatarbox">
-                            <i v-for="(ava,index) in item['userList']" class="avatar"
-                               :style="computedAvatarStyle(index,ava,item.Fmode)" :key="index"></i>
-                            <div class="" v-html="addvatar(item['userList'].length,item.Fmode)">
-
-                            </div>
-                        </div>
-                        <div class="groupInfo__middleBox">
-                            <span class="tuan_label">{{item['Fmode']}}人团</span>
-                            <span class="remainPeople">还差{{item['leftCount']}}人</span>
-                        </div>
-                        <div class="groupInfo_buttton">邀请好友</div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
-        <div class="noempty" v-if="myLesson.length==0&&uncompletedGroups.length==0" ><img
-                src="https://udata.youban.com/webimg/other/quesheng.png"/></div>
-        <div class="myGroup" v-for="(item,index) in myLesson" :key="index">
-            <a :href="item['url']" class="a_box" target="_blank">
-                <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
-                <div class="groupInfo" :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}">
-                    <div class="groupInfo__avatarbox">
-                        <div v-if="item['total']!=0">
-                            进度&nbsp;：
-                            <progress v-if="item['total']!=0" class="mypro"
-                                      :value="setProgressValue(item['learned'],item['total'])" max="100"></progress>
-                            <span>{{item['learned']}}/{{item['total']}}</span>
-                        </div>
-                    </div>
-                    <div class="groupInfo_buttton">去学习</div>
-                </div>
-            </a>
-        </div>
-        <PushInfo v-if="showAd"></PushInfo>
+      </div>
+      <div
+        class="closeMini"
+        @click="showMiniQrcode=false"
+      >
+        &times;
+      </div>
     </div>
+    <div v-if="uncompletedGroups">
+      <div
+        class="myGroup"
+        v-for="(item,index) in uncompletedGroups"
+        :key="index"
+      >
+        <a
+          :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
+          class="a_box"
+        >
+          <img
+            v-lazy="item['Fbanner'][0]"
+            ref="lazy"
+            alt=""
+            class="course-img"
+          >
+          <div class="groupInfo">
+            <div class="groupInfo__avatarbox">
+              <i
+                v-for="(ava,index) in item['userList']"
+                class="avatar"
+                :style="computedAvatarStyle(index,ava,item.Fmode)"
+                :key="index"
+              />
+              <div
+                class=""
+                v-html="addvatar(item['userList'].length,item.Fmode)"
+              />
+            </div>
+            <div class="groupInfo__middleBox">
+              <span class="tuan_label">{{ item['Fmode'] }}人团</span>
+              <span class="remainPeople">还差{{ item['leftCount'] }}人</span>
+            </div>
+            <div class="groupInfo_buttton">邀请好友</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div
+      class="noempty"
+      v-if="myLesson.length==0&&uncompletedGroups.length==0"
+    ><img
+      src="https://udata.youban.com/webimg/other/quesheng.png"
+    ></div>
+    <div
+      class="myGroup"
+      v-for="(item,index) in myLesson"
+      :key="index"
+    >
+      <a
+        :href="item['url']"
+        class="a_box"
+        target="_blank"
+      >
+        <img
+          v-lazy="item['banner']"
+          ref="lazy"
+          alt=""
+          class="course-img"
+        >
+        <div
+          class="groupInfo"
+          :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}"
+        >
+          <div class="groupInfo__avatarbox">
+            <div v-if="item['total']!=0">
+              进度&nbsp;：
+              <progress
+                v-if="item['total']!=0"
+                class="mypro"
+                :value="setProgressValue(item['learned'],item['total'])"
+                max="100"
+              />
+              <span>{{ item['learned'] }}/{{ item['total'] }}</span>
+            </div>
+          </div>
+          <div class="groupInfo_buttton">去学习</div>
+        </div>
+      </a>
+    </div>
+    <PushInfo v-if="showAd" />
+  </div>
 </template>
 
 <script>
     import PushInfo from '../base/push-component/push-component'
-    import {
-        Request
-    } from '../../api/request'
+    import {getUserCourse} from '../../api/pageDataApis'
 
     export default {
-        name: 'usercenter',
+        name: 'Usercenter',
         data() {
             return {
                 userInfo: {},
@@ -76,7 +124,8 @@
             }
         },
         created() {
-            new Request("/shop/mycourse.json", "POST").returnJson().then(res => {
+            getUserCourse().then(response => {
+                const res=response.data;
                 this.userInfo = {
                     nick: res.nick,
                     wid: res.wid,
@@ -85,9 +134,6 @@
                 this.myLesson = res.myLesson;
                 this.uncompletedGroups = res.uncompletedGroups;
             })
-        },
-        mounted() {
-
         },
         methods: {
             setProgressValue(learn, total) {

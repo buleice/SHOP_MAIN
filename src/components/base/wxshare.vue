@@ -1,13 +1,13 @@
 <template lang="html">
-<div></div>
+  <div />
 </template>
 <script>
-import {Request} from '../../api/request';
-import {axiosPost} from '../../api/axios-data'
+import {Request} from '../../common/js/request';
+import {axiosPost} from '../../common/js/axiosData'
 export default {
   name:"WxShare",
   props:{
-    WXSHDATA:{
+    wXSHDATA:{
       type:Object,
       default(){
         return {

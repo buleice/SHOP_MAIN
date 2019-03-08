@@ -31,7 +31,7 @@ class Fetch extends Config{
 				console.log('请求失败');
 				that.errorFunc();
 			}
-		}, function(e){
+		}, function(){
 			console.log('请求失败');
 			that.errorFunc();
 		})

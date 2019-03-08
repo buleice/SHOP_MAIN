@@ -1,12 +1,21 @@
 <template lang="html">
 
-    <div class="course-contatiner" v-if="series.length">
-      <ul>
-        <li v-for='(serie,index) in series' :key="index">
-          <a :href="'/purchase/series?id='+serie.id"><img :src="serie.img" alt="图片"> </a>
-        </li>
-      </ul>
-    </div>
+  <div
+    class="course-contatiner"
+    v-if="series.length"
+  >
+    <ul>
+      <li
+        v-for='(serie,index) in series'
+        :key="index"
+      >
+        <a :href="'/purchase/series?id='+serie.id"><img
+          :src="serie.img"
+          alt="图片"
+        > </a>
+      </li>
+    </ul>
+  </div>
 
 </template>
 

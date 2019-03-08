@@ -1,18 +1,29 @@
 <template>
-    <a class="coursre-box" :href="data.url">
-        <img class="course-img" @imgLoad="imgLoad" v-lazy="data.icon" alt="">
-        <div class="coursre-intro">
-            <h4 class="course-title">{{data.title}}</h4>
-            <div class="course-desc" v-html="data.subtitle"></div>
-            <div class="course-label"><span>{{data.number}}</span><span>{{data.sales}}人在学习</span></div>
-        </div>
-        <a class="coursre-button">&yen;{{data.price}}</a>
-    </a>
+  <a
+    class="coursre-box"
+    :href="data.url"
+  >
+    <img
+      class="course-img"
+      @imgLoad="imgLoad"
+      v-lazy="data.icon"
+      alt=""
+    >
+    <div class="coursre-intro">
+      <h4 class="course-title">{{ data.title }}</h4>
+      <div
+        class="course-desc"
+        v-html="data.subtitle"
+      />
+      <div class="course-label"><span>{{ data.number }}</span><span>{{ data.sales }}人在学习</span></div>
+    </div>
+    <a class="coursre-button">&yen;{{ data.price }}</a>
+  </a>
 </template>
 
 <script>
     export default {
-        name: "coursre-box",
+        name: "CoursreBox",
         props: {
             data: {
                 type: Object,
