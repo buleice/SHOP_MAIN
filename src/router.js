@@ -5,10 +5,10 @@ Router.prototype.go = function () {
     window.history.go(-1)
 }
 
-const Shop = () => import('./components/main-entry/shop.vue');
-const Mine = () => import('./components/main-entry/user.vue');
-const Bonus = () => import('./components/main-entry/bonus.vue');
-const Course = () => import('./components/main-entry/course.vue');
+const Shop = () => import('./views/shop.vue');
+const Mine = () => import('./views/user.vue');
+const Bonus = () => import('./views/bonus.vue');
+const Course = () => import('./views/course.vue');
 const BonusBill = () => import('./components/base/bonus-bill/bonus-bill.vue');
 const BonusIndex = () => import('./components/base/bonus-index/bonus-index.vue');
 const ShopDefault=()=>import('./components/shop-default/shop-default');

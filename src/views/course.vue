@@ -108,8 +108,8 @@
 </template>
 
 <script>
-    import PushInfo from '../base/push-component/push-component'
-    import {getUserCourse} from '../../api/pageDataApis'
+    import PushInfo from '../components/base/push-component/push-component'
+    import {getUserCourse} from '../api/pageDataApis'
 
     export default {
         name: 'Usercenter',

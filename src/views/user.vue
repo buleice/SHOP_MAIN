@@ -47,8 +47,8 @@
 </template>
 
 <script>
-    import PushInfo from '../base/push-component/push-component'
-    import {getUserInfo} from '../../api/pageDataApis'
+    import PushInfo from '../components/base/push-component/push-component'
+    import {getUserInfo} from '../api/pageDataApis'
 export default {
   name: 'Usercenter',
   data() {

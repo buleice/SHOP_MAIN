@@ -8,6 +8,9 @@ import VueLazyload from 'vue-lazyload'
 import Loading from './components/base/loading/loading'
 import wxLoading from './components/loading/index'
 import MESSAGE from './components/Message/index'
+import DialogIndexs from './components/toast/index'
+import 'components/toast/toast.css'
+Vue.use(DialogIndexs)
 Vue.use(MESSAGE);
 Vue.use(wxLoading);
 Vue.component('Loading',Loading)
