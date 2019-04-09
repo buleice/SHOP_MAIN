@@ -1,3 +1,12 @@
+<!--
+ * @Description: 商品盒子组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:39:53
+ -->
+
 <template>
   <div>
     <div
@@ -62,7 +71,9 @@
                 >&nbsp;<span>{{ item2.number }}</span></div>
               </div>
               <h4 class="course-title2">{{ item2.title }}</h4>
-              <div class="label"><span>{{ item2.age }}</span><span class="price">&yen;{{ item2.price }}</span></div>
+              <div class="label"><span>{{ item2.age }}</span><span
+                class="price"
+              >&yen;{{ item2.price }}</span></div>
             </a>
           </div>
         </div>
@@ -154,7 +165,9 @@
                 >&nbsp;<span>{{ item2.number }}</span></div>
               </div>
               <h4 class="course-title2">{{ item2.title }}</h4>
-              <div class="label"><span>{{ item2.age }}</span><span class="price">&yen;{{ item2.price }}</span></div>
+              <div class="label"><span>{{ item2.age }}</span><span
+                class="price"
+              >&yen;{{ item2.price }}</span></div>
             </a>
           </div>
         </div>
@@ -165,7 +178,10 @@
 
 </template>
 <script>
-    import {mapGetters,mapActions} from 'vuex'
+    import {
+        mapGetters,
+        mapActions
+    } from 'vuex'
     import EntryAd from '../../base/entry-ad/entry-ad'
     import axios from 'axios'
     export default {
@@ -176,29 +192,33 @@
                     return str.split('/');
                 }
             },
-            _initPageData(){
-                axios.get('/shop/list.json').then(res=>{
+            _initPageData() {
+                axios.get('/shop/list.json').then(res => {
                     this['moduleIndex/setIndexPageData'](res.data)
                 })
             },
-            showDiyCard(){
+            showDiyCard() {
                 this.setFirstVisit(0)
             },
-            computedTopLabel(index){
+            computedTopLabel(index) {
                 switch (index) {
-                    case 0:return'//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/1@2x_86.png';
-                    case 1:return'//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/2@2x.png';
-                    case 2:return'//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/3@2x.png';
-                    default:return '';
+                    case 0:
+                        return '//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/1@2x_86.png';
+                    case 1:
+                        return '//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/2@2x.png';
+                    case 2:
+                        return '//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/3@2x.png';
+                    default:
+                        return '';
                 }
             },
-            ...mapActions(['setFirstVisit','moduleIndex/setIndexPageData'])
+            ...mapActions(['setFirstVisit', 'moduleIndex/setIndexPageData'])
         },
         created() {
 
         },
-        computed:{
-            ...mapGetters('moduleIndex',['indexPageData']),
+        computed: {
+            ...mapGetters('moduleIndex', ['indexPageData']),
         },
 
         components: {
@@ -215,22 +235,27 @@
         height: .63rem;
         background: #f5f5f5;
     }
+
     .recommend-box {
         width: 100%;
         box-sizing: border-box;
         padding: 0 .5rem;
         margin: .63rem 0;
+
         .recommend-banner {
             display: flex;
             justify-content: space-between;
             align-items: center;
+
             div {
                 font-size: 1.125rem;
                 font-weight: 700;
+
                 img {
                     @include img-text-middle;
                     width: 1.25rem;
                 }
+
                 span {
                     @include img-text-middle;
                 }
@@ -244,6 +269,7 @@
                 display: inline-block;
                 vertical-align: middle;
                 transform: translateY(.25rem);
+
                 &::after {
                     content: "";
                     position: absolute;
@@ -257,15 +283,18 @@
                 }
             }
         }
-        .course-list{
-         position: relative;
+
+        .course-list {
+            position: relative;
+
             .subhead {
                 text-align: left;
                 text-indent: 1.625rem;
                 margin: 0.3rem 0;
                 color: $font-color-info;
             }
-            .personDiy{
+
+            .personDiy {
                 position: absolute;
                 right: -.625rem;
                 top: -1.5rem;
@@ -274,7 +303,8 @@
                 background-color: $theme-color1;
                 border-radius: 1rem 0 0 1rem;
                 padding-right: .25rem;
-                span{
+
+                span {
                     @include img-text-middle;
                     color: #ffffff;
                     font-size: .75rem;
@@ -282,7 +312,8 @@
                     text-indent: 1rem;
                     /*margin-top: .125rem;*/
                 }
-                &::after{
+
+                &::after {
                     left: .25rem;
                     width: .75rem;
                     content: " ";
@@ -295,6 +326,7 @@
                     background-size: 100%;
                 }
             }
+
             .coursre-box {
                 width: 100%;
                 height: 6.88rem;
@@ -304,6 +336,7 @@
                 justify-content: flex-start;
                 color: #555;
                 position: relative;
+
                 .course-img {
                     width: 10.43rem;
                     height: 5.25rem;
@@ -311,18 +344,21 @@
                     margin-right: 0.625rem;
                     @include card-shadow;
                 }
-                .topLabel{
+
+                .topLabel {
                     position: absolute;
                     top: 0.625rem;
                     width: 2.5rem;
                     left: 0.25rem;
                 }
+
                 .coursre-intro {
                     box-sizing: border-box;
                     min-height: 5rem;
                     text-align: left;
                     @include flex-column;
                     justify-content: space-around;
+
                     .course-title {
                         max-width: 11rem;
                         line-height: 1.5;
@@ -333,6 +369,7 @@
                         color: #2c3e50;
                         font-weight: 600;
                     }
+
                     .course-desc {
                         max-width: 16.25rem;
                         color: rgba(0, 0, 0, .7);
@@ -344,7 +381,8 @@
                         white-space: nowrap;
                         color: $font-color-info;
                         font-size: .75rem;
-                        transform:scale(0.9) translateX(-.375rem) ;
+                        transform: scale(0.9) translateX(-.375rem);
+
                         p {
                             font-size: .75rem;
                             transform: scale(0.9);
@@ -354,11 +392,14 @@
                             text-overflow: ellipsis;
                         }
                     }
+
                     .course-label {
                         @include img-text-middle;
+
                         span {
                             @include circle-label;
                             color: $font-color-info;
+
                             &:first-child {
                                 margin-right: 0.375rem;
                             }
@@ -366,6 +407,7 @@
                     }
 
                 }
+
                 .coursre-button {
                     position: absolute;
                     margin-top: auto;
@@ -374,19 +416,22 @@
                     color: $font-activity-color;
                 }
             }
-            .coursre-box2{
-                img{
+
+            .coursre-box2 {
+                img {
                     width: 100%;
                     margin: .5rem 0;
                     border-radius: .63rem;
                     -webkit-box-shadow: 0 0.13rem 0.75rem #888;
-                    box-shadow: 0 0.13rem .625rem rgba(0,0,0,.2);
+                    box-shadow: 0 0.13rem .625rem rgba(0, 0, 0, .2);
                 }
             }
-            .courses{
+
+            .courses {
                 @include flex-row;
                 flex-wrap: wrap;
                 justify-content: space-between;
+
                 .coursre-box1 {
                     width: 48%;
                     box-sizing: border-box;
@@ -395,12 +440,14 @@
                     color: #555;
                     position: relative;
                     margin-top: .75rem;
+
                     .img-box {
                         width: 100%;
                         height: auto;
                         background: $bg-color-white;
                         box-shadow: 2px 2px 5px 1px rgba(0, 0, 0, 0.2);
                         border-radius: .3125rem;
+
                         .course-img {
                             width: 100%;
                             height: auto;
@@ -408,6 +455,7 @@
                             border-radius: .3125rem .3125rem 0 0;
                         }
                     }
+
                     .course-title2 {
                         max-width: 100%;
                         width: 100%;
@@ -415,28 +463,33 @@
                         white-space: nowrap;
                         text-overflow: ellipsis;
                         color: $font-color-title;
-                        margin:0.75rem  0 .315rem 0;
+                        margin: 0.75rem 0 .315rem 0;
                         text-align: left;
                         font-weight: 600;
                     }
-                    .label{
+
+                    .label {
                         margin: .315rem 0;
-                        span{
-                            &:first-child{
+
+                        span {
+                            &:first-child {
                                 float: left;
                                 color: $font-color-info;
                                 @include circle-label;
                             }
-                            &:last-child{
+
+                            &:last-child {
                                 color: $font-activity-color;
                                 float: right;
                             }
                         }
-                        &:after{
+
+                        &:after {
                             @include clear-float;
                         }
                     }
-                    .class-info{
+
+                    .class-info {
                         text-align: right;
                         box-sizing: border-box;
                         padding-right: 0.625rem;
@@ -445,10 +498,13 @@
                         align-items: center;
                         height: 1.5625rem;
                         justify-content: flex-end;
-                        span,img{
+
+                        span,
+                        img {
                             @include img-text-middle;
                         }
-                        img{
+
+                        img {
                             width: .75rem;
                         }
                     }
@@ -457,6 +513,7 @@
 
             .course {
                 border-bottom: 1px solid rgba(0, 0, 0, .2);
+
                 &:last-child {
                     border: none;
                 }

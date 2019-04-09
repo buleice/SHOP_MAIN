@@ -1,16 +1,16 @@
-$theme-color1:#f69f00;
-$font-activity-color:#f23030;
+$theme-color1: #f69f00;
+$font-activity-color: #f23030;
 $font-normal-color: #232326;
-$font-color-info:rgba(0,0,0,.5);
+$font-color-info: rgba(0, 0, 0, 0.5);
 $font-color-title: #222222;
-$bg-color-white:#ffffff;
-$bg-color-gray:#f5f5f5f;
+$bg-color-white: #ffffff;
+$bg-color-gray: #f5f5f5f;
 
-@mixin img-text-middle{
+@mixin img-text-middle {
   display: inline-block;
   vertical-align: middle;
 }
-@mixin fixed-fullscreen{
+@mixin fixed-fullscreen {
   position: fixed;
   width: 100%;
   height: 100%;
@@ -18,45 +18,44 @@ $bg-color-gray:#f5f5f5f;
   bottom: 0;
   z-index: 500;
 }
-@mixin flex-row{
+@mixin flex-row {
   display: flex;
   flex-direction: row;
 }
-@mixin flex-column{
+@mixin flex-column {
   display: flex;
   flex-direction: column;
 }
 
-@mixin ellipsis{
+@mixin ellipsis {
   text-overflow: ellipsis;
 }
-@mixin line-warp($num){
+@mixin line-warp($num) {
   display: block;
   overflow-y: hidden;
   text-overflow: ellipsis;
   -webkit-line-clamp: $num;
   -webkit-box-orient: vertical;
 }
-@mixin text-nowarp{
+@mixin text-nowarp {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-@mixin circle-label{
+@mixin circle-label {
   display: inline-block;
-  padding: 0px .3rem;
+  padding: 0px 0.3rem;
   border: 1px solid currentColor;
   border-radius: 1.5625rem;
   font-size: 0.75rem;
-  transform:scale(.9);
+  transform: scale(0.9);
 }
-@mixin clear-float{
-  content: '';
+@mixin clear-float {
+  content: "";
   display: block;
   clear: both;
 }
-@mixin card-shadow{
-  box-shadow: 0 0.125rem 0.5rem rgba(0,0,0,.5);
+@mixin card-shadow {
+  box-shadow: 0 1px 1px 0px rgba(0, 0, 0, 0.2);
   border-radius: 0.315rem;
 }
-

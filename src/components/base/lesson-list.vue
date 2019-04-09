@@ -1,3 +1,12 @@
+<!--
+ * @Description: 课程列表组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:41:40
+ -->
+
 <template lang="html">
   <div class="">
     <ul class="item">
@@ -53,15 +62,10 @@
     } from 'vuex'
 
     export default {
-        name:"LessonList",
+        name: "LessonList",
         props: {
             lessonList: {},
-            isNew:null
-        },
-        data() {
-            return {
-                observer: ''
-            }
+            isNew: 0
         },
         methods: {
             renderLabel: function (Ftag) {
@@ -76,15 +80,16 @@
                         return '//udata.youban.com/webimg/wxyx/puintuan/recommend.png';
                     case 5:
                         return '//udata.youban.com/webimg/wxyx/puintuan/xianmian.png';
-                    default: return ''
+                    default:
+                        return ''
                 }
             },
             splitlabel(str) {
-                if(str){
+                if (str) {
                     return str.split('/');
                 }
             },
-            imgLoad(){
+            imgLoad() {
                 this.$emit('imgLoad')
             },
             ...mapActions(['setScrollRefresh'])
@@ -97,10 +102,12 @@
 
 <style media="screen" lang="scss" scoped>
     @import "../../common/css/common";
+
     .item {
         overflow: hidden;
         padding: 0.625rem;
         position: relative;
+
         li {
             overflow: hidden;
             display: block;
@@ -109,12 +116,15 @@
             margin-bottom: 0.8125rem;
             -webkit-box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, .2);
             box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, .2);
+
             .tuanimg {
                 position: relative;
+
                 a {
                     display: block;
                     border-radius: 0.625rem 0.625rem 0 0;
                     overflow: hidden;
+
                     .tuan-label {
                         position: absolute;
                         width: 22%;
@@ -122,12 +132,14 @@
                         left: 0;
                         top: 0;
                     }
+
                     .course-img {
                         width: 100%;
                         height: auto;
                         max-height: 10.65rem;
                     }
                 }
+
                 .people {
                     position: absolute;
                     right: 0;
@@ -142,6 +154,7 @@
                     color: #FFF;
                 }
             }
+
             .tuanTitle {
                 padding: 0.625rem 0.625rem 0;
                 height: auto;
@@ -150,33 +163,40 @@
                 text-align: left;
 
             }
+
             .tuanInfo {
-                padding: 0  0.625rem 0.625rem;
+                padding: 0 0.625rem 0.625rem;
                 height: auto;
                 overflow: hidden;
                 position: relative;
+
                 .Infotag {
                     float: left;
                     width: 38%;
                     padding-top: 0.625rem;
                     margin-left: -.5rem;
+
                     span {
                         @include circle-label;
                         color: $font-color-info;
+
                         &:first-child {
                             margin-right: 0.375rem;
                         }
                     }
                 }
+
                 .price {
                     float: right;
                     display: flex;
                     align-items: center;
                     margin-top: 0.5rem;
+
                     em {
                         font-size: 1rem;
                         margin-right: 0.625rem;
                     }
+
                     .detailbtn {
                         display: inline-block;
                         background-color: #f69f00;
@@ -189,6 +209,7 @@
                         text-decoration: none;
                         max-width: 7.63rem;
                         overflow: hidden;
+
                         strong {
                             font-size: 1rem;
                             font-weight: normal;

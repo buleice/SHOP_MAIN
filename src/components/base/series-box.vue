@@ -1,5 +1,13 @@
-<template lang="html">
+<!--
+ * @Description: 系列购显示模块组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:42:23
+ -->
 
+<template lang="html">
   <div
     class="course-contatiner"
     v-if="series.length"

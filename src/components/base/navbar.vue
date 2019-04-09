@@ -1,3 +1,12 @@
+<!--
+ * @Description: 页面顶部导航组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:42:04
+ -->
+
 <template lang="html">
   <div class="navbar">
     <div id="navMenu" class="nav-menu-area">
@@ -36,8 +45,7 @@ export default {
           title: "其他"
         }
       ]
-    },
-    isNew:
+    }
   },
   data() {
     return {

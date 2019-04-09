@@ -1,11 +1,14 @@
+<!--
+ * @Description: 个人中心页面
+ * @Author: dylan
+ * @LastEditors: Please set LastEditors
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:14:31
+ -->
 <template lang="html">
   <div class="">
     <div class="id-card">
-      <img
-        class="userIcon"
-        :src="userInfo.img"
-        alt=""
-      >
+      <img class="userIcon" :src="userInfo.img" alt="">
       <span class="spans">
         <span>昵称：{{ userInfo.nick }}</span><br>
         <span>学号：{{ userInfo.wid }}</span>
@@ -13,7 +16,7 @@
     </div>
     <ul class="lists">
       <li>
-        <a href="#/bonus/center"><span class="title">奖学金</span><span class="about" /></a>
+        <a href="/bonus/index"><span class="title">奖学金</span><span class="about" /></a>
       </li>
       <li v-if="voucherCount>0">
         <a href="/voucher/list"><span class="title">兑换券</span>
@@ -22,24 +25,22 @@
         </a>
       </li>
       <li>
-        <a href="/voucher/list#/usercoupon2"><span class="title">优惠券</span>
-          <span
-            v-if="couponCount>0"
-            class="about"
-          >{{ couponCount }}张优惠券可用&nbsp;&nbsp;</span>
-          <span
-            v-else
-            class="about"
-          >&nbsp;&nbsp;&nbsp;</span>
-        </a>
+        <router-link :to="{name:'UserCoupon'}"><span class="title">优惠券</span>
+          <span v-if="couponCount>0" class="about">{{couponCount}}张优惠券可用&nbsp;&nbsp;</span>
+          <span v-else class="about">&nbsp;&nbsp;&nbsp;</span>
+        </router-link>
       </li>
       <li>
-        <a href="/address/index?#addressList"><span class="title">我的地址</span>
-        </a>
+        <router-link :to="{ name: 'GivingCourse'}"><span class="title">我的赠课</span>
+        </router-link>
       </li>
       <li>
-        <a href="/address/index?#orderlist"><span class="title">我的订单</span>
-        </a>
+        <router-link :to="{name:'Address'}"><span class="title">我的地址</span>
+        </router-link>
+      </li>
+      <li>
+        <router-link :to="{name:'orderManage'}"><span class="title">我的订单</span>
+        </router-link>
       </li>
     </ul>
     <PushInfo v-if="showAd" />
@@ -47,105 +48,123 @@
 </template>
 
 <script>
-    import PushInfo from '../components/base/push-component/push-component'
-    import {getUserInfo} from '../api/pageDataApis'
-export default {
-  name: 'Usercenter',
-  data() {
-    return {
-      userInfo: {},
-      myLesson: {},
-      uncompletedGroups: [],
-      observer: '',
-      voucherCount:0,
-        couponCount:0,
-        showAd:false
-    }
-  },
+  import {
+    mixin
+  } from '../mixins/index'
+  import PushInfo from '../components/base/push-component/push-component'
+  import {
+    getUserInfo
+  } from '../api/pageDataApis'
+  export default {
+    name: 'Usercenter',
+    mixins: [mixin],
+    data() {
+      return {
+        userInfo: {},
+        myLesson: {},
+        uncompletedGroups: [],
+        observer: '',
+        voucherCount: 0,
+        couponCount: 0,
+        showAd: false
+      }
+    },
     created() {
       this._initPageData()
     },
-    methods:{
-      _initPageData(){
-          getUserInfo().then(response => {
-              const res=response.data;
-              this.userInfo = {
-                  nick: res.nick,
-                  wid: res.wid,
-                  img: res.img
-              };
-              this.voucherCount=res.voucherCount;
-              this.couponCount=res.couponCount;
-          })
+    methods: {
+      _initPageData() {
+        getUserInfo().then(response => {
+          const res = response.data;
+          this.userInfo = {
+            nick: res.nick,
+            wid: res.wid,
+            img: res.img
+          };
+          this.voucherCount = res.voucherCount;
+          this.couponCount = res.couponCount;
+        })
       }
     },
-  components:{
+    components: {
       PushInfo
+    }
   }
-}
 </script>
 
 
 <style media="screen" lang="scss" scoped>
-.id-card {
-  width: 100%;
+  .id-card {
+    width: 100%;
     height: 8.75rem;
     background: #fffbcb;
     background-size: 100% 100%;
     position: relative;
-    border-bottom: 1px solid rgba(0,0,0,.1);
+    border-bottom: 1px solid rgba(0, 0, 0, .1);
+
     .userIcon {
-        width: 4.63rem;
-        height: 4.63rem;
-        border-radius: 50%;
-        border: 3px solid #fff;
-        position: absolute;
-        left: 20%;
-        top: 2.31rem;
+      width: 4.63rem;
+      height: 4.63rem;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      position: absolute;
+      left: 20%;
+      top: 2.31rem;
     }
+
     .bonus_entry {
-        width: auto;
-        height: auto;
-        position: absolute;
-        right: 0;
-        top: 9.375rem;
-        z-index: 100;
-        img {
-            width: 4.5rem;
-        }
-    }
-    .spans {
-        display: inline-block;
-        position: absolute;
-        font-size: 1rem;
-        max-width: 9rem;
-        top:3.38rem;
-        left: 45%;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        font-weight: 500;
-        text-align: left;
-    }
-}
-.lists{
-  li{
-    height: 3.13rem;
-    line-height: 3.13rem;
-    box-sizing: border-box;
-    padding: 0 .75rem;
-    border-bottom: 1px solid rgba(0,0,0,.1);
-    position: relative;
-    a{
-      color: #2c3e50;
-      display: block;
-      height: 100%;
-      .title{
-        float: left;
-        font-weight: 600;
+      width: auto;
+      height: auto;
+      position: absolute;
+      right: 0;
+      top: 9.375rem;
+      z-index: 100;
+
+      img {
+        width: 4.5rem;
       }
-      .about{float: right;color: rgba(0,0,0,.5)}
-      &::after {
+    }
+
+    .spans {
+      display: inline-block;
+      position: absolute;
+      font-size: 1rem;
+      max-width: 9rem;
+      top: 3.38rem;
+      left: 45%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      font-weight: 500;
+      text-align: left;
+    }
+  }
+
+  .lists {
+    li {
+      height: 3.13rem;
+      line-height: 3.13rem;
+      box-sizing: border-box;
+      padding: 0 .75rem;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+      position: relative;
+
+      a {
+        color: #2c3e50;
+        display: block;
+        height: 100%;
+
+        .title {
+          float: left;
+          font-weight: 600;
+        }
+
+        .about {
+          float: right;
+          color: rgba(0, 0, 0, .5)
+        }
+
+        &::after {
           content: "";
           position: absolute;
           width: .5rem;
@@ -154,21 +173,23 @@ export default {
           right: .63rem;
           border-top: 1px solid #656565;
           border-right: 1px solid #656565;
-          transform: translate(-50%,-50%) rotate(45deg);
+          transform: translate(-50%, -50%) rotate(45deg);
           -webkit-transform: translateY(-50%) rotate(45deg);
+        }
       }
     }
   }
-}
 </style>
 <style media="screen" lang="css">
-::-webkit-progress-bar {
+  ::-webkit-progress-bar {
     background: transparent;
-}
-::-webkit-progress-value {
+  }
+
+  ::-webkit-progress-value {
     background: #eb6100;
-}
-/* .groupInfo__avatarbox >>> .avatar {
+  }
+
+  /* .groupInfo__avatarbox >>> .avatar {
     display: inline-block;
     position: relative;
     width: 2.5rem;

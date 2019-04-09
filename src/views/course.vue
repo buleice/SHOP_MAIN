@@ -1,138 +1,127 @@
-<template lang="html">
-  <div class="course">
-    <div
-      class="miniProgram"
-      v-if="showMiniQrcode"
-    >
-      <img
-        class="qrcode"
-        src="//udata.youban.com/webimg/wxyx/puintuan/miniQrcode(1)@3x.png"
-        alt=""
-      >
-      <div class="mini-text">
-        <p>长按识别二维码 去小程序打卡学习效果更好哦~</p>
-        <div class="info">
-          —长按识别二维码 —
-        </div>
-      </div>
-      <div
-        class="closeMini"
-        @click="showMiniQrcode=false"
-      >
-        &times;
-      </div>
-    </div>
-    <div v-if="uncompletedGroups">
-      <div
-        class="myGroup"
-        v-for="(item,index) in uncompletedGroups"
-        :key="index"
-      >
-        <a
-          :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
-          class="a_box"
-        >
-          <img
-            v-lazy="item['Fbanner'][0]"
-            ref="lazy"
-            alt=""
-            class="course-img"
-          >
-          <div class="groupInfo">
-            <div class="groupInfo__avatarbox">
-              <i
-                v-for="(ava,index) in item['userList']"
-                class="avatar"
-                :style="computedAvatarStyle(index,ava,item.Fmode)"
-                :key="index"
-              />
-              <div
-                class=""
-                v-html="addvatar(item['userList'].length,item.Fmode)"
-              />
-            </div>
-            <div class="groupInfo__middleBox">
-              <span class="tuan_label">{{ item['Fmode'] }}人团</span>
-              <span class="remainPeople">还差{{ item['leftCount'] }}人</span>
-            </div>
-            <div class="groupInfo_buttton">邀请好友</div>
-          </div>
-        </a>
-      </div>
-    </div>
+<!--
+ * @Description: 我的课程页面
+ * @Author: dylan
+ * @LastEditors: Please set LastEditors
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:13:56
+ -->
 
-    <div
-      class="noempty"
-      v-if="myLesson.length==0&&uncompletedGroups.length==0"
-    ><img
-      src="https://udata.youban.com/webimg/other/quesheng.png"
-    ></div>
-    <div
-      class="myGroup"
-      v-for="(item,index) in myLesson"
-      :key="index"
-    >
-      <a
-        :href="item['url']"
-        class="a_box"
-        target="_blank"
-      >
-        <img
-          v-lazy="item['banner']"
-          ref="lazy"
-          alt=""
-          class="course-img"
-        >
-        <div
-          class="groupInfo"
-          :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}"
-        >
-          <div class="groupInfo__avatarbox">
-            <div v-if="item['total']!=0">
-              进度&nbsp;：
-              <progress
-                v-if="item['total']!=0"
-                class="mypro"
-                :value="setProgressValue(item['learned'],item['total'])"
-                max="100"
-              />
-              <span>{{ item['learned'] }}/{{ item['total'] }}</span>
+<template lang="html">
+    <div class="course">
+        <nav>
+            <li :class="{selected:tabIndex===0}" @click="changeTab(0)">最近学习</li>
+            <li :class="{selected:tabIndex===1}" @click="changeTab(1)">最近购买</li>
+            <div class="move" />
+        </nav>
+        <transition name="slide-left">
+            <div v-if="tabIndex===0">
+                <div class="noempty" v-if="recentLearn.length==0"><img
+                        src="https://udata.youban.com/webimg/other/quesheng.png"></div>
+                <div class="myGroup" v-for="(item,index) in recentLearn" :key="`'1-'${index}`">
+                    <a :href="item['url']" class="a_box" target="_blank">
+                        <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
+                        <div class="groupInfo" :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}">
+                            <div class="groupInfo__avatarbox">
+                                <div v-if="item['total']!=0">
+                                    进度&nbsp;：
+                                    <progress v-if="item['total']!=0" class="mypro"
+                                        :value="setProgressValue(item['learned'],item['total'])" max="100" />
+                                    <span>{{ item['learned'] }}/{{ item['total'] }}</span>
+                                </div>
+                            </div>
+                            <div class="groupInfo_buttton">去学习</div>
+                        </div>
+                    </a>
+                </div>
             </div>
-          </div>
-          <div class="groupInfo_buttton">去学习</div>
-        </div>
-      </a>
+        </transition>
+        <transition name="slide-right">
+            <div v-if="tabIndex===1">
+                <div class="noempty" v-if="recentBuy.length==0&&uncompletedGroups.length==0&&freeToGive==0"><img
+                        src="https://udata.youban.com/webimg/other/quesheng.png"></div>
+                <div class="myGroup" v-for="(item,index) in freeToGive" :key="`'4-'${index}`">
+                    <router-link :to="{name:'ShareCourse',query:{id:item.id,shareKey:myShareKey}}" class="a_box">
+                        <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
+                        <img src="//udata.youban.com/webimg/wxyx/puintuan/given-free.png" class="label" />
+                        <div class="groupInfo">
+                            <div class="groupInfo__avatarbox">
+                            </div>
+                            <div class="groupInfo_buttton">送给朋友</div>
+                        </div>
+                    </router-link>
+                </div>
+                <div v-if="uncompletedGroups">
+                    <div class="myGroup" v-for="(item,index) in uncompletedGroups" :key="`'2-'${index}`">
+                        <a :href="'/purchase/detail?buyingid='+item.Fbuyingid+'&groupid='+item.Fgroupid+'&from=from'"
+                            class="a_box">
+                            <img v-lazy="item['Fbanner'][0]" ref="lazy" alt="" class="course-img">
+                            <div class="groupInfo">
+                                <div class="groupInfo__avatarbox">
+                                    <i v-for="(ava,index2) in item['userList']" class="avatar"
+                                        :style="computedAvatarStyle(index2,ava,item.Fmode)" :key="index2" />
+                                    <div class="" v-html="addvatar(item['userList'].length,item.Fmode)" />
+                                </div>
+                                <div class="groupInfo__middleBox">
+                                    <span class="tuan_label">{{ item['Fmode'] }}人团</span>
+                                    <span class="remainPeople">还差{{ item['leftCount'] }}人</span>
+                                </div>
+                                <div class="groupInfo_buttton">邀请好友</div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="myGroup" v-for="(item,index) in recentBuy" :key="`'3-'${index}`">
+                    <a :href="item['url']" class="a_box" target="_blank">
+                        <img v-lazy="item['banner']" ref="lazy" alt="" class="course-img">
+                        <div class="groupInfo" :style="{background:item['total']!=0?'rgba(6,6,6,.4)':'rgba(6,6,6,0)'}">
+                            <div class="groupInfo__avatarbox">
+                                <div v-if="item['total']!=0">
+                                    进度&nbsp;：
+                                    <progress v-if="item['total']!=0" class="mypro"
+                                        :value="setProgressValue(item['learned'],item['total'])" max="100" />
+                                    <span>{{ item['learned'] }}/{{ item['total'] }}</span>
+                                </div>
+                            </div>
+                            <div class="groupInfo_buttton">去学习</div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </transition>
     </div>
-    <PushInfo v-if="showAd" />
-  </div>
 </template>
 
 <script>
-    import PushInfo from '../components/base/push-component/push-component'
-    import {getUserCourse} from '../api/pageDataApis'
+    import {
+        mixin
+    } from '../mixins/index'
+    import {
+        getUserCourse
+    } from '../api/pageDataApis'
 
     export default {
         name: 'Usercenter',
+        mixins: [mixin],
         data() {
             return {
-                userInfo: {},
-                myLesson: {},
+                recentLearn: [],
+                freeToGive: [],
+                recentBuy: [],
                 uncompletedGroups: [],
-                observer: '',
-                showMiniQrcode: true,
-                showAd: false
+                tabIndex: 0,
+                myShareKey: ''
             }
         },
         created() {
             getUserCourse().then(response => {
-                const res=response.data;
-                this.userInfo = {
-                    nick: res.nick,
-                    wid: res.wid,
-                    img: res.img
-                };
+                const res = response.data;
                 this.myLesson = res.myLesson;
                 this.uncompletedGroups = res.uncompletedGroups;
+                this.recentBuy = res.recentBuy;
+                this.freeToGive = res.freeToGive;
+                this.recentLearn = res.recentLearn;
+                this.myShareKey = res.myShareKey
+
             })
         },
         methods: {
@@ -141,23 +130,29 @@
             },
             computedAvatarStyle(index, ava, Fmode) {
                 if (index == 0) {
-                    return 'background-image:url(' + ava['headimg'] + ');z-index:' + parseInt(10 - index) + 'display:inline-block;position:relative;width:2.5rem;height:2.5rem;margin-left:.31rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
+                    return 'background-image:url(' + ava['headimg'] + ');z-index:' + parseInt(10 - index) +
+                        'display:inline-block;position:relative;width:2.5rem;height:2.5rem;margin-left:.31rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
                 } else {
                     let marginLeft = 0.31 - (Fmode - 3) * 8 / 16;
-                    return 'background-image:url(' + ava['headimg'] + ');margin-left:' + marginLeft + 'rem;z-index:' + parseInt(10 - index) + 'display:inline-block;position:relative;width:2.5rem;height:2.5rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
+                    return 'background-image:url(' + ava['headimg'] + ');margin-left:' + marginLeft + 'rem;z-index:' +
+                        parseInt(10 - index) +
+                        'display:inline-block;position:relative;width:2.5rem;height:2.5rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
                 }
             },
             addvatar(count, mode) {
                 let Rhtml = '';
                 for (let i = 0; i < (mode - count); i++) {
-                    let style = 'background-image:url(//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/what@2x.png);margin-left:' + (0.31 - (mode - 3) * 8 / 16) + 'rem;z-index:' + (8 - i) + 'display:inline-block;position:relative;width:2.5rem;height:2.5rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
+                    let style =
+                        'background-image:url(//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/what@2x.png);margin-left:' +
+                        (0.31 - (mode - 3) * 8 / 16) + 'rem;z-index:' + (8 - i) +
+                        'display:inline-block;position:relative;width:2.5rem;height:2.5rem;float:left;border:2px solid #fff;border-radius:50%;background-repeat:no-repeat;background-size:100% 100%';
                     Rhtml += '<i style="' + style + '"></i>';
                 }
                 return Rhtml
-            }
-        },
-        components: {
-            PushInfo
+            },
+            changeTab(index) {
+                this.tabIndex = index;
+            },
         }
     }
 </script>
@@ -167,44 +162,55 @@
     .course {
         background-color: #ffffff;
         padding-bottom: 3.125rem;
-        .miniProgram {
-            width: 100%;
-            height: 8.75rem;
-            background: #fffbcb;
+
+        nav {
+            width: 12.465rem;
+            display: flex;
+            justify-content: center;
+            padding: 1.25rem 0 1.68rem 0;
+            margin: auto;
             position: relative;
-            box-sizing: border-box;
-            padding-top: 1rem;
-            .qrcode {
-                width: 6.88rem;
-                height: 6.88rem;
-                border-radius: 10px;
-                vertical-align: middle;
-            }
-            .mini-text {
-                display: inline-block;
-                width: 11.38rem;
-                height: 4.69rem;
-                margin-left: 2.25rem;
-                vertical-align: middle;
-                .info {
-                    margin-top: 1rem;
-                    color: #b8b594;
+            font-size: 1rem;
+            color: #989898;
+
+            li {
+                margin: 0 1rem;
+                position: relative;
+
+                &:nth-child(1) {
+                    &.selected {
+                        color: #000000;
+
+                        &~.move {
+                            left: 1.125rem;
+                            width: 4rem;
+                        }
+                    }
+                }
+
+                &:nth-child(2) {
+                    &.selected {
+                        color: #000000;
+
+                        &~.move {
+                            width: 4rem;
+                            right: 1.25rem;
+                        }
+                    }
                 }
             }
-            .closeMini {
+
+            .move {
+                height: 2px;
+                border-top: 2px solid #f69900;
+                /*只需要将上边显示出来*/
                 position: absolute;
-                right: 0;
-                top: 0.25rem;
-                width: 2.5rem;
-                height: 1.75rem;
-                line-height: 1.75rem;
-                border-radius: .88rem 0 0 .88rem;
-                text-align: center;
-                font-size: 2.25rem;
-                background: #f69f00;
-                color: #fff;
+                top: 2.625rem;
+                transition: all .5s ease-in-out 0s;
+                /*包含四个过度属性：执行变换属性、执行时间、速率、延迟*/
             }
         }
+
         .id-card {
             background: url("//udata.youban.com/webimg/wxyx/puintuan/common/shopIndex/userbg.png");
             background-repeat: no-repeat;
@@ -213,6 +219,7 @@
             height: 0;
             position: relative;
             margin-top: -3.125rem;
+
             .userIcon {
                 width: 16vw;
                 height: 16vw;
@@ -222,6 +229,7 @@
                 left: 20%;
                 top: 54%;
             }
+
             .bonus_entry {
                 width: auto;
                 height: auto;
@@ -229,15 +237,18 @@
                 right: 0;
                 top: 9.375rem;
                 z-index: 100;
+
                 img {
                     width: 4.5rem;
                 }
             }
+
             .spans {
                 display: inline-block;
                 position: absolute;
                 top: 60%;
                 left: 45%;
+
                 span {
                     font-size: 1rem;
                     max-width: 9rem;
@@ -249,6 +260,7 @@
                 }
             }
         }
+
         .myGroup {
             display: block;
             width: 96%;
@@ -256,6 +268,7 @@
             // padding: 0 0.625rem;
             margin: 0.88rem auto;
             position: relative;
+
             .a_box {
                 display: block;
                 position: relative;
@@ -263,6 +276,15 @@
                 height: auto;
                 color: #3c3c3c;
                 border-radius: 0.625rem;
+
+                .label {
+                    width: 4.25rem;
+                    position: absolute;
+                    left: 0;
+                    top: 0;
+
+                }
+
                 .course-img {
                     display: block;
                     width: 100%;
@@ -270,6 +292,7 @@
                     max-height: 10.63rem;
                     border-radius: 0.625rem;
                 }
+
                 .groupInfo {
                     width: 100%;
                     height: 3rem;
@@ -283,6 +306,7 @@
                     left: 0;
                     bottom: 0;
                     background-color: rgba(6, 6, 6, .4);
+
                     .groupInfo__avatarbox {
                         width: auto;
                         padding: 0 0.61rem 0 0;
@@ -301,6 +325,7 @@
                         align-items: center;
                         position: relative;
                         margin-left: 0.63rem;
+
                         .mypro {
                             background: rgba(6, 6, 6, .4);
                             border: 1px solid #fff;
@@ -312,10 +337,11 @@
                             color: #fff;
                             position: relative;
                             top: 0.25rem;
-                            & + span {
+
+                            &+span {
                                 position: absolute;
                                 top: 0.75rem;
-                                left:2.25rem;
+                                left: 2.25rem;
                                 width: 5.38rem;
                                 text-align: center;
                                 line-height: 1.75rem;
@@ -323,6 +349,7 @@
                             }
                         }
                     }
+
                     .groupInfo__middleBox {
                         display: inline-block;
                         width: auto;
@@ -336,6 +363,7 @@
                         -webkit-box-direction: normal;
                         -ms-flex-direction: column;
                         flex-direction: column;
+
                         .tuan_label {
                             display: inline;
                             width: auto;
@@ -353,17 +381,20 @@
                             box-sizing: border-box;
                             border-radius: 4px 4px 4px 0;
                         }
+
                         .remainPeople {
                             display: inline-block;
                             line-height: 1.25rem;
                             margin-left: 0.63rem;
                         }
                     }
+
                     &::after {
                         content: '';
                         display: block;
                         clear: both;
                     }
+
                     .groupInfo_buttton {
                         display: block;
                         position: absolute;
@@ -380,10 +411,12 @@
             }
 
         }
+
         .noempty {
             text-align: center;
-            img{
-                margin-top:33%;
+
+            img {
+                margin-top: 33%;
                 width: 5rem;
             }
         }

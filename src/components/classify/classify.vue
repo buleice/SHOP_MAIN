@@ -1,3 +1,12 @@
+<!--
+ * @Description: 分类页面
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:31:53
+ -->
+
 <template>
   <div class="classify-page">
     <div class="classify-content">
@@ -66,18 +75,22 @@
 </template>
 
 <script>
-    import {mapActions,mapGetters} from 'vuex'
+    import {
+        mapActions,
+        mapGetters
+    } from 'vuex'
     const ClassifyRecommend = () => import('./classify-recommend');
     const ClassifyNormal = () => import('../base/lesson-list');
-    import Loading from '../base/loading'
-    import {getCateGoryInfo} from '../../api/pageDataApis'
+    import {
+        getCateGoryInfo
+    } from '../../api/pageDataApis'
 
     export default {
         name: "Calssify",
         data() {
             return {
                 categorys: [],
-                category2:[],
+                category2: [],
                 allCategory: false,
                 name: 'c-recommend',
                 showRecommend: false,
@@ -85,49 +98,51 @@
                 recommendList: [],
                 locationId: 100,
                 timeLimit: false,
-                showToTop:false,
-                showLoading:false,
-                sourceFrom:'default',
-                fromCache:false
+                showToTop: false,
+                showLoading: false,
+                sourceFrom: 'default',
+                fromCache: false
             }
         },
         beforeRouteEnter(to, from, next) {
             next(vm => {
-                vm.setData('sourceFrom',from.name)
+                vm.setData('sourceFrom', from.name)
                 vm.autoPlayTheme(parseInt(to.params.cid));
                 vm.setShowTabBar(false)
             })
         },
-        beforeRouteLeave (to, from, next) {
+        beforeRouteLeave(to, from, next) {
             this.setShowTabBar(true)
             next()
         },
-        created(){
-            window.addEventListener('pageshow', function(event) {
+        created() {
+            window.addEventListener('pageshow', function (event) {
                 if (event.persisted) {
-                    this.fromCache=true;
-                }else{
-                    this.fromCache=false;
+                    this.fromCache = true;
+                } else {
+                    this.fromCache = false;
                 }
             })
         },
         methods: {
-            autoPlayTheme(cid){
-                if(cid==4){
+            autoPlayTheme(cid) {
+                if (cid == 4) {
                     this.hrefTo(cid)
-                }else{
-                    if(this.fromCache){
-                        this.sourceFrom!='default'&&this.themeIndex!=1000?this.hrefTo(this.themeIndex): this.hrefTo(cid)
-                    }else{
-                        this.sourceFrom!='default'&&localStorage.getItem('themeIndex')!=1000?this.hrefTo(localStorage.getItem('themeIndex')): this.hrefTo(cid)
+                } else {
+                    if (this.fromCache) {
+                        this.sourceFrom != 'default' && this.themeIndex != 1000 ? this.hrefTo(this.themeIndex) : this
+                            .hrefTo(cid)
+                    } else {
+                        this.sourceFrom != 'default' && localStorage.getItem('themeIndex') != 1000 ? this.hrefTo(
+                            localStorage.getItem('themeIndex')) : this.hrefTo(cid)
                     }
                 }
             },
             hrefTo(cid) {
-                this.showToTop=false;
-                this.allCategory=false;
-                this.showLoading=true;
-                this.locationId=cid;
+                this.showToTop = false;
+                this.allCategory = false;
+                this.showLoading = true;
+                this.locationId = cid;
                 localStorage.setItem("themeIndex", cid);
                 this['moduleClassify/setThemeIndex'](cid);
                 if (cid == 101) {
@@ -135,61 +150,92 @@
                     getCateGoryInfo({
                         category: cid
                     }).then(response => {
-                        const res=response.data;
-                        this.category2=res.category2;
-                        this.allCategory=false;
-                        this.categorys=res.category2.slice(0,9)
+                        const res = response.data;
+                        this.category2 = res.category2;
+                        this.allCategory = false;
+                        this.categorys = res.category2.slice(0, 9)
                         this.setData('recommendList', res.list);
-                        setTimeout(()=>{
-                            this.showLoading=false;
-                        },300)
+                        setTimeout(() => {
+                            this.showLoading = false;
+                        }, 300)
                     })
                 } else if (cid != 101) {
                     this.setData('showRecommend', false);
                     getCateGoryInfo({
                         category: cid
                     }).then(response => {
-                        const res=response.data;
-                        this.category2=res.category2;
-                        this.allCategory=false;
-                        this.categorys=res.category2.slice(0,9)
+                        const res = response.data;
+                        this.category2 = res.category2;
+                        this.allCategory = false;
+                        this.categorys = res.category2.slice(0, 9)
                         this.setData('normalList', res.list);
-                        setTimeout(()=>{
-                            this.showLoading=false;
-                        },300)
+                        setTimeout(() => {
+                            this.showLoading = false;
+                        }, 300)
                     })
                 }
-                this.sourceFrom='default'
+                this.sourceFrom = 'default'
             },
             setData(key, value) {
                 this[key] = value
             },
-            hideToTop(){
-                this.showToTop=false
+            hideToTop() {
+                this.showToTop = false
             },
-            fshowToTop(){
-                this.showToTop=true
+            fshowToTop() {
+                this.showToTop = true
             },
-            _topFunction(){
-                this.$refs.scroll.scrollTo(0,0,300);
-                this.showToTop=false
+            _topFunction() {
+                this.$refs.scroll.scrollTo(0, 0, 300);
+                this.showToTop = false
             },
-            ...mapActions(['setFirstVisit','setCategory','setShowTabBar','moduleClassify/setThemeIndex'])
+            ...mapActions(['setFirstVisit', 'setCategory', 'setShowTabBar', 'moduleClassify/setThemeIndex'])
         },
-        computed:{
-            ...mapGetters('moduleClassify',['themeIndex'])
+        computed: {
+            ...mapGetters('moduleClassify', ['themeIndex'])
         },
         components: {
             ClassifyRecommend,
-            ClassifyNormal,
-            Loading
+            ClassifyNormal
         }
     }
 </script>
 <style lang="css" scoped>
-    .iOMeRW{position:absolute;color:#bbb;background-color:#fff;border:1px solid #ccc;line-height:3.75rem;border-radius:50%;width:2.75rem;height:2.75rem;font-size:0.8rem;text-align:center;right: 1rem;bottom: 1rem}
-    .iOMeRW span{color:#999;position:absolute;left:0;top:0;width:100%;height:100%;font-size:1.25rem;line-height:1.5rem}
-    .iconfont{font-family:h5index-iconfont;font-style:normal;-webkit-font-smoothing:antialiased;-webkit-text-stroke-width:.2px;-moz-osx-font-smoothing:grayscale;font-size:1rem;color:#333}
+    .iOMeRW {
+        position: absolute;
+        color: #bbb;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        line-height: 3.75rem;
+        border-radius: 50%;
+        width: 2.75rem;
+        height: 2.75rem;
+        font-size: 0.8rem;
+        text-align: center;
+        right: 1rem;
+        bottom: 1rem
+    }
+
+    .iOMeRW span {
+        color: #999;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        font-size: 1.25rem;
+        line-height: 1.5rem
+    }
+
+    .iconfont {
+        font-family: h5index-iconfont;
+        font-style: normal;
+        -webkit-font-smoothing: antialiased;
+        -webkit-text-stroke-width: .2px;
+        -moz-osx-font-smoothing: grayscale;
+        font-size: 1rem;
+        color: #333
+    }
 </style>
 <style scoped lang="scss">
     .classify-page {
@@ -199,12 +245,14 @@
                 display: flex;
                 justify-content: flex-start;
                 flex-wrap: wrap;
-                padding:.5rem 0;
+                padding: .5rem 0;
+
                 li {
                     /*width: 20%;*/
                     width: 25%;
                     /*height: 5.38rem;*/
                     box-sizing: border-box;
+
                     /*box-sizing: border-box;*/
                     /*margin-top: .94rem;*/
                     div {
@@ -214,35 +262,41 @@
                         position: relative;
                         box-sizing: border-box;
                         padding: .5rem;
+
                         img {
                             display: inline-block;
                             width: 2.5rem;
                             margin: auto;
                             position: relative;
                         }
+
                         span {
                             display: block;
                         }
-                        &.active{
+
+                        &.active {
                             background: #e5e5e5;
                             border-radius: 10px;
                         }
+
                         /*&.active::after {*/
-                            /*content: '';*/
-                            /*display: block;*/
-                            /*position: relative;*/
-                            /*width: 2.19rem;*/
-                            /*height: 0;*/
-                            /*border-bottom: .13rem solid #f69f00;*/
-                            /*margin: auto;*/
+                        /*content: '';*/
+                        /*display: block;*/
+                        /*position: relative;*/
+                        /*width: 2.19rem;*/
+                        /*height: 0;*/
+                        /*border-bottom: .13rem solid #f69f00;*/
+                        /*margin: auto;*/
                         /*}*/
                     }
+
                     b {
                         display: inline-block;
                         width: 2.5rem;
                         height: 2.5rem;
                         margin: auto;
                         position: relative;
+
                         &.pack-up::after {
                             content: "";
                             position: absolute;
@@ -253,6 +307,7 @@
                             top: 50%;
                             transform: translate(-50%, -50%) rotate(-45deg);
                         }
+
                         &.pack-down::after {
                             content: "";
                             position: absolute;
@@ -264,6 +319,7 @@
                             transform: translate(-50%, -50%) rotate(-225deg);
                         }
                     }
+
                     span {
                         display: block;
                     }
@@ -271,5 +327,4 @@
             }
         }
     }
-
 </style>

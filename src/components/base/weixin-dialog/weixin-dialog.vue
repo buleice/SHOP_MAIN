@@ -1,3 +1,12 @@
+<!--
+ * @Description: 微信弹窗组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:41:23
+ -->
+
 <template lang="html">
 <div class="dialogs">
   <div class="prompt-dialog" v-if="showPromptDialog">
@@ -39,12 +48,12 @@ export default {
       type: String,
       default: '温馨提示'
     },
-    alertDesc: ,
+    alertDesc: '',
     promptTitle: {
       type: String,
       default: '温馨提示'
     },
-    promptDesc: ,
+    promptDesc: '',
     cancleText: {
       type: String,
       default: '取消'
@@ -125,6 +134,7 @@ export default {
                 text-decoration: none;
                 -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
                 position: relative;
+                text-align: center;
             }
             .weui-dialog__btn_default {
                 color: #353535;
@@ -193,6 +203,7 @@ export default {
             text-decoration: none;
             -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
             position: relative;
+            text-align: center;
         }
     }
 }

@@ -1,3 +1,12 @@
+<!--
+ * @Description: 赠送优惠券弹窗
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:37:08
+ -->
+
 <template>
   <div class="coupons" />
 </template>

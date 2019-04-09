@@ -1,3 +1,10 @@
+<!--
+ * @Description: 弹窗提示插件
+ * @Author: dylan
+ * @LastEditors: Please set LastEditors
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:18:22
+ -->
 <template>
   <transition name="fade">
     <!--<div class="message" :class="type" v-show="show">-->

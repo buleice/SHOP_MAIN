@@ -1,3 +1,12 @@
+<!--
+ * @Description: 推送广告组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:40:30
+ -->
+
 <template>
   <div
     class="coupons"
@@ -9,34 +18,30 @@
       <h2>{{ coupon.name }}</h2>
       <div class="coupon_bg">
         <p>{{ coupon.couponMoney }}<sub>元</sub></p>
-        <p>适用于:</br>{{ coupon.lesson }}</p>
+        <p>适用于:<br>{{ coupon.lesson }}</p>
       </div>
-      <!-- <div class="desc">
-                <p class="shuli">送您</p>
-                <span>{{coupon.lesson}}</span>
-                <span>元</span>
-            </div> -->
-      <!-- <div class="title">{{coupon.name}}</div> -->
     </div>
-    <!-- <img class="festival"  src="/img/couponbg-new.png" alt=""> -->
+
     <div
       class="close-coupon"
       @click="showMe=false"
     />
-    <!-- <div class=" festival-close" @click="showMe=false"></div>
-        <div class=" festival-close-btn" @click="showMe=false">
-            <img src="//test.wxyx.youban.com/img/btn.png" />
-        </div> -->
   </div>
 </template>
 
 <script>
-    import {mapGetters} from 'vuex'
+    import {
+        mapGetters
+    } from 'vuex'
+import { type } from 'os';
 
     export default {
         name: "PushComponent",
         props: {
-            coupon: {}
+            coupon:{
+                type:Object,
+                default:{}
+            }
         },
         data() {
             return {
@@ -59,6 +64,7 @@
         top: 0;
         bottom: 0;
         z-index: 100;
+
         .content {
             width: 21rem;
             height: 32rem;
@@ -68,7 +74,9 @@
             top: 50%;
             left: 50%;
             transform: translate(-48%, -50%);
-            h3,h2 {
+
+            h3,
+            h2 {
                 position: absolute;
                 left: 50%;
                 transform: translateX(-50%);
@@ -77,14 +85,15 @@
                 font-size: 1rem;
                 letter-spacing: 1px;
             }
-            h2{
+
+            h2 {
                 top: 5.4rem;
                 color: #FFE345;
-                -webkit-text-shadow: 0px 2px 3px #B31712;
                 text-shadow: 0px 2px 3px #B31712;
                 font-size: 1.2rem;
             }
-            .coupon_bg{
+
+            .coupon_bg {
                 position: absolute;
                 background: url('https://udata.youban.com/webimg/wxyx/puintuan/coupon_bg.png') no-repeat center;
                 width: 80%;
@@ -97,16 +106,19 @@
                 display: flex;
                 justify-content: space-around;
                 align-items: center;
-                p{
+
+                p {
                     &:nth-child(1) {
                         font-size: 60px;
                         margin-left: 19px;
                         color: #F41C10;
                     }
-                    sub{
+
+                    sub {
                         font-size: 15px;
                         vertical-align: baseline;
                     }
+
                     &:nth-child(2) {
                         font-size: 0.6rem;
                         line-height: 1rem;
@@ -114,6 +126,7 @@
                     }
                 }
             }
+
             .desc {
                 color: #fb201e;
                 position: absolute;
@@ -127,6 +140,7 @@
                 align-items: end;
                 font-size: 1rem;
                 font-weight: 550;
+
                 .shuli {
                     display: inline-block;
                     margin-right: 10px;
@@ -134,6 +148,7 @@
                     width: 20px;
                     line-height: 16px;
                 }
+
                 span {
                     &:nth-child(2) {
                         font-size: 85px;
@@ -142,12 +157,14 @@
                         margin-top: 7px;
                         font-weight: 500;
                     }
+
                     &:nth-child(3) {
                         font-size: 1.2rem;
                         margin-top: auto;
                     }
                 }
             }
+
             .title {
                 position: absolute;
                 top: 215px;
@@ -156,6 +173,7 @@
                 color: #fb201e;
             }
         }
+
         .close-coupon {
             background: url('//udata.youban.com/webimg/wxyx/puintuan/close-bg.png') no-repeat;
             background-size: 100%;
@@ -166,7 +184,8 @@
             left: 50%;
             transform: translate(-48%, -50%);
         }
-        .festival-close{
+
+        .festival-close {
             background: url('//udata.youban.com/webimg/wxyx/puintuan/close-bg.png') no-repeat;
             background-size: 100%;
             position: absolute;
@@ -177,23 +196,26 @@
             right: 3.125rem;
             transform: translate(-50%, -50%);
         }
-        .festival-close-btn{
+
+        .festival-close-btn {
             position: absolute;
             bottom: 29%;
             left: 50%;
             transform: translate(-50%, -50%);
-            img{
+
+            img {
                 width: 75%;
             }
         }
-        .festival{
+
+        .festival {
             position: absolute;
             top: 40%;
             left: 50%;
             transform: translate(-48%, -50%);
             width: 80%;
-            display: block;margin: auto;
+            display: block;
+            margin: auto;
         }
     }
-
 </style>

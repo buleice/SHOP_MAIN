@@ -1,0 +1,232 @@
+<!--
+ * @Description: 地址列表
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-04-03 16:53:50
+ * @LastEditTime: 2019-04-09 14:35:11
+ -->
+
+<template>
+  <div class="wx_wrap">
+    <div>
+      <div class="address_list">
+        <div class="address" v-for="(item,index) in shippingAddress" :key="index">
+          <ul :class="{selected: selectedIndex==index}">
+            <li><strong>{{item.name}}</strong>&nbsp;<strong>{{item.phone}}</strong></li>
+            <!-- <li><span class="tag tag_red">默认</span>广东深圳市南山区佳嘉豪商务大厦10楼小伴龙</li> -->
+            <li><span v-if="item.default==1" class="tag tag_red">默认</span>{{item.province+item.city+item.district+item.address}}</li>
+            <li class="edit" @click.stop="$router.push({name:'EditAddress',params:{index:index}})">编辑</li>
+          </ul>
+        </div>
+      </div>
+      <div>
+        <div class="address_list_link" style="margin-bottom: 4.13rem;">
+          <div class="address_list" tag="wx" style="display: none;">
+            <div class="address_list_link"><a href="javascript:void(0);"
+                                              class="item item_self no_top_line"><span>微信地址</span><span
+              class="item_wx_select_tip">点击选择</span></a></div>
+          </div>
+          <div class="address_list" style="display: none;">
+            <div class="address_list_link"><a href="javascript:void(0);"
+                                              class="item item_self no_top_line"><span>QQ地址</span><span
+              class="item_wx_select_tip">点击选择</span></a></div>
+          </div>
+        </div>
+      </div>
+      <div class="mod_btns fixed" @click="$router.push({name:'AddAddress'})"><a href="javascript:void(0);" class="mod_btn bg_1">新增收货地址</a></div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+  import { mapActions,mapGetters} from 'vuex';
+import{GET_ADDRESS_LIST} from '../../api/pageDataApis'
+
+  export default {
+    name: "addressList",
+    data(){
+      return{
+        selectedIndex:0,
+        addressList:[]
+      }
+    },
+    beforeRouteEnter (to, from, next) {
+      next(vm => {
+        document.title="地址列表"
+      })
+    },
+    created(){
+      GET_ADDRESS_LIST().then(response=>{
+        const res=response.data;
+        this.addressList=res.list;
+          this.setShippingAddress(res.list);
+      })
+    },
+    methods:{
+      ...mapActions('moduleAddress',['setShippingAddress'])
+    },
+    computed: {
+      ...mapGetters('moduleAddress',['shippingAddress'])
+    }
+  }
+</script>
+
+<style scoped lang="scss">
+  .wx_wrap {
+    position: relative;
+    min-height: 23.44rem;
+    .address_list {
+      margin-bottom: .63rem;
+      font-size: .88rem;
+      color: #666;
+      background: #fff;
+      .address {
+        position: relative;
+        overflow: hidden;
+        word-wrap: break-word;
+        word-break: break-all;
+        ul {
+          padding-right: 3.13rem;
+          background-color: #fff;
+          z-index: 2;
+          padding: .44rem 2.5rem .44rem 1rem;
+          position: relative;
+          overflow: hidden;
+      
+          &::after {
+            content: "";
+            height: 0;
+            display: block;
+            border-top: 1px solid #ddd;
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+          }
+          li {
+            margin-top: .25rem;
+            display: list-item;
+            text-align: -webkit-match-parent;
+            &.edit {
+              color: transparent;
+              width: 3.13rem;
+              position: absolute;
+              top: .19rem;
+              bottom: .19rem;
+              right: 0;
+              z-index: 2;
+              &::after {
+                right: 0px;
+                width: 1.88rem;
+                content: "\20";
+                height: 1.25rem;
+                position: absolute;
+                top: 50%;
+                margin-top: -.63rem;
+                background-position: -3.75rem -1.88rem;
+                background-image: url(//wq.360buyimg.com/fd/base/img/order/sprites_old.png?t=20160325);
+                background-repeat: no-repeat;
+                background-size: 6.25rem 6.25rem;
+              }
+            }
+            strong {
+              color: #333;
+              font-weight: bold;
+            }
+            .tag {
+              display: inline-block;
+              position: relative;
+              overflow: hidden;
+              padding: 0 .31rem;
+              vertical-align: middle;
+              margin: -.13rem .31rem 0 0;
+              max-width: 8em;
+              height: .94rem;
+              line-height: .94rem;
+              font-size: .63rem;
+              color: #4b9bfb;
+            }
+            .tag_red {
+              color: #e4393c;
+              &::after {
+                border-color: #e4393c;
+                border-radius: .25rem;
+                content: "";
+                display: block;
+                border: 1px solid #ddd;
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                pointer-events: none;
+              }
+            }
+          }
+
+        }
+        .act {
+          background-color: #ff3b2f;
+          color: #fff;
+          width: 4.38rem;
+          text-align: center;
+          position: absolute;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          z-index: 1;
+          .del {
+            height: 1rem;
+            line-height: 1rem;
+            position: absolute;
+            left: 0;
+            top: 50%;
+            width: 4.38rem;
+            margin-top: -.5rem;
+          }
+        }
+      }
+    }
+    .mod_btns {
+      display: -webkit-box;
+      display: -webkit-flex;
+      display: flex;
+      overflow: hidden;
+      margin: .94rem .63rem;
+    }
+    .fixed {
+      left: 0;
+      right: 0;
+      max-width: 33.75rem;
+      margin: 0 auto;
+      background-color: #fff;
+      position: fixed;
+      z-index: 101;
+      bottom: 0;
+      padding-bottom: constant(safe-area-inset-bottom);
+      padding-bottom: env(safe-area-inset-bottom);
+      .mod_btn {
+        border-color: #ddd;
+        display: block;
+        -webkit-box-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        height: 2.88rem;
+        line-height: 2.88rem;
+        text-align: center;
+        font-size: 1rem;
+        border-radius: .25rem;
+        position: relative;
+        border-radius: 0;
+      }
+      .mod_btn.bg_1 {
+        background: #ff4e09;
+        color: #fff;
+      }
+    }
+  }
+
+</style>

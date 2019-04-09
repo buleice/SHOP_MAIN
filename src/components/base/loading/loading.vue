@@ -1,3 +1,12 @@
+<!--
+ * @Description: loading动画组件
+ * @Author: dylan
+ * @github: http://git.youban.com:9527/busy/wxyx.git
+ * @LastEditors: dylan
+ * @Date: 2019-03-20 17:50:50
+ * @LastEditTime: 2019-04-09 14:40:03
+ -->
+
 <template>
   <div class="loading">
     <div class="loading-center">

@@ -1,24 +1,13 @@
 <template>
-  <a
-    class="coursre-box"
-    :href="data.url"
-  >
-    <img
-      class="course-img"
-      @imgLoad="imgLoad"
-      v-lazy="data.icon"
-      alt=""
-    >
-    <div class="coursre-intro">
-      <h4 class="course-title">{{ data.title }}</h4>
-      <div
-        class="course-desc"
-        v-html="data.subtitle"
-      />
-      <div class="course-label"><span>{{ data.number }}</span><span>{{ data.sales }}人在学习</span></div>
-    </div>
-    <a class="coursre-button">&yen;{{ data.price }}</a>
-  </a>
+    <a class="coursre-box" :href="data.url">
+        <img class="course-img" @imgLoad="imgLoad" v-lazy="data.icon" alt="">
+        <div class="coursre-intro">
+            <h4 class="course-title">{{ data.title }}</h4>
+            <div class="course-desc" v-html="data.subtitle" />
+            <div class="course-label"><span>{{ data.number }}</span><span>{{ data.sales }}人在学习</span></div>
+        </div>
+        <a class="coursre-button">&yen;{{ data.price }}</a>
+    </a>
 </template>
 
 <script>
@@ -32,10 +21,10 @@
         },
         methods: {
             imgLoad() {
-                this.$emit('imgLoad')
+                this.$emit("imgLoad");
             }
         }
-    }
+    };
 </script>
 
 <style scoped lang="scss">
@@ -51,15 +40,18 @@
         color: #555;
         position: relative;
         background: $bg-color-white;
+
         .course-img {
             width: 5.25rem;
             height: auto;
-            border-radius: .31rem;
+            border-radius: 0.31rem;
             margin-right: 0.625rem;
         }
+
         .coursre-intro {
             box-sizing: border-box;
             text-align: left;
+
             .course-title {
                 max-width: 15.35rem;
                 line-height: 1.5;
@@ -70,10 +62,11 @@
                 color: #2c3e50;
                 font-weight: 550;
             }
+
             .course-desc {
                 max-width: 15.35rem;
-                font-size: .875rem;
-                color: rgba(0, 0, 0, .7);
+                font-size: 0.875rem;
+                color: rgba(0, 0, 0, 0.7);
                 box-sizing: border-box;
                 /*display: -webkit-box;*/
                 height: auto;
@@ -81,45 +74,48 @@
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: nowrap;
-                margin-top: .25rem;
+                margin-top: 0.25rem;
                 /*-webkit-line-clamp: 2;*/
                 /*-webkit-box-orient: vertical;*/
                 color: $font-color-info;
+
                 p {
-                    color: rgba(0, 0, 0, .7);
+                    color: rgba(0, 0, 0, 0.7);
                     max-width: 15.25rem;
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
             }
+
             .course-label {
                 display: inline-block;
                 vertical-align: middle;
-                margin-top: .625rem;
-                margin-left: -.5rem;
+                margin-top: 0.625rem;
+                margin-left: -0.5rem;
+
                 span {
                     display: inline-block;
                     vertical-align: middle;
                     margin: 0 5px;
                     color: #929292;
-                    &:first-child{
-                     @include circle-label
+
+                    &:first-child {
+                        @include circle-label;
                     }
                 }
             }
-
         }
+
         .coursre-button {
             position: absolute;
             width: 4.1875rem;
             line-height: 1.625rem;
-            border-radius: .63rem;
+            border-radius: 0.63rem;
             text-align: center;
             color: $font-activity-color;
             margin-top: auto;
-            bottom: .63rem;
-            right: -.315rem;
+            bottom: 0.63rem;
+            right: -0.315rem;
         }
     }
-
 </style>
